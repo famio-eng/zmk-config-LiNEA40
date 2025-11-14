@@ -16,6 +16,7 @@
 #define WIRELESS 6
 
 // OS設定を日本語キーボードのまま使用するための変換定義
+
 #define JP_DQUOTE       AT                // "
 #define JP_AMPERSAND    CARET             // &
 #define JP_QUOTE        AMPERSAND         // '
@@ -39,8 +40,6 @@
 #define JP_KANA         LANGUAGE_1        // かな
 #define JP_EISU         LANGUAGE_2        // 英数
 #define JP_HANZEN       GRAVE             // 半角/全角
-
-
 
 //mouse cursol
 
@@ -84,7 +83,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -144,12 +143,12 @@
         };
 
         EN {
-            bindings = <&kp LANGUAGE_1>;
+            bindings = <&kp LANG2>;
             key-positions = <11 12 13>;
         };
 
         JP {
-            bindings = <&kp LANG5>;
+            bindings = <&kp LANG1>;
             key-positions = <21 22 23>;
         };
 
@@ -180,10 +179,10 @@
 
         default_layer_win {
             bindings = <
-&kp Q             &kp W         &kp E               &kp R  &kp T                                                     &kp Y        &kp U  &kp I                      &kp O                    &lt 6 P
-&kp A             &kp S         &kp D               &kp F  &kp G                                                     &kp H        &kp J  &kp K                      &kp L                    &lt 5 SEMICOLON
-&kp Z             &kp X         &kp C               &kp V  &kp B                                                     &kp N        &kp M  &mt LESS_THAN COMMA        &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &kp LEFT_SHIFT    &lt 3 ENTER  &lt 4 SPACE         &lt 7 LANG_ZENKAKUHANKAKU  &kp LANG2                &mt UNDER BACKSLASH
+&kp Q             &kp W         &kp E               &kp R  &kp T                                                     &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
+&kp A             &kp S         &kp D               &kp F  &kp G                                                     &kp H        &kp J  &kp K                &kp L                    &lt 5 SEMICOLON
+&kp Z             &kp X         &kp C               &kp V  &kp B                                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &kp LEFT_SHIFT    &lt 3 ENTER  &lt 4 SPACE         &lt 7 LANG1          &kp LANG2                &mt UNDER BACKSLASH
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
