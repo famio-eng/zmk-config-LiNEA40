@@ -83,7 +83,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -390,10 +390,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &kp DOUBLE_QUOTES  &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp AMPERSAND  &kp SINGLE_QUOTE      &mt EQUAL MINUS        &mt TILDE CARET     &kp SLASH
-&kp SLASH                   &kp KP_NUMBER_4    &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp C_MUTE     &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN         &kp LEFT_BRACKET
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1    &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp KP_EQUAL   &kp INT3              &mt PLUS SEMICOLON     &mt ASTERISK COLON  &kp RIGHT_BRACKET
-&trans                      &trans             &trans           &trans         &trans         &trans    &trans  &trans                               &kp ASTERISK           &kp QUESTION        &kp UNDERSCORE
+&kp EXCLAMATION             &kp DOUBLE_QUOTES  &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &kp SINGLE_QUOTE      &mt EQUAL MINUS        &mt TILDE CARET     &kp SLASH
+&kp SLASH                   &kp KP_NUMBER_4    &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp C_MUTE        &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN         &kp LEFT_BRACKET
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1    &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp KP_EQUAL      &kp INT3              &mt PLUS SEMICOLON     &mt ASTERISK COLON  &kp RIGHT_BRACKET
+&trans                      &trans             &trans           &trans         &trans         &trans    &trans  &trans                                  &kp ASTERISK           &kp QUESTION        &kp UNDERSCORE
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
