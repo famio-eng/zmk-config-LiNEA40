@@ -59,7 +59,7 @@
       "compatible": "alps,ec11",
       "enabled": false
     }
-  ]
+  ],
   
   "customKeycodes": {
     "CUSTOM_AMP": { "label": "&", "description": "Ampersand" },
