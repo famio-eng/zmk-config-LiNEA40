@@ -50,28 +50,5 @@
         ]
       }
     },
-    "customKeycodes": {
-      "CUSTOM_AMP": { "label": "&", "description": "Ampersand" },
-      "CUSTOM_QUOTE": { "label": "'", "description": "Single quote" },
-      "CUSTOM_EQUAL": { "label": "=", "description": "Equal sign" },
-      "CUSTOM_CARET": { "label": "^", "description": "Caret" },
-      "CUSTOM_YEN": { "label": "¥", "description": "Yen sign" },
-      "CUSTOM_PLUS": { "label": "+", "description": "Plus sign" },
-      "CUSTOM_TILDE": { "label": "~", "description": "Tilde" },
-      "CUSTOM_PIPE": { "label": "|", "description": "Pipe" },
-      "CUSTOM_AT": { "label": "@", "description": "At sign" },
-      "CUSTOM_COLON": { "label": ":", "description": "Colon" },
-      "CUSTOM_ASTERISK": { "label": "*", "description": "Asterisk" },
-      "CUSTOM_GRAVE": { "label": "`", "description": "Grave accent" },
-      "CUSTOM_UNDERSCORE": { "label": "_", "description": "Underscore" },
-      "CUSTOM_LBRACKET": { "label": "[", "description": "Left bracket" },
-      "CUSTOM_RBRACKET": { "label": "]", "description": "Right bracket" },
-      "CUSTOM_LPAREN": { "label": "(", "description": "Left parenthesis" },
-      "CUSTOM_RPAREN": { "label": ")", "description": "Right parenthesis" },
-      "CUSTOM_LBRACE": { "label": "{", "description": "Left brace" },
-      "CUSTOM_RBRACE": { "label": "}", "description": "Right brace" },
-      "CUSTOM_EISUU": { "label": "英数", "description": "Eisu key" },
-      "CUSTOM_ZENHAN": { "label": "半角/全角", "description": "Zenkaku/Hankaku key" }
-    }
   }
 }
