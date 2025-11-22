@@ -83,7 +83,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -144,17 +144,17 @@
 
         EN {
             bindings = <&kp LANG2>;
-            key-positions = <11 12 13>;
+            key-positions = <12 13>;
         };
 
         JP {
             bindings = <&kp LANG1>;
-            key-positions = <21 22 23>;
+            key-positions = <22 23>;
         };
 
         katakana {
             bindings = <&kp LANG3>;
-            key-positions = <11 10>;
+            key-positions = <0 1>;
         };
     };
 
@@ -359,10 +359,10 @@
 
         default_layer_win {
             bindings = <
-&kp Q             &kp W         &kp E               &kp R  &kp T                                                     &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
-&kp A             &kp S         &kp D               &kp F  &kp G                                                     &kp H        &kp J  &kp K                &kp L                    &lt 5 BACKSPACE
-&kp Z             &kp X         &kp C               &kp V  &kp B                                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &kp LEFT_SHIFT    &lt 3 ENTER  &lt 4 SPACE         &lt 7 LANG1          &kp LANG2                &mt UNDER BACKSLASH
+&kp Q             &kp W         &kp E               &kp R  &kp T                                            &kp Y        &kp U  &kp I           &kp O                &lt 6 P
+&kp A             &kp S         &kp D               &kp F  &kp G                                            &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
+&kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                            &kp B        &kp N  &kp M           &mt COMMA LESS_THAN  &mt PERIOD GREATER_THAN
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &kp LS(NUMBER_6)     &mt UNDER MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -373,7 +373,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K                &kp L                    &lt 5 MINUS
 &kp Z             &kp X         &kp C               &kp V  &kp B                                  &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 RIGHT_BRACKET  &kp BACKSLASH            &mt UNDER BACKSLASH
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &kp UNDER
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -381,19 +381,19 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans     &trans     &trans        &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK  &mkp MCLK  &mkp RCLK     &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK  &mkp MCLK  &kp UP_ARROW  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans             &trans     &trans        &trans
+&trans  &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)    &kp LG(LS(RIGHT_ARROW))  &trans                    &trans  &trans     &trans     &trans        &trans
+&trans  &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans                    &trans  &mkp LCLK  &mkp MCLK  &mkp RCLK     &trans
+&trans  &trans                  &trans              &trans                   &trans                    &trans  &mkp LCLK  &mkp MCLK  &kp UP_ARROW  &trans
+&trans  &trans                  &trans              &trans                   &trans  &trans    &trans  &trans             &trans     &trans        &trans
             >;
         };
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &kp DOUBLE_QUOTES  &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &kp SINGLE_QUOTE      &mt EQUAL MINUS        &mt TILDE CARET     &kp SLASH
-&kp SLASH                   &kp KP_NUMBER_4    &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp C_MUTE        &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp AT_SIGN         &kp LEFT_BRACKET
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1    &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp KP_EQUAL      &kp INT3              &mt PLUS SEMICOLON     &mt ASTERISK COLON  &kp RIGHT_BRACKET
-&trans                      &trans             &trans           &trans         &trans         &trans    &trans  &trans                                  &kp ASTERISK           &kp QUESTION        &kp UNDERSCORE
+&kp EXCLAMATION             &kp DOUBLE_QUOTES  &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &kp SINGLE_QUOTE  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp SLASH
+&kp SLASH                   &kp KP_NUMBER_4    &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp TILDE         &kp PLUS          &kp ASTERISK          &kp AT_SIGN            &kp LEFT_BRACKET
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1    &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp CARET         &kp SEMICOLON     &kp COLON             &mt ASTERISK COLON     &kp RIGHT_BRACKET
+&trans                      &trans             &trans           &trans         &trans         &trans    &trans  &trans                              &kp ASTERISK          &kp QUESTION           &kp UNDERSCORE
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
@@ -432,10 +432,10 @@
 
         CURSOR {
             bindings = <
-&trans    &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                       &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8    &kp NUMBER_9    &kp KP_PLUS
-&trans    &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                       &kp KP_SLASH     &kp NUMBER_4  &kp PAGE_UP     &kp UP_ARROW    &kp PAGE_DOWN
-&kp HOME  &kp PAGE_DOWN           &kp END           &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
-&trans    &trans                  &trans            &trans                   &trans  &trans    &kp ENTER  &kp NUMBER_0                   &trans          &kp HOME        &kp END
+&trans    &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &trans  &trans  &kp PAGE_UP     &kp UP_ARROW    &kp PAGE_DOWN
+&trans    &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&kp HOME  &trans                  &trans            &trans                   &trans                    &trans  &trans  &trans          &trans          &trans
+&trans    &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
             >;
         };
     };
