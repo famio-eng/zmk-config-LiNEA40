@@ -173,31 +173,6 @@
             tap-ms = <20>;
         };
 
-        // 記号系カスタムキー
-        custom_amp: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "&"; #binding-cells = <0>; bindings = <&kp LS(N7)>; }; // &
-        custom_quote: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "'"; #binding-cells = <0>; bindings = <&kp QUOT>; }; // '
-        custom_equal: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "="; #binding-cells = <0>; bindings = <&kp EQUAL>; }; // =
-        custom_caret: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "^"; #binding-cells = <0>; bindings = <&kp LS(N6)>; }; // ^
-        custom_yen: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "¥"; #binding-cells = <0>; bindings = <&kp INT1>; }; // ¥ (日本語キーボード)
-        custom_plus: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "+"; #binding-cells = <0>; bindings = <&kp LS(EQUAL)>; }; // +
-        custom_tilde: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "~"; #binding-cells = <0>; bindings = <&kp LS(GRAVE)>; }; // ~
-        custom_pipe: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "|"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; }; // |
-        custom_at: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "@"; #binding-cells = <0>; bindings = <&kp LS(N2)>; }; // @
-        custom_colon: behavior_key_press { compatible = "zmk,behavior-key-press"; label = ":"; #binding-cells = <0>; bindings = <&kp LS(SCLN)>; }; // :
-        custom_asterisk: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "*"; #binding-cells = <0>; bindings = <&kp LS(N8)>; }; // *
-        custom_grave: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "`"; #binding-cells = <0>; bindings = <&kp GRAVE>; }; // `
-        custom_underscore: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "_"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; }; // _
-        custom_lbracket: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "["; #binding-cells = <0>; bindings = <&kp LBKT>; }; // [
-        custom_rbracket: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "]"; #binding-cells = <0>; bindings = <&kp RBKT>; }; // ]
-        custom_lparen: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "("; #binding-cells = <0>; bindings = <&kp LS(N9)>; }; // (
-        custom_rparen: behavior_key_press { compatible = "zmk,behavior-key-press"; label = ")"; #binding-cells = <0>; bindings = <&kp LS(N0)>; }; // )
-        custom_lbrace: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "{"; #binding-cells = <0>; bindings = <&kp LS(LBKT)>; }; // {
-        custom_rbrace: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "}"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; }; // }
-
-        // 特殊キー（英数、半角/全角）
-        custom_eisuu: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "英数"; #binding-cells = <0>; bindings = <&kp LANG2>; }; // 英数
-        custom_zenhan: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "半角/全角"; #binding-cells = <0>; bindings = <&kp LANG1>; }; // 半角/全角
-
     };
 
     keymap {
@@ -208,7 +183,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                            &kp Y        &kp U  &kp I           &kp O                &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                            &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
 &kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                            &kp B        &kp N  &kp M           &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &kp LS(NUMBER_6)     &mt CUSTOM_UNDERSCORE MINUS
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &kp LS(NUMBER_6)     &mt JP_UNDERSCORE MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
