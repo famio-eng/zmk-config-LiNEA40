@@ -170,7 +170,6 @@
         // 特殊キー（英数、半角/全角）
         custom_eisuu: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "英数"; #binding-cells = <0>; bindings = <&kp LANG2>; }; // 英数
         custom_zenhan: behavior_key_press { compatible = "zmk,behavior-key-press"; label = "半角/全角"; #binding-cells = <0>; bindings = <&kp LANG1>; }; // 半角/全角
-    };
 
     };
 
