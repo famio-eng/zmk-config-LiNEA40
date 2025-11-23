@@ -6,7 +6,7 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-
+#include "config/keys_jp.h"
 
 #define MOUSE 1
 #define MARK 2
@@ -172,7 +172,7 @@
         //2
         MARK {
             bindings = <
-                &kp EXCLAMATION             &kp AT           &kp HASH         &kp DOLLAR     &kp PERCENT                                          &kp CARET     &kp AMPERSAND  &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LBKT
+                &kp EXCLAMATION             &kp JP_AT           &kp HASH         &kp DOLLAR     &kp PERCENT                                          &kp CARET     &kp AMPERSAND  &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LBKT
                 &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                                        &kp C_MUTE    &kp LS(LBKT)   &kp RIGHT_BRACKET      &kp BACKSLASH         &kp EQUAL
                 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                                              &kp KP_EQUAL  &kp INT3       &kp LS(RIGHT_BRACKET)  &kp LS(BACKSLASH)     &kp LS(INT1)
                 &trans                      &trans           &trans           &trans         &trans         &trans          &trans                &trans                       &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LS(QUESTION)
