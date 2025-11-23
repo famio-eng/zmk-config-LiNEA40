@@ -64,7 +64,7 @@
     };
 };
 
-/ {
+ {
     combos {
         compatible = "zmk,combos";
 
@@ -132,48 +132,6 @@
             bindings = <&kp LANG3>;
             key-positions = <0 1>;
         };
-    };
-
-    &behaviors {
-        re_kp: sensor_rotate_kp {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
-        };
-
-        mouse_scrl: mouse_wheel_scrl {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&msc>, <&msc>;
-
-            tap-ms = <20>;
-        };
-
-        // --- 💡 日本語入力用カスタムキー定義の追記 (ノード名重複を解消) ---
-        // 記号系カスタムキー
-        jp_amp: { compatible = "zmk,behavior-key-press"; label = "&"; #binding-cells = <0>; bindings = <&kp LS(N7)>; }; // &
-        jp_quote: { compatible = "zmk,behavior-key-press"; label = "'"; #binding-cells = <0>; bindings = <&kp QUOT>; }; // '
-        jp_equal: { compatible = "zmk,behavior-key-press"; label = "="; #binding-cells = <0>; bindings = <&kp EQUAL>; }; // =
-        jp_caret: { compatible = "zmk,behavior-key-press"; label = "^"; #binding-cells = <0>; bindings = <&kp LS(N6)>; }; // ^
-        jp_yen: { compatible = "zmk,behavior-key-press"; label = "¥"; #binding-cells = <0>; bindings = <&kp INT1>; }; // ¥ (日本語キーボード)
-        jp_plus: { compatible = "zmk,behavior-key-press"; label = "+"; #binding-cells = <0>; bindings = <&kp LS(EQUAL)>; }; // +
-        jp_tilde: { compatible = "zmk,behavior-key-press"; label = "~"; #binding-cells = <0>; bindings = <&kp LS(GRAVE)>; }; // ~
-        jp_pipe: { compatible = "zmk,behavior-key-press"; label = "|"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; }; // |
-        jp_at: { compatible = "zmk,behavior-key-press"; label = "@"; #binding-cells = <0>; bindings = <&kp LS(N2)>; }; // @
-        jp_colon: { compatible = "zmk,behavior-key-press"; label = ":"; #binding-cells = <0>; bindings = <&kp LS(SCLN)>; }; // :
-        jp_asterisk: { compatible = "zmk,behavior-key-press"; label = "*"; #binding-cells = <0>; bindings = <&kp LS(N8)>; }; // *
-        jp_grave: { compatible = "zmk,behavior-key-press"; label = "`"; #binding-cells = <0>; bindings = <&kp GRAVE>; }; // `
-        jp_underscore: { compatible = "zmk,behavior-key-press"; label = "_"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; }; // _
-        jp_lbracket: { compatible = "zmk,behavior-key-press"; label = "["; #binding-cells = <0>; bindings = <&kp LBKT>; }; // [
-        jp_rbracket: { compatible = "zmk,behavior-key-press"; label = "]"; #binding-cells = <0>; bindings = <&kp RBKT>; }; // ]
-        jp_lparen: { compatible = "zmk,behavior-key-press"; label = "("; #binding-cells = <0>; bindings = <&kp LS(N9)>; }; // (
-        jp_rparen: { compatible = "zmk,behavior-key-press"; label = ")"; #binding-cells = <0>; bindings = <&kp LS(N0)>; }; // )
-        jp_lbrace: { compatible = "zmk,behavior-key-press"; label = "{"; #binding-cells = <0>; bindings = <&kp LS(LBKT)>; }; // {
-        jp_rbrace: { compatible = "zmk,behavior-key-press"; label = "}"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; }; // }
-
-        // 特殊キー（英数、半角/全角）
-        jp_eisuu: { compatible = "zmk,behavior-key-press"; label = "英数"; #binding-cells = <0>; bindings = <&kp LANG2>; }; // 英数
-        jp_zenhan: { compatible = "zmk,behavior-key-press"; label = "半角/全角"; #binding-cells = <0>; bindings = <&kp LANG1>; }; // 半角/全角
     };
 
     keymap {
@@ -262,3 +220,45 @@
         };
     };
 };
+
+    &behaviors {
+        re_kp: sensor_rotate_kp {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        mouse_scrl: mouse_wheel_scrl {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc>, <&msc>;
+
+            tap-ms = <20>;
+        };
+
+        // --- 💡 日本語入力用カスタムキー定義の追記 (ノード名重複を解消) ---
+        // 記号系カスタムキー
+        jp_amp: { compatible = "zmk,behavior-key-press"; label = "&"; #binding-cells = <0>; bindings = <&kp LS(N7)>; }; // &
+        jp_quote: { compatible = "zmk,behavior-key-press"; label = "'"; #binding-cells = <0>; bindings = <&kp QUOT>; }; // '
+        jp_equal: { compatible = "zmk,behavior-key-press"; label = "="; #binding-cells = <0>; bindings = <&kp EQUAL>; }; // =
+        jp_caret: { compatible = "zmk,behavior-key-press"; label = "^"; #binding-cells = <0>; bindings = <&kp LS(N6)>; }; // ^
+        jp_yen: { compatible = "zmk,behavior-key-press"; label = "¥"; #binding-cells = <0>; bindings = <&kp INT1>; }; // ¥ (日本語キーボード)
+        jp_plus: { compatible = "zmk,behavior-key-press"; label = "+"; #binding-cells = <0>; bindings = <&kp LS(EQUAL)>; }; // +
+        jp_tilde: { compatible = "zmk,behavior-key-press"; label = "~"; #binding-cells = <0>; bindings = <&kp LS(GRAVE)>; }; // ~
+        jp_pipe: { compatible = "zmk,behavior-key-press"; label = "|"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; }; // |
+        jp_at: { compatible = "zmk,behavior-key-press"; label = "@"; #binding-cells = <0>; bindings = <&kp LS(N2)>; }; // @
+        jp_colon: { compatible = "zmk,behavior-key-press"; label = ":"; #binding-cells = <0>; bindings = <&kp LS(SCLN)>; }; // :
+        jp_asterisk: { compatible = "zmk,behavior-key-press"; label = "*"; #binding-cells = <0>; bindings = <&kp LS(N8)>; }; // *
+        jp_grave: { compatible = "zmk,behavior-key-press"; label = "`"; #binding-cells = <0>; bindings = <&kp GRAVE>; }; // `
+        jp_underscore: { compatible = "zmk,behavior-key-press"; label = "_"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; }; // _
+        jp_lbracket: { compatible = "zmk,behavior-key-press"; label = "["; #binding-cells = <0>; bindings = <&kp LBKT>; }; // [
+        jp_rbracket: { compatible = "zmk,behavior-key-press"; label = "]"; #binding-cells = <0>; bindings = <&kp RBKT>; }; // ]
+        jp_lparen: { compatible = "zmk,behavior-key-press"; label = "("; #binding-cells = <0>; bindings = <&kp LS(N9)>; }; // (
+        jp_rparen: { compatible = "zmk,behavior-key-press"; label = ")"; #binding-cells = <0>; bindings = <&kp LS(N0)>; }; // )
+        jp_lbrace: { compatible = "zmk,behavior-key-press"; label = "{"; #binding-cells = <0>; bindings = <&kp LS(LBKT)>; }; // {
+        jp_rbrace: { compatible = "zmk,behavior-key-press"; label = "}"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; }; // }
+
+        // 特殊キー（英数、半角/全角）
+        jp_eisuu: { compatible = "zmk,behavior-key-press"; label = "英数"; #binding-cells = <0>; bindings = <&kp LANG2>; }; // 英数
+        jp_zenhan: { compatible = "zmk,behavior-key-press"; label = "半角/全角"; #binding-cells = <0>; bindings = <&kp LANG1>; }; // 半角/全角
+    };
