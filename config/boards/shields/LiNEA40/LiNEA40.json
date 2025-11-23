@@ -45,5 +45,52 @@
         { "x": 12.0, "y": 3.0 }
       ]
     }
+  },
+  
+  "keycodes": {
+    "JP_AT": {
+      "label": "@ (JIS ATMARK)",
+      "symbol": "@"
+    },
+    "JP_DQUOTE": {
+      "label": "\" (JIS DQUO)",
+      "symbol": "\""
+    },
+    "JP_COLON": {
+      "label": ": (JIS COLON)",
+      "symbol": ":"
+    },
+    "JP_ASTERISK": {
+      "label": "* (JIS ASTERISK)",
+      "symbol": "*"
+    },
+    "JP_YEN": {
+      "label": "¥ (JIS YEN)",
+      "symbol": "¥"
+    },
+    "JP_PIPE": {
+      "label": "| (JIS PIPE)",
+      "symbol": "|"
+    },
+    "JP_TILDE": {
+      "label": "~ (JIS TILDE)",
+      "symbol": "~"
+    },
+    "JP_UNDERSCORE": {
+      "label": "_ (JIS USCORE)",
+      "symbol": "_"
+    },
+    "JP_KANA": {
+      "label": "かな",
+      "symbol": "か"
+    },
+    "JP_EISU": {
+      "label": "英数",
+      "symbol": "A"
+    },
+    "JP_HANZEN": {
+      "label": "半/全",
+      "symbol": "半"
+    }
   }
 }
