@@ -213,8 +213,8 @@
         MARK {
             bindings = <
 &kp EXCLAMATION             &kp JP_DQUOTE    &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &kp JP_QUOTE   &kp JP_LPAREN    &kp JP_RPAREN          &kp SLASH
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp JP_TILDE      &kp JP_PLUS    &kp JP_ASTERISK  &kp AT_SIGN            &kp JP_LEFT_BRACKET
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp JP_CARET      &kp SEMICOLON  &kp JP_COLON     &mt JP_ASTERISK COLON  &kp JP_RIGHT_BRACKET
+&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp JP_TILDE      &kp JP_PLUS    &kp JP_ASTERISK  &kp AT_SIGN            &kp JP_LBRACKET
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp JP_CARET      &kp SEMICOLON  &kp JP_COLON     &mt JP_ASTERISK COLON  &kp JP_RBRACKET
 &trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                           &kp QUESTION     &kp JP_AT              &kp JP_UNDERSCORE
             >;
 
