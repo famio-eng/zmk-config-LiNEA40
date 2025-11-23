@@ -1,0 +1,21 @@
+/ {
+    keycodes {
+        JP_AT { label = "@"; };
+        JP_YEN { label = "¥"; };
+        JP_DQUOTE { label = "\""; };
+        JP_COLON { label = ":"; };
+        JP_ASTERISK { label = "*"; };
+        JP_PIPE { label = "|"; };
+        JP_TILDE { label = "~"; };
+        JP_UNDERSCORE { label = "_"; };
+        JP_LBRACKET { label = "["; };
+        JP_RBRACKET { label = "]"; };
+        JP_LBRACE { label = "{"; };
+        JP_RBRACE { label = "}"; };
+        JP_LPAREN { label = "("; };
+        JP_RPAREN { label = ")"; };
+        JP_KANA { label = "かな"; };
+        JP_EISU { label = "英数"; };
+        JP_HANZEN { label = "半角/全角"; };
+    };
+};
