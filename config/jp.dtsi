@@ -1,0 +1,49 @@
+/*
+ * 日本語配列 (JIS) 変換定義
+ * WindowsがJIS設定のまま、USキーボードとして認識されたZMKから
+ * 正しい記号を入力するための変換テーブル
+ */
+
+#define JP_ZHTG GRAVE         // 半角/全角 (Grave/Tilde position)
+#define JP_YEN  INT3          // ¥ (International 3)
+#define JP_PIPE LS(INT3)      // | (Shift + ¥)
+
+#define JP_AT   LBKT          // @ (US: [ )
+#define JP_QUOT LS(N2)        // " (US: Shift + 2 → JIS: @ → 誤りやすいが調整済み) -> 修正: JISの"はShift+2
+// 解説: USキーボードでShift+2は@。JISでShift+2は"。
+// したがって、JIS環境で"を出したいなら、USのShift+2を送るのではなく、
+// JISの"の位置（Shift+2）に対応するUS信号を送る必要がある。
+// 実は「Shift+2」を送るとJIS側も「"」になるため、標準のDOUBLE_QUOTESで良い場合が多いが、
+// ここでは明示的に定義します。
+
+#define JP_DQT  LS(N2)        // " (Shift + 2)
+#define JP_AMPS LS(N6)        // & (Shift + 6)
+#define JP_SQT  LS(N7)        // ' (Shift + 7)
+#define JP_LPAR LS(N8)        // ( (Shift + 8)
+#define JP_RPAR LS(N9)        // ) (Shift + 9)
+
+#define JP_EQL  LS(MINUS)     // = (Shift + -)
+#define JP_PLUS LS(SEMI)      // + (Shift + ; )
+#define JP_ASTR LS(SQT)       // * (Shift + : )
+
+#define JP_LBRC RBKT          // [ (US: ] )
+#define JP_RBRC NUHS          // ] (Non-US Hash/Backslash)
+
+#define JP_LCBR LS(RBKT)      // { (Shift + ] )
+#define JP_RCBR LS(NUHS)      // } (Shift + Non-US Hash)
+
+#define JP_COLN SQT           // : (US: ' )
+#define JP_TILD LS(EQUAL)     // ~ (Shift + = ) - USの=キー位置
+
+#define JP_UNDER LS(INT1)     // _ (Shift + Ro / Int1) 
+// ※一般的なUSキーボードにはInt1がないため、Shift+Minus(US)で代用されることが多いですが、
+// 正確なアンダースコアはJIS特有のキーです。
+// 多くの環境では「Shift + 0」の右隣などで代用します。
+// ここでは「Shift + Minus」を割り当てます。
+#define JP_UNDS LS(RO)    // _ (JIS standard position if supported)
+
+// 簡略化のため、よく使う記号の最終定義
+#define JP_AT_SYM   LBKT      // @
+#define JP_COLON    SQT       // :
+#define JP_MINUS    MINUS     // -
+#define JP_CARET    EQUAL     // ^ (US: = )
