@@ -6,7 +6,7 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-#include "keys_jp.h"
+
 
 #define MOUSE 1
 #define MARK 2
