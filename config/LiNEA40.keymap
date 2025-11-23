@@ -149,6 +149,11 @@
             tap-ms = <20>;
         };
 
+        jp_at_key: jp_at_key {
+            compatible = "zmk,behavior-tap";
+            bindings = <&kp JP_AT>;
+        };
+
     };
 
     keymap {
