@@ -255,7 +255,7 @@
 
         jp_bslh_tap: jp_bslh_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\_BSLH";
+            label = "JIS_\\_BSLH";
             bindings = <&kp JP_BSLH>;
         };
 
