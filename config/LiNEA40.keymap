@@ -149,117 +149,117 @@
             tap-ms = <20>;
         };
 
-/* 1. JIS記号のカスタム動作の定義（Tap専用、視認性向上） */
+/* 1. JIS記号のカスタム動作の定義（Tap専用、視認性向上 - 最終修正版） */
         
-        jp_@_at: jp_@_at {
+        jp_at_tap: jp_at_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_@_AT";
             bindings = <&kp JP_AT>;
         };
 
-        jp_dq_dquote: jp_dq_dquote {
+        jp_dquote_tap: jp_dquote_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_\"_DQUOTE";
             bindings = <&kp JP_QUOT>;
         };
 
-        jp_c_colon: jp_c_colon {
+        jp_colon_tap: jp_colon_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_:_COLON";
             bindings = <&kp JP_COLON>;
         };
 
-        jp_us_under: jp_us_under {
+        jp_under_tap: jp_under_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS___UNDER";
             bindings = <&kp JP_UNDER>;
         };
 
-        jp_hat_caret: jp_hat_caret {
+        jp_caret_tap: jp_caret_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_^_CARET";
             bindings = <&kp JP_CARET>;
         };
 
-        jp_t_tilde: jp_t_tilde {
+        jp_tilde_tap: jp_tilde_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_~_TILDE";
             bindings = <&kp JP_TILD>;
         };
         
-        jp_p_plus: jp_p_plus {
+        jp_plus_tap: jp_plus_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_+_PLUS";
             bindings = <&kp JP_PLUS>;
         };
 
-        jp_a_asterisk: jp_a_asterisk {
+        jp_asterisk_tap: jp_asterisk_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_*_ASTERISK";
             bindings = <&kp JP_ASTR>;
         };
 
-        jp_eq_equal: jp_eq_equal {
+        jp_equal_tap: jp_equal_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_=_EQUAL";
             bindings = <&kp JP_EQL>;
         };
 
-        jp_y_yen: jp_y_yen {
+        jp_yen_tap: jp_yen_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_¥_YEN";
             bindings = <&kp JP_YEN>;
         };
 
-        jp_lp_lpar: jp_lp_lpar {
+        jp_lpar_tap: jp_lpar_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_(_LPAR";
             bindings = <&kp JP_LPAR>;
         };
 
-        jp_rp_rpar: jp_rp_rpar {
+        jp_rpar_tap: jp_rpar_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_)_RPAR";
             bindings = <&kp JP_RPAR>;
         };
 
-        jp_lc_lcbr: jp_lc_lcbr {
+        jp_lcbr_tap: jp_lcbr_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_{_LCBR";
             bindings = <&kp JP_LCBR>;
         };
 
-        jp_rc_rcbr: jp_rc_rcbr {
+        jp_rcbr_tap: jp_rcbr_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_}_RCBR";
             bindings = <&kp JP_RCBR>;
         };
 
-        jp_lb_lbrkt: jp_lb_lbrkt {
+        jp_lbrkt_tap: jp_lbrkt_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_[_LBRKT";
             bindings = <&kp JP_LBRKT>;
         };
 
-        jp_rb_rbrkt: jp_rb_rbrkt {
+        jp_rbrkt_tap: jp_rbrkt_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_]_RBRKT";
             bindings = <&kp JP_RBRKT>;
         };
 
-        jp_sc_scln: jp_sc_scln {
+        jp_scln_tap: jp_scln_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_;_SCLN";
             bindings = <&kp JP_SCLN>;
         };
 
-        jp_bs_bslh: jp_bs_bslh {
+        jp_bslh_tap: jp_bslh_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_\_BSLH";
             bindings = <&kp JP_BSLH>;
         };
 
-        /* 2. 日本語入力切り替え関連の定義（Tap専用） */
+    /* 2. 日本語入力切り替え関連の定義（Tap専用） */
         jp_eisu: jp_eisu {
             compatible = "zmk,behavior-tap";
             label = "JIS_英数";
