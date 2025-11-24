@@ -149,7 +149,7 @@
             tap-ms = <20>;
         };
 
-/* 1. JIS記号のカスタム動作の定義（Tap専用、視認性向上 - 最終修正版） */
+/* 1. JIS記号のカスタム動作の定義（Tap専用、GUI視認性向上版） */
         
         jp_at_tap: jp_at_tap {
             compatible = "zmk,behavior-tap";
@@ -159,7 +159,7 @@
 
         jp_dquote_tap: jp_dquote_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\"_DQUOTE";
+            label = "JIS_\"_DQUOTE"; 
             bindings = <&kp JP_QUOT>;
         };
 
@@ -195,17 +195,17 @@
 
         jp_asterisk_tap: jp_asterisk_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_*_ASTERISK";
+            label = "JIS_*_ASTR";
             bindings = <&kp JP_ASTR>;
         };
 
         jp_equal_tap: jp_equal_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_=_EQUAL";
+            label = "JIS_=_EQL";
             bindings = <&kp JP_EQL>;
         };
 
-        jp_yen_tap: jp_yen_tap {
+        jp_y_yen_tap: jp_y_yen_tap { // ノード名も修正
             compatible = "zmk,behavior-tap";
             label = "JIS_¥_YEN";
             bindings = <&kp JP_YEN>;
@@ -255,11 +255,11 @@
 
         jp_bslh_tap: jp_bslh_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\\_BSLH";
+            label = "JIS_\\_BSLH"; // エラーの原因を修正
             bindings = <&kp JP_BSLH>;
         };
 
-    /* 2. 日本語入力切り替え関連の定義（Tap専用） */
+        /* 2. 日本語入力切り替え関連の定義（Tap専用） */
         jp_eisu: jp_eisu {
             compatible = "zmk,behavior-tap";
             label = "JIS_英数";
