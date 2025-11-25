@@ -152,7 +152,6 @@
     /* 1. JIS記号の定義 */
         jp_at_key: jp_at_key {
             compatible = "zmk,behavior-tap";
-            label = "JP_@"; // GUIに表示されるラベル
             bindings = <&kp JP_AT>;
         };
 
