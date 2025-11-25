@@ -7,7 +7,7 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
-#include "jp.dtsi"
+// #include "jp.dtsi" <-- 外部ファイルのインクルードはエラーの原因となるため削除
 
 #define MOUSE 1
 #define MARK 2
@@ -150,6 +150,8 @@
         };
 
 /* 1. JIS記号のカスタム動作の定義（ノード・ラベル最終簡略化版） */
+// ** JP_AT, JP_QUOT, ... などが ZMK 標準にない場合、ビルド時にエラーになる可能性あり
+// ** その場合は、jp.dtsi に含まれる定義（#define JP_AT ...）をこのファイルの先頭に追加する必要があります
         
         jp_at: jp_at {
             compatible = "zmk,behavior-tap";
@@ -262,7 +264,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I             &kp O             &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K             &kp L             &lt 5 BACKSPACE
 &kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                  &kp B        &kp N  &kp M             &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 JP_HANZEN    &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &kp LS(NUMBER_6)     &mt UNDER MINUS
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 JP_HANK    &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &kp LS(NUMBER_6)     &mt UNDER MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -273,7 +275,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K                &kp L                    &lt 5 MINUS
 &kp Z             &kp X         &kp C               &kp V  &kp B                                  &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &jp_under
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &jp_under // ← **カスタム動作の参照を維持**
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -290,9 +292,9 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION   &jp_dquote    &kp HASH          &kp DOLLAR     &kp PERCENT                                  &kp LS(NUMBER_6)  &kp JP_QUOT    &jp_lpar          &jp_rpar             &kp SLASH
-&kp SLASH         &kp KP_NUMBER_4  &kp KP_NUMBER_5   &jp_scln       &jp_scln                                     &jp_tilde         &jp_plus       &jp_asterisk      &kp AT               &jp_lbrkt
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                                      &jp_caret         &jp_scln       &jp_colon         &mt ASTERISK COLON   &jp_rbrkt
+&kp EXCLAMATION   &jp_dquote    &kp HASH          &kp DOLLAR     &kp PERCENT                                  &kp LS(NUMBER_6)  &jp_dquote    &jp_lpar          &jp_rpar             &kp SLASH
+&kp SLASH         &kp KP_NUMBER_4  &kp KP_NUMBER_5   &jp_scln       &jp_scln                                     &jp_tilde         &jp_plus       &jp_asterisk      &jp_at               &jp_lbrkt // ← **カスタム動作の参照に統一**
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                                      &jp_caret         &jp_scln           &jp_colon          &mt ASTERISK COLON   &jp_rbrkt // ← **カスタム動作の参照に統一**
 &trans            &trans        &trans          &trans         &trans         &trans    &trans  &trans                                       &kp QUESTION     &jp_at               &jp_under
             >;
 
