@@ -149,7 +149,7 @@
             tap-ms = <20>;
         };
 
-/* 1. JIS記号のカスタム動作の定義（Tap専用、GUI視認性向上版） */
+/* 1. JIS記号のカスタム動作の定義（Tap専用、最小安全セット） */
         
         jp_at_tap: jp_at_tap {
             compatible = "zmk,behavior-tap";
@@ -205,12 +205,6 @@
             bindings = <&kp JP_EQL>;
         };
 
-        jp_y_yen_tap: jp_y_yen_tap { // ノード名も修正
-            compatible = "zmk,behavior-tap";
-            label = "JIS_¥_YEN";
-            bindings = <&kp JP_YEN>;
-        };
-
         jp_lpar_tap: jp_lpar_tap {
             compatible = "zmk,behavior-tap";
             label = "JIS_(_LPAR";
@@ -255,28 +249,17 @@
 
         jp_bslh_tap: jp_bslh_tap {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\\_BSLH"; // エラーの原因を修正
+            label = "JIS_\\_BSLH"; 
             bindings = <&kp JP_BSLH>;
         };
-
-        /* 2. 日本語入力切り替え関連の定義（Tap専用） */
-        jp_eisu: jp_eisu {
-            compatible = "zmk,behavior-tap";
-            label = "JIS_英数";
-            bindings = <&kp JP_EISU>;
-        };
-
-        jp_kana: jp_kana {
-            compatible = "zmk,behavior-tap";
-            label = "JIS_かな";
-            bindings = <&kp JP_KANA>;
-        };
-
-        jp_hanzen: jp_hanzen {
-            compatible = "zmk,behavior-tap";
-            label = "JIS_半角全角";
-            bindings = <&kp JP_HANZEN>;
-        };
+        
+        // 全角文字を含む定義は一時的に除外
+        /*
+        jp_y_yen_tap: jp_y_yen_tap { ... };
+        jp_eisu: jp_eisu { ... };
+        jp_kana: jp_kana { ... };
+        jp_hanzen: jp_hanzen { ... };
+        */
     };
 
     keymap {
