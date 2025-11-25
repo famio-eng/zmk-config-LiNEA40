@@ -7,7 +7,29 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
-#include "jp.dtsi"
+#include "jp.dtsi" // jp.dtsi自体は残しますが、重要な定義を下に再定義します
+
+// ==========================================================
+// JISキーコードの確実な定義 (jp.dtsiのコア定義をここに移植)
+// これにより、ビルドエラーの原因となっていたマクロ未定義問題を回避します。
+// ==========================================================
+#define JP_AT      LBKT    // @
+#define JP_QUOT    LS(N2)  // "
+#define JP_COLON   SQT     // :
+#define JP_UNDER   LS(INT1)// _ (ろキー)
+#define JP_CARET   EQUAL   // ^
+#define JP_TILD    LS(EQUAL)// ~
+#define JP_PLUS    LS(SEMI)// +
+#define JP_ASTR    LS(SQT) // *
+#define JP_EQL     LS(MINUS)// =
+#define JP_YEN     INT3    // ¥
+
+#define JP_LPAR    LS(N8)  // (
+#define JP_RPAR    LS(N9)  // )
+#define JP_LCBR    LS(RBKT)// {
+#define JP_RCBR    LS(NUHS)// }
+// ==========================================================
+
 
 #define MOUSE 1
 #define MARK 2
@@ -172,7 +194,8 @@
         jp_under: jp_under {
             compatible = "zmk,behavior-tap";
             label = "JP__";
-            bindings = <&kp JP_UNDER>;
+            // マクロ JP_UNDER は上で定義を保証済み
+            bindings = <&kp JP_UNDER>; 
             #binding-cells = <0>;
         };
 
@@ -222,21 +245,24 @@
         jp_eisu: jp_eisu {
             compatible = "zmk,behavior-tap";
             label = "JP_EISU";
-            bindings = <&kp JP_EISU>;
+            // ZMK標準キーコードを使用
+            bindings = <&kp LANGUAGE_2>;
             #binding-cells = <0>;
         };
 
         jp_kana: jp_kana {
             compatible = "zmk,behavior-tap";
             label = "JP_KANA";
-            bindings = <&kp JP_KANA>;
+            // ZMK標準キーコードを使用
+            bindings = <&kp LANGUAGE_1>;
             #binding-cells = <0>;
         };
 
         jp_hanzen: jp_hanzen {
             compatible = "zmk,behavior-tap";
             label = "JP_HANZEN";
-            bindings = <&kp JP_HANZEN>;
+            // ZMK標準キーコードを使用 (半角/全角は通常 GRAVE)
+            bindings = <&kp GRAVE>;
             #binding-cells = <0>;
         };
         
