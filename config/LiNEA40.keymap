@@ -294,7 +294,7 @@
             bindings = <
 &kp EXCLAMATION   &jp_quot      &kp HASH          &kp DOLLAR     &kp PERCENT                                  &kp LS(NUMBER_6)  &jp_quot      &jp_lpar          &jp_rpar             &kp SLASH
 &kp SLASH         &kp KP_NUMBER_4  &kp KP_NUMBER_5   &kp SCLN       &kp SCLN                                     &jp_tild          &jp_plus      &jp_asterisk      &jp_at               &jp_lcbr
-&kp LEFT_SHIFT    &kp KP_NUMBER_1  &kp KP_NUMBER_2   &kp APOS       &kp SQT                                      &jp_caret         &kp SCLN      &jp_colon         &mt JP_ASTERISK COLON  &jp_rcbr
+&kp LEFT_SHIFT    &kp KP_NUMBER_1  &kp KP_NUMBER_2   &kp APOS       &kp SQT                                      &jp_caret         &kp SCLN      &jp_colon         &kp KPASTERISK         &jp_rcbr
 &trans            &trans           &trans            &trans         &trans         &trans    &trans  &trans                                       &kp QUESTION     &jp_at               &jp_under
             >;
 
