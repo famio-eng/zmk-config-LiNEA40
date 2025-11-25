@@ -149,117 +149,109 @@
             tap-ms = <20>;
         };
 
-/* 1. JIS記号のカスタム動作の定義（Tap専用、最小安全セット） */
+/* 1. JIS記号のカスタム動作の定義（ノード・ラベル最終簡略化版） */
         
-        jp_at_tap: jp_at_tap {
+        jp_at: jp_at {
             compatible = "zmk,behavior-tap";
-            label = "JIS_@_AT";
+            label = "JP_AT"; // @
             bindings = <&kp JP_AT>;
         };
 
-        jp_dquote_tap: jp_dquote_tap {
+        jp_dquote: jp_dquote {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\"_DQUOTE"; 
+            label = "JP_DQUOTE"; // "
             bindings = <&kp JP_QUOT>;
         };
 
-        jp_colon_tap: jp_colon_tap {
+        jp_colon: jp_colon {
             compatible = "zmk,behavior-tap";
-            label = "JIS_:_COLON";
+            label = "JP_COLON"; // :
             bindings = <&kp JP_COLON>;
         };
 
-        jp_under_tap: jp_under_tap {
+        jp_under: jp_under {
             compatible = "zmk,behavior-tap";
-            label = "JIS___UNDER";
+            label = "JP_UNDER"; // _
             bindings = <&kp JP_UNDER>;
         };
 
-        jp_caret_tap: jp_caret_tap {
+        jp_caret: jp_caret {
             compatible = "zmk,behavior-tap";
-            label = "JIS_^_CARET";
+            label = "JP_CARET"; // ^
             bindings = <&kp JP_CARET>;
         };
 
-        jp_tilde_tap: jp_tilde_tap {
+        jp_tilde: jp_tilde {
             compatible = "zmk,behavior-tap";
-            label = "JIS_~_TILDE";
+            label = "JP_TILD"; // ~
             bindings = <&kp JP_TILD>;
         };
         
-        jp_plus_tap: jp_plus_tap {
+        jp_plus: jp_plus {
             compatible = "zmk,behavior-tap";
-            label = "JIS_+_PLUS";
+            label = "JP_PLUS"; // +
             bindings = <&kp JP_PLUS>;
         };
 
-        jp_asterisk_tap: jp_asterisk_tap {
+        jp_asterisk: jp_asterisk {
             compatible = "zmk,behavior-tap";
-            label = "JIS_*_ASTR";
+            label = "JP_ASTR"; // *
             bindings = <&kp JP_ASTR>;
         };
 
-        jp_equal_tap: jp_equal_tap {
+        jp_equal: jp_equal {
             compatible = "zmk,behavior-tap";
-            label = "JIS_=_EQL";
+            label = "JP_EQL"; // =
             bindings = <&kp JP_EQL>;
         };
-
-        jp_lpar_tap: jp_lpar_tap {
+        
+        jp_lpar: jp_lpar {
             compatible = "zmk,behavior-tap";
-            label = "JIS_(_LPAR";
+            label = "JP_LPAR"; // (
             bindings = <&kp JP_LPAR>;
         };
 
-        jp_rpar_tap: jp_rpar_tap {
+        jp_rpar: jp_rpar {
             compatible = "zmk,behavior-tap";
-            label = "JIS_)_RPAR";
+            label = "JP_RPAR"; // )
             bindings = <&kp JP_RPAR>;
         };
 
-        jp_lcbr_tap: jp_lcbr_tap {
+        jp_lcbr: jp_lcbr {
             compatible = "zmk,behavior-tap";
-            label = "JIS_{_LCBR";
+            label = "JP_LCBR"; // {
             bindings = <&kp JP_LCBR>;
         };
 
-        jp_rcbr_tap: jp_rcbr_tap {
+        jp_rcbr: jp_rcbr {
             compatible = "zmk,behavior-tap";
-            label = "JIS_}_RCBR";
+            label = "JP_RCBR"; // }
             bindings = <&kp JP_RCBR>;
         };
 
-        jp_lbrkt_tap: jp_lbrkt_tap {
+        jp_lbrkt: jp_lbrkt {
             compatible = "zmk,behavior-tap";
-            label = "JIS_[_LBRKT";
+            label = "JP_LBRKT"; // [
             bindings = <&kp JP_LBRKT>;
         };
 
-        jp_rbrkt_tap: jp_rbrkt_tap {
+        jp_rbrkt: jp_rbrkt {
             compatible = "zmk,behavior-tap";
-            label = "JIS_]_RBRKT";
+            label = "JP_RBRKT"; // ]
             bindings = <&kp JP_RBRKT>;
         };
 
-        jp_scln_tap: jp_scln_tap {
+        jp_scln: jp_scln {
             compatible = "zmk,behavior-tap";
-            label = "JIS_;_SCLN";
+            label = "JP_SCLN"; // ;
             bindings = <&kp JP_SCLN>;
         };
 
-        jp_bslh_tap: jp_bslh_tap {
+        jp_bslh: jp_bslh {
             compatible = "zmk,behavior-tap";
-            label = "JIS_\\_BSLH"; 
+            label = "JP_BSLH"; // \ (バックスラッシュ/円マークの位置)
             bindings = <&kp JP_BSLH>;
         };
-        
-        // 全角文字を含む定義は一時的に除外
-        /*
-        jp_y_yen_tap: jp_y_yen_tap { ... };
-        jp_eisu: jp_eisu { ... };
-        jp_kana: jp_kana { ... };
-        jp_hanzen: jp_hanzen { ... };
-        */
     };
 
     keymap {
