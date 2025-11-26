@@ -1,0 +1,10 @@
+/*
+ * USB-CDC ACM機能を有効化し、cdc_acm_uartノードを定義
+ */
+&usb {
+    status = "okay";
+};
+
+&usbd_cdc_acm {
+    status = "okay";
+};j
