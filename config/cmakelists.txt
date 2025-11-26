@@ -1,0 +1,1 @@
+zmk_config_add_keymap_macro(jp.dtsi)
