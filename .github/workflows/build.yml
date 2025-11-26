@@ -2,7 +2,17 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
-    with:
-      # 🚨 正しいパラメータ名 'snippets' を使用し、空の値を渡すことでスニペットの参照を無効化
-      snippets: ''
+    # 実行環境を指定
+    runs-on: ubuntu-latest
+    
+    # 実行ステップのデフォルト設定
+    defaults:
+      run:
+        # 環境変数を設定。これにより、ZMK Action内でのスニペット参照を停止する。
+        env:
+          ZMK_STUDIO_SNIPPET: ''
+          
+    steps:
+      - name: Build ZMK Firmware
+        # ZMK標準アクションの呼び出し
+        uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
