@@ -152,70 +152,70 @@
     /* 1. JIS記号の定義 */
         jp_at_key: jp_at_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_@"; // GUIに表示されるラベル
             bindings = <&kp JP_AT>;
         };
 
         jp_quot_key: jp_quot_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_\"";
             bindings = <&kp JP_QUOT>;
         };
 
         jp_colon_key: jp_colon_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_:";
             bindings = <&kp JP_COLON>;
         };
 
         jp_under_key: jp_under_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP__";
             bindings = <&kp JP_UNDER>;
         };
 
         jp_caret_key: jp_caret_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_^";
             bindings = <&kp JP_CARET>;
         };
 
         jp_tild_key: jp_tild_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_~";
             bindings = <&kp JP_TILD>;
         };
 
         jp_plus_key: jp_plus_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_+";
             bindings = <&kp JP_PLUS>;
         };
 
         jp_asterisk_key: jp_asterisk_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_*";
             bindings = <&kp JP_ASTR>;
         };
 
         jp_equal_key: jp_equal_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_=";
             bindings = <&kp JP_EQL>;
         };
 
         jp_yen_key: jp_yen_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_\\";
             bindings = <&kp JP_YEN>;
         };
@@ -223,21 +223,21 @@
     /* 2. 日本語入力切り替え関連の定義 */
         jp_eisu_key: jp_eisu_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_EISU";
             bindings = <&kp JP_EISU>;
         };
 
         jp_kana_key: jp_kana_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_KANA";
             bindings = <&kp JP_KANA>;
         };
 
         jp_hanzen_key: jp_hanzen_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_HANZEN";
             bindings = <&kp JP_HANZEN>;
         };
@@ -245,28 +245,28 @@
     /* 3. その他（中括弧や丸括弧など）の定義 */
         jp_lpar_key: jp_lpar_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_(";
             bindings = <&kp JP_LPAR>;
         };
 
         jp_rpar_key: jp_rpar_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_)";
             bindings = <&kp JP_RPAR>;
         };
 
         jp_lcbr_key: jp_lcbr_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_{";
             bindings = <&kp JP_LCBR>;
         };
 
         jp_rcbr_key: jp_rcbr_key {
             compatible = "zmk,behavior-tap";
-            #binding-cells = <1>; // 👈 この行を追加
+            #binding-cells = <1>;
             label = "JP_}";
             bindings = <&kp JP_RCBR>;
         };
@@ -311,7 +311,7 @@
             bindings = <
 &kp EXCLAMATION           &jp_quot_key    &kp HASH         &kp DOLLAR    &kp PERCENT                      &kp LS(NUMBER_6) &jp_quot_key  &jp_lpar_key   &jp_rpar_key     &jp_yen_key
 &kp SLASH                 &kp KP_NUMBER_4 &kp KP_NUMBER_5 &kp SEMICOLON &kp SEMICOLON                  &jp_equal_key     &jp_plus_key  &jp_asterisk_key &kp LEFT_BRACKET &jp_lcbr_key
-&mt LEFT_SHIFT KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_2 &kp APOS      &kp SQT                          &jp_caret_key    &kp SEMICOLON &jp_colon_key    &kp RIGHT_BRACKET &jp_rcbr_key
+&mt LEFT_SHIFT KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_2 &kp APOS      &kp SQT                          &jp_caret_key    &kp SEMICOLON &jp_colon_key    &kp RIGHT_BRACKET &jp_rcbr_key // 👈 修正前: &mt LEFT_SHIFT KP_NUMBER_0
 &trans                    &trans          &trans          &trans        &trans          &trans    &trans  &trans                        &kp QUESTION    &kp SLASH          &jp_under_key
             >;
 
