@@ -1,13 +1,14 @@
 /*
- * USB/CDC ACM機能を有効化し、既存のノードを参照可能にする
+ * USB/CDC ACM機能を有効化し、ノードを参照可能にする
  */
 
-// 🚨 nRF52840 の USB デバイスノードは通常 &usbd
 &usbd {
     status = "okay";
 };
 
-// 🚨 CDC ACM ノードを有効化
-&zephyr_udc_cdc_acm_uart {
+// 🚨 CDC ACM ノードに &uart1 を使用（XIAO BLEでの一般的な定義）
+&uart1 {
+    compatible = "nordic,nrf-uarte";
+    current-speed = <115200>;
     status = "okay";
 };
