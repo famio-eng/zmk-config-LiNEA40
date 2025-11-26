@@ -1,9 +1,0 @@
-/ {
-    chosen {
-        zmk,studio-endpoint = &cdc_acm_uart;
-    };
-};
-
-&cdc_acm_uart {
-    status = "okay";
-};
