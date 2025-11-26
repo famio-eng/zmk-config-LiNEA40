@@ -192,18 +192,11 @@
             bindings = <&kp JP_TILD>;
         };
 
-        jp_plus_key: jp_plus_key {
+        jp_plus_key: jp_plus_key { // 👈 206行目付近
             compatible = "zmk,behavior-tap";
             #binding-cells = <1>;
-            label = "JP_LBRC";
-            bindings = <&kp JP_LBRC>;
-        };
-
-        jp_minus_key: jp_minus_key {
-            compatible = "zmk,behavior-tap";
-            #binding-cells = <1>;
-            label = "JP_-";
-            bindings = <&kp JP_MINUS>;
+            label = "JP_+";
+            bindings = <&kp JP_PLUS>;
         };
 
         jp_asterisk_key: jp_asterisk_key {
