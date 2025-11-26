@@ -2,9 +2,9 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    # 🚨 スニペットを無効にする環境変数をジョブ全体に設定
+    # 🚨 スニペットを無効にする環境変数をジョブ全体に設定（DTSエラー対策）
     env:
       ZMK_STUDIO_SNIPPET: ''
     
-    # 🚨 再利用可能なワークフローをトップレベルで呼び出す（元の正しい構造）
+    # 🚨 再利用可能なワークフローをトップレベルで呼び出す（構文エラー対策）
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
