@@ -78,9 +78,9 @@
         EN { bindings = <&kp LANG2>; key-positions = <12 13>; };
         JP { bindings = <&kp LANG1>; key-positions = <22 23>; };
         katakana { bindings = <&kp LANG3>; key-positions = <0 1>; };
-    }; // <-- combos ノードの終了
+    };
 
-    behaviors { // <-- エラー発生箇所の開始行
+    behaviors {
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
@@ -93,8 +93,128 @@
             bindings = <&msc>, <&msc>;
             tap-ms = <20>;
         };
+
+    /* 1. JIS記号の定義 */
+        jp_at_key: jp_at_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_@";
+            bindings = <&kp JP_AT>;
+        };
+
+        jp_quot_key: jp_quot_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_\"";
+            bindings = <&kp JP_QUOT>;
+        };
+
+        jp_colon_key: jp_colon_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_:";
+            bindings = <&kp JP_COLON>;
+        };
+
+        jp_under_key: jp_under_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP__";
+            bindings = <&kp JP_UNDER>;
+        };
+
+        jp_caret_key: jp_caret_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_^";
+            bindings = <&kp JP_CARET>;
+        };
+
+        jp_tild_key: jp_tild_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_~";
+            bindings = <&kp JP_TILD>;
+        };
+
+        jp_plus_key: jp_plus_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_+";
+            bindings = <&kp JP_PLUS>;
+        };
+
+        jp_asterisk_key: jp_asterisk_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_*";
+            bindings = <&kp JP_ASTR>;
+        };
+
+        jp_equal_key: jp_equal_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_=";
+            bindings = <&kp JP_EQL>;
+        };
+
+        jp_yen_key: jp_yen_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_\\";
+            bindings = <&kp JP_YEN>;
+        };
+
+    /* 2. 日本語入力切り替え関連の定義 */
+        jp_eisu_key: jp_eisu_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_EISU";
+            bindings = <&kp JP_EISU>;
+        };
+
+        jp_kana_key: jp_kana_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_KANA";
+            bindings = <&kp JP_KANA>;
+        };
+
+        jp_hanzen_key: jp_hanzen_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_HANZEN";
+            bindings = <&kp JP_HANZEN>;
+        };
         
-        // JIS記号関連のカスタムビヘイビアは引き続き削除
+    /* 3. その他（丸括弧や中括弧など）の定義 */
+        jp_lpar_key: jp_lpar_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_(";
+            bindings = <&kp JP_LPAR>;
+        };
+
+        jp_rpar_key: jp_rpar_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_)";
+            bindings = <&kp JP_RPAR>;
+        };
+
+        jp_lcbr_key: jp_lcbr_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_{";
+            bindings = <&kp JP_LCBR>;
+        };
+
+        jp_rcbr_key: jp_rcbr_key {
+            compatible = "zmk,behavior-tap";
+            #binding-cells = <1>;
+            label = "JP_}";
+            bindings = <&kp JP_RCBR>;
+        };
     };
 
     keymap {
