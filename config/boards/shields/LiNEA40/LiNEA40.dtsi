@@ -94,6 +94,31 @@
         triggers-per-rotation = <8>;
     };
 
+/ {
+    // JISキーコードをZMKのキーコードエイリアスとして定義
+    // <&kp XXX> は 'Press and Release' の意味
+    // JIS配列のキーが、US配列の物理的なキーコードに対応するようにマッピング
+
+    jp_keys {
+        compatible = "zmk,key-code-aliases";
+
+        JP_AT: at { bindings = <&kp LBRACKET>; };
+        JP_COLON: colon { bindings = <&kp SQUOTE>; };
+        JP_YEN: yen { bindings = <&kp NON_US_HASH>; };
+        JP_HAT: hat { bindings = <&kp GRAVE>; };
+        JP_EQUAL: equal { bindings = <&kp EQUAL>; };
+        JP_MINUS: minus { bindings = <&kp MINUS>; };
+        JP_LBRACKET: lbracket { bindings = <&kp RBRACKET>; };
+        JP_SEMICOLON: semicolon { bindings = <&kp SEMICOLON>; };
+        JP_RBRACKET: rbracket { bindings = <&kp BACKSLASH>; };
+        JP_COMMA: comma { bindings = <&kp COMMA>; };
+        JP_DOT: dot { bindings = <&kp DOT>; };
+        JP_SLASH: slash { bindings = <&kp SLASH>; };
+        JP_BS_SLASH: bs_slash { bindings = <&kp NON_US_BSLH>; };
+        JP_NONUS_HASH: nonus_hash { bindings = <&kp NON_US_HASH>; };
+    };
+};
+
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
