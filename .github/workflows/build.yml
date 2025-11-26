@@ -3,6 +3,3 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
-    with:
-      # 🚨 west buildに直接Kconfigオプションを渡し、DTSエラーの原因を無効化
-      extra_pristine_args: '-DCONFIG_ZMK_SNIPPET_STUDIO_RPC_USB_UART=n'
