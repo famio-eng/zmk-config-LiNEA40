@@ -58,7 +58,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -148,113 +148,300 @@
             tap-ms = <20>;
         };
 
-/* 1. JIS記号の定義 */
+        /* 1. JIS記号の定義 */
 
-        jp_at_key: jp_at_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_@";
-            bindings = <&kp LBKT>; // 修正: JP_ATの展開結果 (LBKT) を直接使用
-        };
+               
 
-        jp_quot_key: jp_quot_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_\"";
-            bindings = <&kp LS(N2)>; // 修正: JP_QUOTの展開結果を直接使用
-        };
+        jp_at_key: jp_at_key {
+                       
 
-        jp_colon_key: jp_colon_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_:";
-            bindings = <&kp SQT>; // 修正: JP_COLONの展開結果を直接使用
-        };
+            compatible = "zmk,behavior-tap";
 
-        jp_under_key: jp_under_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP__";
-            bindings = <&kp LS(0x87)>; // 修正: JP_UNDERの展開結果を直接使用
-        };
+                       
 
-        jp_caret_key: jp_caret_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_^";
-            bindings = <&kp EQUAL>; // 修正: JP_CARETの展開結果を直接使用
-        };
+            label = "JP_@";
 
-        jp_tild_key: jp_tild_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_~";
-            bindings = <&kp LS(EQUAL)>; // 修正: JP_TILDの展開結果を直接使用
-        };
+                       
 
-        jp_plus_key: jp_plus_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_+";
-            bindings = <&kp LS(SEMI)>; // 修正: JP_PLUSの展開結果を直接使用
-        };
+            bindings = <&kp LBKT>; // 修正: JP_ATの展開結果 (LBKT) を直接使用
+                   
+        };
 
-        jp_asterisk_key: jp_asterisk_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_*";
-            bindings = <&kp LS(SQT)>; // 修正: JP_ASTRの展開結果を直接使用
-        };
+               
 
-        jp_equal_key: jp_equal_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_=";
-            bindings = <&kp LS(MINUS)>; // 修正: JP_EQLの展開結果を直接使用
-        };
+        jp_quot_key: jp_quot_key {
+                       
 
-        jp_yen_key: jp_yen_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_\\";
-            bindings = <&kp 0x89>; // 修正: JP_YENの展開結果を直接使用
-        };
+            compatible = "zmk,behavior-tap";
 
-        /* 2. 日本語入力切り替え関連の定義 */
+                       
 
-        jp_eisu_key: jp_eisu_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_EISU";
-            bindings = <&kp 0x91>; // 修正: JP_EISUの展開結果を直接使用
-        };
+            label = "JP_\"";
 
-        jp_kana_key: jp_kana_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_KANA";
-            bindings = <&kp 0x90>; // 修正: JP_KANAの展開結果を直接使用
-        };
+                       
 
-        jp_hanzen_key: jp_hanzen_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_HANZEN";
-            bindings = <&kp GRAVE>; // 修正: JP_HANZENの展開結果を直接使用
-        };
+            bindings = <&kp LS(N2)>; // 修正: JP_QUOTの展開結果を直接使用
+                   
+        };
 
-        /* 3. その他（中括弧や丸括弧など）の定義 */
+               
 
-        jp_lpar_key: jp_lpar_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_(";
-            bindings = <&kp LS(N8)>; // 修正: JP_LPARの展開結果を直接使用
-        };
+        jp_colon_key: jp_colon_key {
+                       
 
-        jp_rpar_key: jp_rpar_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_)";
-            bindings = <&kp LS(N9)>; // 修正: JP_RPARの展開結果を直接使用
-        };
+            compatible = "zmk,behavior-tap";
 
-        jp_lcbr_key: jp_lcbr_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_{";
-            bindings = <&kp LS(RBKT)>; // 修正: JP_LCBRの展開結果を直接使用
-        };
+                       
 
-        jp_rcbr_key: jp_rcbr_key {
-            compatible = "zmk,behavior-tap";
-            label = "JP_}";
-            bindings = <&kp LS(NUHS)>; // 修正: JP_RCBRの展開結果を直接使用
-        };
+            label = "JP_:";
+
+                       
+
+            bindings = <&kp SQT>; // 修正: JP_COLONの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_under_key: jp_under_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP__";
+
+                       
+
+            bindings = <&kp LS(0x87)>; // 修正: JP_UNDERの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_caret_key: jp_caret_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_^";
+
+                       
+
+            bindings = <&kp EQUAL>; // 修正: JP_CARETの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_tild_key: jp_tild_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_~";
+
+                       
+
+            bindings = <&kp LS(EQUAL)>; // 修正: JP_TILDの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_plus_key: jp_plus_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_+";
+
+                       
+
+            bindings = <&kp LS(SEMI)>; // 修正: JP_PLUSの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_asterisk_key: jp_asterisk_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_*";
+
+                       
+
+            bindings = <&kp LS(SQT)>; // 修正: JP_ASTRの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_equal_key: jp_equal_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_=";
+
+                       
+
+            bindings = <&kp LS(MINUS)>; // 修正: JP_EQLの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_yen_key: jp_yen_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_\\";
+
+                       
+
+            bindings = <&kp 0x89>; // 修正: JP_YENの展開結果を直接使用
+                   
+        };
+
+                /* 2. 日本語入力切り替え関連の定義 */
+
+       
+
+        jp_eisu_key: jp_eisu_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_EISU";
+
+                       
+
+            bindings = <&kp 0x91>; // 修正: JP_EISUの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_kana_key: jp_kana_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_KANA";
+
+                       
+
+            bindings = <&kp 0x90>; // 修正: JP_KANAの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_hanzen_key: jp_hanzen_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_HANZEN";
+
+                       
+
+            bindings = <&kp GRAVE>; // 修正: JP_HANZENの展開結果を直接使用
+                   
+        };
+
+                /* 3. その他（中括弧や丸括弧など）の定義 */
+
+       
+
+        jp_lpar_key: jp_lpar_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_(";
+
+                       
+
+            bindings = <&kp LS(N8)>; // 修正: JP_LPARの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_rpar_key: jp_rpar_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_)";
+
+                       
+
+            bindings = <&kp LS(N9)>; // 修正: JP_RPARの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_lcbr_key: jp_lcbr_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_{";
+
+                       
+
+            bindings = <&kp LS(RBKT)>; // 修正: JP_LCBRの展開結果を直接使用
+                   
+        };
+
+               
+
+        jp_rcbr_key: jp_rcbr_key {
+                       
+
+            compatible = "zmk,behavior-tap";
+
+                       
+
+            label = "JP_}";
+
+                       
+
+            bindings = <&kp LS(NUHS)>; // 修正: JP_RCBRの展開結果を直接使用
+                   
+        };
     };
 
     keymap {
@@ -293,10 +480,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &jp_quot_key     &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &jp_quot_key   &jp_lpar_key      &jp_rpar_key       &jp_yen_key
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &jp_equal_key     &jp_plus_key   &jp_asterisk_key  &kp LEFT_BRACKET   &jp_lcbr_key
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &jp_caret_key     &kp SEMICOLON  &jp_colon_key     &kp RIGHT_BRACKET  &jp_rcbr_key
-&trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                           &kp QUESTION      &kp SLASH          &jp_under_key
+&kp EXCLAMATION             &kp DOUBLE_QUOTES  &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &jp_quot_key   &jp_lpar_key      &jp_rpar_key       &jp_yen_key
+&kp SLASH                   &kp KP_NUMBER_4    &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &jp_equal_key     &jp_plus_key   &jp_asterisk_key  &kp LEFT_BRACKET   &jp_lcbr_key
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1    &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &jp_caret_key     &kp SEMICOLON  &jp_colon_key     &kp RIGHT_BRACKET  &jp_rcbr_key
+&trans                      &trans             &trans           &trans         &trans         &trans    &trans  &trans                           &kp QUESTION      &kp SLASH          &jp_under_key
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
