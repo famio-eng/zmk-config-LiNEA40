@@ -3,3 +3,6 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
+    with:
+      # 🚨 スニペットの読み込みを制御するKconfigオプションを明示的に無効化
+      kconfig: CONFIG_ZMK_SNIPPET_STUDIO_RPC_USB_UART=n
