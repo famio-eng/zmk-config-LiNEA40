@@ -311,7 +311,7 @@
             bindings = <
 &kp EXCLAMATION           &jp_quot_key    &kp HASH         &kp DOLLAR    &kp PERCENT                      &kp LS(NUMBER_6) &jp_quot_key  &jp_lpar_key   &jp_rpar_key     &jp_yen_key
 &kp SLASH                 &kp KP_NUMBER_4 &kp KP_NUMBER_5 &kp SEMICOLON &kp SEMICOLON                  &jp_equal_key     &jp_plus_key  &jp_asterisk_key &kp LEFT_BRACKET &jp_lcbr_key
-&mt LEFT_SHIFT KP_NUMBER_0 &kp KP_NUMBER_1 &kp KP_NUMBER_2 &kp APOS      &kp SQT                          &jp_caret_key    &kp SEMICOLON &jp_colon_key    &kp RIGHT_BRACKET &jp_rcbr_key // 👈 修正前: &mt LEFT_SHIFT KP_NUMBER_0
+&mt LEFT_SHIFT KP_NUMLOCK_OFF &kp KP_NUMBER_1 &kp KP_NUMBER_2 &kp APOS      &kp SQT                          &jp_caret_key    &kp SEMICOLON &jp_colon_key    &kp RIGHT_BRACKET &jp_rcbr_key // 👈 修正箇所
 &trans                    &trans          &trans          &trans        &trans          &trans    &trans  &trans                        &kp QUESTION    &kp SLASH          &jp_under_key
             >;
 
