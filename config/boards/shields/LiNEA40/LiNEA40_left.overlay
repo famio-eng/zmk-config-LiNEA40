@@ -16,12 +16,14 @@
 };
 
 /* ZMK StudioのRPC設定をシールドに直接追加 */
-&cdc_acm_uart {
-    status = "okay";
+// 🚨 参照ノード名を &zephyr_udc_cdc_acm_uart に変更
+&zephyr_udc_cdc_acm_uart {
+    status = "okay"; 
 };
 
 / {
     chosen {
-        zmk,studio-rpc-uart = &cdc_acm_uart;
+        // 🚨 ZMK Studio は現在このノードを参照
+        zmk,studio-rpc-uart = &zephyr_udc_cdc_acm_uart;
     };
 };
