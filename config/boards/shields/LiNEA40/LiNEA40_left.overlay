@@ -14,16 +14,3 @@
 &left_encoder {
    status = "okay";
 };
-
-/* ZMK StudioのRPC設定をシールドに直接追加 */
-// 🚨 参照ノード名を &uart1 に変更
-&uart1 {
-    status = "okay"; 
-};
-
-/ {
-    chosen {
-        // 🚨 ZMK Studio は現在 &uart1 を参照
-        zmk,studio-rpc-uart = &uart1;
-    };
-};
