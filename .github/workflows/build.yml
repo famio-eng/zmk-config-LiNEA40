@@ -3,3 +3,6 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
+    with:
+      # STUDIO_SNIPPETを空に設定することで、標準スニペットの参照を無効化する
+      STUDIO_SNIPPET: ''
