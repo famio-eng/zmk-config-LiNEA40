@@ -8,18 +8,12 @@
 #     cmake-args: -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
 #     artifact-name: corne_central
 
-# LiNEA40の左右ビルドに必要な設定を定義
 include:
   - board: seeeduino_xiao_ble
     shield: LiNEA40_left rgbled_adapter
-    # 左右両方に Studio 設定を適用（設定はoverlayファイルに任せる）
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-  
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    # 🚨 snippet: studio-rpc-usb-uart の行を完全に削除
+    snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
-
-  # 設定リセットビルドを残したい場合は含める
-  # - board: seeeduino_xiao_ble
-  #   shield: settings_reset
+  - board: seeeduino_xiao_ble
+    shield: settings_reset
