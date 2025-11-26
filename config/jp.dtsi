@@ -36,28 +36,28 @@
 // ---------------------------------------------------------
 // 互換性レイヤー
 // ---------------------------------------------------------
-#define JP_DQUOTE       JP_QUOT
-#define JP_AMPERSAND    JP_AMPS
-#define JP_QUOTE        JP_SQT
-#define JP_EQUAL        JP_EQL
-#define JP_CARET        EQUAL         // ^ (US: =)
-#define JP_TILDE        JP_TILD
-#define JP_COLON        JP_COLN
-#define JP_ASTERISK     JP_ASTR
-#define JP_BACKQUOTE    LEFT_BRACE
-#define JP_UNDERSCORE   JP_UNDER
+#define JP_DQUOTE JP_QUOT
+#define JP_AMPERSAND JP_AMPS
+#define JP_QUOTE JP_SQT
+#define JP_EQUAL JP_EQL
+#define JP_CARET EQUAL         // ^ (US: =)
+#define JP_TILDE JP_TILD
+#define JP_COLON JP_COLN
+#define JP_ASTERISK JP_ASTR
+#define JP_BACKQUOTE LEFT_BRACE
+#define JP_UNDERSCORE JP_UNDER
 
 #define JP_LEFT_BRACKET JP_LBRC
 #define JP_RIGHT_BRACKET JP_RBRC
 
-#define JP_LPAREN       JP_LPAR
-#define JP_RPAREN       JP_RPAR
-#define JP_LBRACE       JP_LCBR
-#define JP_RBRACE       JP_RCBR
+#define JP_LPAREN JP_LPAR
+#define JP_RPAREN JP_RPAR
+#define JP_LBRACE JP_LCBR
+#define JP_RBRACE JP_RCBR
 
 // 日本語入力切り替え関連
-#define JP_KANA_KEY     JP_KANA      // かな
-#define JP_EISU_KEY     JP_EISU      // 英数
-#define JP_HANZEN_KEY   JP_HANZEN    // 半角/全角
+#define JP_KANA_KEY JP_KANA      // かな
+#define JP_EISU_KEY JP_EISU      // 英数
+#define JP_HANZEN_KEY JP_HANZEN    // 半角/全角
 
-#define JP_AT_SYM       JP_AT
+#define JP_AT_SYM JP_AT
