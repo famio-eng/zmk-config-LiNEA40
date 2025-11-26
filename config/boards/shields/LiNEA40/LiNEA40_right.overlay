@@ -68,3 +68,15 @@
     status = "okay";
     device = <&trackball>;
 };
+
+
+/* ZMK StudioのRPC設定をシールドに直接追加 */
+&cdc_acm_uart {
+    status = "okay";
+};
+
+/ {
+    chosen {
+        zmk,studio-rpc-uart = &cdc_acm_uart;
+    };
+};
