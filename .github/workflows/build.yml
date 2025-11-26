@@ -4,6 +4,5 @@ jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
     with:
-      # ZMK Studioスニペットの参照を明示的に空に設定し、DTSエラーを回避する
-      # config/studio.overlay は引き続き有効です。
-      SNIPPET: ''
+      # 🚨 正しいパラメータ名 'snippets' を使用し、空の値を渡すことでスニペットの参照を無効化
+      snippets: ''
