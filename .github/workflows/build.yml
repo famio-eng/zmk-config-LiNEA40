@@ -4,5 +4,5 @@ jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
     with:
-      # 🚨 スニペットの読み込みを制御するKconfigオプションを明示的に無効化
-      kconfig: CONFIG_ZMK_SNIPPET_STUDIO_RPC_USB_UART=n
+      # 🚨 west buildに直接Kconfigオプションを渡し、DTSエラーの原因を無効化
+      extra_pristine_args: '-DCONFIG_ZMK_SNIPPET_STUDIO_RPC_USB_UART=n'
