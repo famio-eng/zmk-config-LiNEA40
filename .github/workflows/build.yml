@@ -2,12 +2,8 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    # 🚨 必須のランナー指定を追加
-    runs-on: ubuntu-latest
-    
-    # 環境変数の設定 (DTSエラー回避のため)
-    env:
-      ZMK_STUDIO_SNIPPET: ''
-    
-    # ZMK標準アクションの呼び出し
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
+    with:
+      # ZMK Studioスニペットの参照を明示的に空に設定し、DTSエラーを回避する
+      # config/studio.overlay は引き続き有効です。
+      SNIPPET: ''
