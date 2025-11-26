@@ -3,4 +3,3 @@ config SHIELD_LiNEA40_LEFT
 
 config SHIELD_LiNEA40_RIGHT
     def_bool $(shields_list_contains,LiNEA40_right)
-
