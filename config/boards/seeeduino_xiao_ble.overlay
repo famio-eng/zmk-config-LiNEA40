@@ -1,10 +1,13 @@
 /*
- * USB-CDC ACM機能を有効化し、cdc_acm_uartノードを定義
+ * USB/CDC ACM機能を有効化し、既存のノードを参照可能にする
  */
-&usb {
+
+// 🚨 nRF52840 の USB デバイスノードは通常 &usbd
+&usbd {
     status = "okay";
 };
 
-&usbd_cdc_acm {
+// 🚨 CDC ACM ノードを有効化
+&zephyr_udc_cdc_acm_uart {
     status = "okay";
-};j
+};
