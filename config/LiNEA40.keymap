@@ -254,7 +254,7 @@
             compatible = "zmk,behavior-tap";
             label = "JP_}";
             bindings = <&kp LS(NUHS)>; // 修正: JP_RCBRの展開結果を直接使用
-        };ｊ
+        };
     };
 
     keymap {
