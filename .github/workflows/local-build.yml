@@ -24,7 +24,7 @@ jobs:
           python3 generate.py --locale ja --output ../generated_locale
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ja-locale
           path: generated_locale/*
