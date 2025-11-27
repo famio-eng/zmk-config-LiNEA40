@@ -24,8 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml
-          pip install numpy
+          pip install pyyaml numpy
 
       - name: Generate Japanese locale
         run: |
@@ -37,4 +36,3 @@ jobs:
         with:
           name: ja-locale
           path: locale/**
-ｊ
