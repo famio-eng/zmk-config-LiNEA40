@@ -1,0 +1,30 @@
+name: Generate Japanese Locale for ZMK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-locale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Clone locale generator
+        run: git clone https://github.com/brettmilliken/zmk-locale-generator.git
+
+      - name: Generate JA locale
+        run: |
+          cd zmk-locale-generator
+          python3 generate.py --locale ja --output ../generated_locale
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ja-locale
+          path: generated_locale/*
