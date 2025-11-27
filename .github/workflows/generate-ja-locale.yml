@@ -1,0 +1,40 @@
+name: Generate Japanese Locale for ZMK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Checkout zmk-locale-generator
+        uses: actions/checkout@v4
+        with:
+          repository: urob/zmk-locale-generator
+          path: zmk-locale-generator
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+          pip install numpy
+
+      - name: Generate Japanese locale
+        run: |
+          cd zmk-locale-generator
+          python gen_locale.py --lang ja --output ../locale
+
+      - name: Upload generated files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ja-locale
+          path: locale/**
+ｊ
