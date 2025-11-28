@@ -84,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -378,10 +378,10 @@
 
         default_layer_win {
             bindings = <
-&kp Q             &kp W         &kp E               &kp R  &kp T                                            &kp Y        &kp U  &kp I           &kp O                &lt 6 P
-&kp A             &kp S         &kp D               &kp F  &kp G                                            &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
-&kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                            &kp B        &kp N  &kp M           &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &j_at                &mt JP_UNDERSCORE MINUS
+&kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I           &kp O                &lt 6 P
+&kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
+&kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                  &kp B        &kp N  &kp M           &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG2  &kp LCTRL    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &j_at                &mt JP_UNDERSCORE MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -409,10 +409,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp        &j_sq          &j_under   &j_eq        &j_yen
-&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &kp QUESTION  &j_plus        &kp MINUS  &kp AT_SIGN  &trans
-&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr         &kp SEMICOLON  &j_colon   &j_ast       &trans
-&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                       &kp SLASH  &trans       &trans
+&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp   &j_sq          &j_under   &j_eq        &j_yen
+&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &j_plus  &kp QUESTION   &kp MINUS  &kp AT_SIGN  &trans
+&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr    &kp SEMICOLON  &j_colon   &j_ast       &trans
+&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                  &kp SLASH  &trans       &trans
             >;
 
             sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
@@ -420,11 +420,13 @@
 
         NUMBER {
             bindings = <
-&kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp N5                    &kp NUMBER_6        &kp N7              &kp N8               &kp N9  &kp N0
-&kp F1        &kp F2        &kp F3        &kp F4        &kp F5                    &kp F6              &kp LG(UP_ARROW)    &kp F8               &kp F9  &kp F10
-&trans        &trans        &trans        &trans        &trans                    &kp LG(LEFT_ARROW)  &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)  &trans  &trans
-&trans        &trans        &trans        &trans        &trans  &trans    &trans  &trans                                  &trans               &trans  &trans
+&kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp N5                              &kp NUMBER_6            &kp N7              &kp N8                   &kp N9  &kp N0
+&kp F1        &kp F2        &kp F3        &kp F4        &kp F5                              &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)    &kp LG(LS(RIGHT_ARROW))  &kp F9  &kp F10
+&kp F6        &kp F7        &kp F8        &trans        &trans                              &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans  &trans
+&trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                      &trans                   &trans  &trans
             >;
+
+            sensor-bindings = <&inc_dec_kp LS(K_SCROLL_DOWN) LS(K_SCROLL_UP)>;
         };
 
         SCROLL {
