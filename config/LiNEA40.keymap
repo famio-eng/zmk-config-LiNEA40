@@ -84,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -400,10 +400,10 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans     &trans     &trans        &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK  &mkp MCLK  &mkp RCLK     &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK  &mkp MCLK  &kp UP_ARROW  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans             &trans     &trans        &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans     &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK  &mkp RCLK  &mkp RCLK  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK  &mkp MCLK  &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans             &trans     &trans     &trans
             >;
         };
 
