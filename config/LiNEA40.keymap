@@ -174,53 +174,156 @@
         };
     };
 
-    /* 日本語入力用カスタムマクロ定義（見た目修正版） */
-
+/* 日本語入力用カスタムマクロ定義（全主要記号対応版） */
     macros {
-        /* "@" 表示だが、中身はJIS配列用の "[" を送信 */
-
-        jp_at: jp_at {
+        /* " (ダブルクォート) | US: Shift + 2 */
+        j_dq: j_dq {
+            label = "\"";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N2)>;
+        };
+        /* & (アンパサンド) | US: Shift + 6 */
+        j_amp: j_amp {
+            label = "&";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N6)>;
+        };
+        /* ' (シングルクォート) | US: Shift + 7 */
+        j_sq: j_sq {
+            label = "'";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N7)>;
+        };
+        /* = (イコール) | US: Shift + - */
+        j_eq: j_eq {
+            label = "=";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(MINUS)>;
+        };
+        /* ^ (ハット/キャレット) | US: \ (Backslash) */
+        j_cr: j_cr {
+            label = "^";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp BSLH>;
+        };
+        /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
+        j_yen: j_yen {
+            label = "¥";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INT1>;
+        };
+        /* + (プラス) | US: ; (Semi-colon) */
+        j_plus: j_plus {
+            label = "+";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp SEMI>;
+        };
+        /* ~ (チルダ) | US: Shift + = */
+        j_tilde: j_tilde {
+            label = "~";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(EQUAL)>;
+        };
+        /* | (パイプ) | US: Shift + INT1 (¥) */
+        j_pipe: j_pipe {
+            label = "|";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(INT1)>;
+        };
+        /* @ (アットマーク) | US: [ (Left Bracket) */
+        j_at: j_at {
             label = "@";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LBKT>;
         };
-
-        /* ":" 表示だが、中身はJIS配列用の "'" を送信 */
-
-        jp_colon: jp_colon {
+        /* : (コロン) | US: ' (Single Quote) */
+        j_colon: j_colon {
             label = ":";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SQT>;
         };
-
-        /* "+" 表示だが、中身はJIS配列用のShift+; を送信 */
-
-        jp_plus: jp_plus {
-            label = "+";
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&kp LS(SEMI)>;
-        };
-
-        /* "*" 表示だが、中身はJIS配列用のShift+' を送信 */
-
-        jp_ast: jp_ast {
+        /* * (アスタリスク) | US: Shift + ' */
+        j_ast: j_ast {
             label = "*";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(SQT)>;
         };
-
-        /* "_" 表示だが、中身はJIS配列用のShift+ろ を送信 */
-
-        jp_under: jp_under {
+        /* ` (バッククォート) | US: Shift + ] */
+        j_bt: j_bt {
+            label = "`";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(RBKT)>;
+        };
+        /* _ (アンダースコア) | US: Shift + INT1 (¥) - ※パイプと競合の可能性あり */
+        j_under: j_under {
             label = "_";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp INT1>;
+            bindings = <&kp LS(INT1)>;
         };
+        /* [ (左角括弧) | US: ] (Right Bracket) */
+        j_lbkt: j_lbkt {
+            label = "[";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RBKT>;
+        };
+        /* ] (右角括弧) | US: Shift + [ */
+        j_rbkt: j_rbkt {
+            label = "]";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(LBKT)>;
+        };
+        /* ( (左丸括弧) | US: Shift + 8 */
+        j_lp: j_lp {
+            label = "(";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N8)>;
+        };
+        /* ) (右丸括弧) | US: Shift + 9 */
+        j_rp: j_rp {
+            label = ")";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N9)>;
+        };
+        /* { (左波括弧) | US: Shift + [ (Left Bracket) */
+        j_lbrc: j_lbrc {
+            label = "{";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(LBKT)>;
+        };
+        /* } (右波括弧) | US: Shift + \ (Backslash) */
+        j_rbrc: j_rbrc {
+            label = "}";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(BSLH)>;
+        };
+    };
+
+    /* ZMK標準の日本語入力切り替えキー（マクロ化不要） */
+    behaviors {
+        // キーバインディングとして直接利用します。
+        // &kp KANA
+        // &kp EISU
+        // &kp GRAVE
     };
 
     keymap {
