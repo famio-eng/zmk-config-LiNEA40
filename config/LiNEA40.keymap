@@ -174,6 +174,45 @@
         };
     };
 
+/* 日本語入力用カスタムマクロ定義（見た目修正版） */
+    macros {
+        /* "@" 表示だが、中身はJIS配列用の "[" を送信 */
+        jp_at: jp_at {
+            label = "@";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT>;
+        };
+        /* ":" 表示だが、中身はJIS配列用の "'" を送信 */
+        jp_colon: jp_colon {
+            label = ":";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>;
+        };
+        /* "+" 表示だが、中身はJIS配列用のShift+; を送信 */
+        jp_plus: jp_plus {
+            label = "+";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SEMI)>;
+        };
+        /* "*" 表示だが、中身はJIS配列用のShift+' を送信 */
+        jp_ast: jp_ast {
+            label = "*";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SQT)>;
+        };
+        /* "_" 表示だが、中身はJIS配列用のShift+ろ を送信 */
+        jp_under: jp_under {
+            label = "_";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INT1>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
