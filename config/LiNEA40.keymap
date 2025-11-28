@@ -7,7 +7,6 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
-
 #include "keycode_jp.h"
 
 #define MOUSE 1
@@ -85,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -410,10 +409,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp        &j_sq          &trans     &trans       &j_yen
-&kp SLASH                   &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &kp QUESTION  &j_plus        &kp MINUS  &kp AT_SIGN  &trans
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr         &kp SEMICOLON  &j_colon   &j_ast       &trans
-&trans                      &trans           &trans    &trans      &trans       &trans    &trans  &trans                       &kp SLASH  &trans       &trans
+&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp        &j_sq          &j_under   &j_eq        &j_yen
+&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &kp QUESTION  &j_plus        &kp MINUS  &kp AT_SIGN  &trans
+&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr         &kp SEMICOLON  &j_colon   &j_ast       &trans
+&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                       &kp SLASH  &trans       &trans
             >;
 
             sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
