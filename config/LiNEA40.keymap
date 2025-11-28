@@ -187,14 +187,14 @@
         };
         /* & (アンパサンド) | US: Shift + 6 */
         j_amp: j_amp {
-            label = "&"; // シンボル維持
+            label = "AND"; // シンボル維持
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N6)>;
         };
         /* ' (シングルクォート) | US: Shift + 7 */
         j_sq: j_sq {
-            label = "'"; // シンボル維持
+            label = "SQ"; // シンボル維持
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N7)>;
@@ -208,7 +208,7 @@
         };
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
         j_cr: j_cr {
-            label = "CARET"; // ★DTSエラー回避のため略称化
+            label = "^"; // ★DTSエラー回避のため略称化
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp BSLH>;
