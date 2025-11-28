@@ -83,7 +83,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -391,7 +391,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K                &kp L                    &lt 5 MINUS
 &kp Z             &kp X         &kp C               &kp V  &kp B                                  &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &kp JP_UNDERSCORE
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &j_under
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -408,13 +408,13 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &j_dq            &kp HASH         &kp DOLLAR     &kp PERCENT                      &j_amp        &j_sq          &kp JP_LPAREN  &kp JP_RPAREN          &j_yen
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp QUESTION  &j_plus        &kp MINUS      &kp AT_SIGN            &kp JP_LEFT_BRACKET
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp JP_CARET  &kp SEMICOLON  &kp JP_COLON   &mt JP_ASTERISK COLON  &kp JP_RIGHT_BRACKET
-&trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                       &kp SLASH      &kp JP_AT              &kp JP_UNDERSCORE
+&kp EXCLAMATION             &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp        &j_sq          &trans     &trans       &j_yen
+&kp SLASH                   &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &kp QUESTION  &j_plus        &kp MINUS  &kp AT_SIGN  &trans
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr         &kp SEMICOLON  &j_colon   &j_ast       &trans
+&trans                      &trans           &trans    &trans      &trans       &trans    &trans  &trans                       &kp SLASH  &trans       &trans
             >;
 
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
         };
 
         NUMBER {
