@@ -178,7 +178,7 @@
     macros {
         /* " (ダブルクォート) | US: Shift + 2 */
         j_dq: j_dq {
-            label = "\"";
+            label = "DQ";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N2)>;
