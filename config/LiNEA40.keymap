@@ -83,7 +83,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -174,149 +174,189 @@
         };
     };
 
-/* ---------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
     /* 日本語入力用カスタムマクロ定義 (視認性を優先し、エラー箇所のみ略称化) */
     /* ---------------------------------------------------------------------- */
-/* ---------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
     /* 日本語入力用カスタムマクロ定義 (ビルド成功を優先し全て略称ラベルを使用) */
     /* ---------------------------------------------------------------------- */
+
     macros {
         /* " (ダブルクォート) | US: Shift + 2 */
+
         j_dq: j_dq {
-            label = "DQ"; 
+            label = "DQ";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N2)>;
         };
+
         /* & (アンパサンド) | US: Shift + 6 */
+
         j_amp: j_amp {
-            label = "AMP"; 
+            label = "AMP";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N6)>;
         };
+
         /* ' (シングルクォート) | US: Shift + 7 */
+
         j_sq: j_sq {
-            label = "SQ"; 
+            label = "SQ";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N7)>;
         };
+
         /* = (イコール) | US: Shift + - */
+
         j_eq: j_eq {
-            label = "EQ"; 
+            label = "EQ";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(MINUS)>;
         };
+
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
+
         j_cr: j_cr {
-            label = "CARET"; 
+            label = "CARET";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp BSLH>;
         };
+
         /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
+
         j_yen: j_yen {
-            label = "YEN"; 
+            label = "YEN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp INT1>;
         };
+
         /* + (プラス) | US: ; (Semi-colon) */
+
         j_plus: j_plus {
-            label = "PLUS"; 
+            label = "PLUS";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SEMI>;
         };
+
         /* ~ (チルダ) | US: Shift + = */
+
         j_tilde: j_tilde {
-            label = "TILDE"; 
+            label = "TILDE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(EQUAL)>;
         };
+
         /* | (パイプ) | US: Shift + INT1 (¥) */
+
         j_pipe: j_pipe {
-            label = "PIPE"; 
+            label = "PIPE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(INT1)>;
         };
+
         /* @ (アットマーク) | US: [ (Left Bracket) */
+
         j_at: j_at {
-            label = "AT"; 
+            label = "AT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LBKT>;
         };
+
         /* : (コロン) | US: ' (Single Quote) */
+
         j_colon: j_colon {
-            label = "COLON"; 
+            label = "COLON";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SQT>;
         };
+
         /* * (アスタリスク) | US: Shift + ' */
+
         j_ast: j_ast {
-            label = "AST"; 
+            label = "AST";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(SQT)>;
         };
+
         /* ` (バッククォート) | US: Shift + ] */
+
         j_bt: j_bt {
-            label = "BT"; 
+            label = "BT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(RBKT)>;
         };
+
         /* _ (アンダースコア) | US: Shift + INT1 (¥) */
+
         j_under: j_under {
-            label = "UNDER"; 
+            label = "UNDER";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(INT1)>;
         };
+
         /* [ (左角括弧) | US: ] (Right Bracket) */
+
         j_lbkt: j_lbkt {
-            label = "L_BKT"; 
+            label = "L_BKT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp RBKT>;
         };
+
         /* ] (右角括弧) | US: Shift + [ */
+
         j_rbkt: j_rbkt {
-            label = "R_BKT"; 
+            label = "R_BKT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(LBKT)>;
         };
+
         /* ( (左丸括弧) | US: Shift + 8 */
+
         j_lp: j_lp {
-            label = "L_PAREN"; 
+            label = "L_PAREN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N8)>;
         };
+
         /* ) (右丸括弧) | US: Shift + 9 */
+
         j_rp: j_rp {
-            label = "R_PAREN"; 
+            label = "R_PAREN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N9)>;
         };
+
         /* { (左波括弧) | US: Shift + [ (Left Bracket) */
+
         j_lbrc: j_lbrc {
-            label = "L_BRACE"; 
+            label = "L_BRACE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(LBKT)>;
         };
+
         /* } (右波括弧) | US: Shift + \ (Backslash) */
+
         j_rbrc: j_rbrc {
-            label = "R_BRACE"; 
+            label = "R_BRACE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(BSLH)>;
@@ -324,6 +364,7 @@
     };
 
     /* ZMK標準の日本語入力切り替えキー（マクロ化不要） */
+
     behaviors {
         // キーバインディングとして直接利用します。
         // &kp KANA
@@ -339,7 +380,7 @@
 &kp Q             &kp W         &kp E               &kp R  &kp T                                            &kp Y        &kp U  &kp I           &kp O                &lt 6 P
 &kp A             &kp S         &kp D               &kp F  &kp G                                            &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
 &kp LEFT_SHIFT    &kp Z         &kp X               &kp C  &kp V                                            &kp B        &kp N  &kp M           &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
-&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &j_at               &mt JP_UNDERSCORE MINUS
+&kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 LANG_ZENKAKUHANKAKU  &mo 7    &lt 3 ENTER  &lt 4 SPACE         &lt 7 QUESTION  &j_at                &mt JP_UNDERSCORE MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -367,10 +408,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION             &kp JP_DQUOTE    &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp LS(NUMBER_6)  &kp JP_QUOTE   &kp JP_LPAREN    &kp JP_RPAREN          &kp SLASH
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp JP_TILDE      &kp JP_PLUS    &kp JP_ASTERISK  &kp AT_SIGN            &kp JP_LEFT_BRACKET
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp JP_CARET      &kp SEMICOLON  &kp JP_COLON     &mt JP_ASTERISK COLON  &kp JP_RIGHT_BRACKET
-&trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                           &kp QUESTION     &kp JP_AT              &kp JP_UNDERSCORE
+&kp EXCLAMATION             &j_dq            &kp HASH         &kp DOLLAR     &kp PERCENT                      &j_amp        &j_sq          &kp JP_LPAREN  &kp JP_RPAREN          &j_yen
+&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp QUESTION  &j_plus        &kp MINUS      &kp AT_SIGN            &kp JP_LEFT_BRACKET
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp JP_CARET  &kp SEMICOLON  &kp JP_COLON   &mt JP_ASTERISK COLON  &kp JP_RIGHT_BRACKET
+&trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                       &kp SLASH      &kp JP_AT              &kp JP_UNDERSCORE
             >;
 
             sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
