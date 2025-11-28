@@ -174,11 +174,11 @@
         };
     };
 
-/* 日本語入力用カスタムマクロ定義（全主要記号対応版） */
+/* 日本語入力用カスタムマクロ定義（最終安定版） */
     macros {
         /* " (ダブルクォート) | US: Shift + 2 */
         j_dq: j_dq {
-            label = "DQ";
+            label = "DQ"; // " -> DQ に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N2)>;
@@ -206,14 +206,14 @@
         };
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
         j_cr: j_cr {
-            label = "^";
+            label = "CARET"; // ^ -> CARET に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp BSLH>;
         };
         /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
         j_yen: j_yen {
-            label = "¥";
+            label = "YEN"; // ¥ -> YEN に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp INT1>;
@@ -227,14 +227,14 @@
         };
         /* ~ (チルダ) | US: Shift + = */
         j_tilde: j_tilde {
-            label = "~";
+            label = "TILDE"; // ~ -> TILDE に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(EQUAL)>;
         };
         /* | (パイプ) | US: Shift + INT1 (¥) */
         j_pipe: j_pipe {
-            label = "|";
+            label = "PIPE"; // | -> PIPE に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(INT1)>;
@@ -262,12 +262,12 @@
         };
         /* ` (バッククォート) | US: Shift + ] */
         j_bt: j_bt {
-            label = "`";
+            label = "BT"; // ` -> BT に修正
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(RBKT)>;
         };
-        /* _ (アンダースコア) | US: Shift + INT1 (¥) - ※パイプと競合の可能性あり */
+        /* _ (アンダースコア) | US: Shift + INT1 (¥) */
         j_under: j_under {
             label = "_";
             compatible = "zmk,behavior-macro";
