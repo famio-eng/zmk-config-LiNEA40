@@ -201,14 +201,14 @@
         };
         /* = (イコール) | US: Shift + - */
         j_eq: j_eq {
-            label = "="; // シンボル維持
+            label = "EQUAL"; // シンボル維持
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(MINUS)>;
         };
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
         j_cr: j_cr {
-            label = "^"; // ★DTSエラー回避のため略称化
+            label = "CARET"; // ★DTSエラー回避のため略称化
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp BSLH>;
@@ -222,7 +222,7 @@
         };
         /* + (プラス) | US: ; (Semi-colon) */
         j_plus: j_plus {
-            label = "+"; // シンボル維持
+            label = "PLUS"; // シンボル維持
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SEMI>;
