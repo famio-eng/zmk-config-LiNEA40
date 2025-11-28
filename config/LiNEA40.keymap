@@ -177,143 +177,146 @@
 /* ---------------------------------------------------------------------- */
     /* 日本語入力用カスタムマクロ定義 (視認性を優先し、エラー箇所のみ略称化) */
     /* ---------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
+    /* 日本語入力用カスタムマクロ定義 (ビルド成功を優先し全て略称ラベルを使用) */
+    /* ---------------------------------------------------------------------- */
     macros {
         /* " (ダブルクォート) | US: Shift + 2 */
         j_dq: j_dq {
-            label = "DQ"; // ★DTSエラー回避のため略称化
+            label = "DQ"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N2)>;
         };
         /* & (アンパサンド) | US: Shift + 6 */
         j_amp: j_amp {
-            label = "AND"; // シンボル維持
+            label = "AMP"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N6)>;
         };
         /* ' (シングルクォート) | US: Shift + 7 */
         j_sq: j_sq {
-            label = "SQ"; // シンボル維持
+            label = "SQ"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N7)>;
         };
         /* = (イコール) | US: Shift + - */
         j_eq: j_eq {
-            label = "EQUAL"; // シンボル維持
+            label = "EQ"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(MINUS)>;
         };
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
         j_cr: j_cr {
-            label = "CARET"; // ★DTSエラー回避のため略称化
+            label = "CARET"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp BSLH>;
         };
         /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
         j_yen: j_yen {
-            label = "YEN"; // ★DTSエラー回避のため略称化
+            label = "YEN"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp INT1>;
         };
         /* + (プラス) | US: ; (Semi-colon) */
         j_plus: j_plus {
-            label = "PLUS"; // シンボル維持
+            label = "PLUS"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SEMI>;
         };
         /* ~ (チルダ) | US: Shift + = */
         j_tilde: j_tilde {
-            label = "TILDE"; // ★DTSエラー回避のため略称化
+            label = "TILDE"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(EQUAL)>;
         };
         /* | (パイプ) | US: Shift + INT1 (¥) */
         j_pipe: j_pipe {
-            label = "PIPE"; // ★DTSエラー回避のため略称化
+            label = "PIPE"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(INT1)>;
         };
         /* @ (アットマーク) | US: [ (Left Bracket) */
         j_at: j_at {
-            label = "@"; // シンボル維持
+            label = "AT"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LBKT>;
         };
         /* : (コロン) | US: ' (Single Quote) */
         j_colon: j_colon {
-            label = ":"; // シンボル維持
+            label = "COLON"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp SQT>;
         };
         /* * (アスタリスク) | US: Shift + ' */
         j_ast: j_ast {
-            label = "*"; // シンボル維持
+            label = "AST"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(SQT)>;
         };
         /* ` (バッククォート) | US: Shift + ] */
         j_bt: j_bt {
-            label = "BT"; // ★DTSエラー回避のため略称化
+            label = "BT"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(RBKT)>;
         };
         /* _ (アンダースコア) | US: Shift + INT1 (¥) */
         j_under: j_under {
-            label = "_"; // シンボル維持
+            label = "UNDER"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(INT1)>;
         };
         /* [ (左角括弧) | US: ] (Right Bracket) */
         j_lbkt: j_lbkt {
-            label = "["; // シンボル維持
+            label = "L_BKT"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp RBKT>;
         };
         /* ] (右角括弧) | US: Shift + [ */
         j_rbkt: j_rbkt {
-            label = "]"; // シンボル維持
+            label = "R_BKT"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(LBKT)>;
         };
         /* ( (左丸括弧) | US: Shift + 8 */
         j_lp: j_lp {
-            label = "("; // シンボル維持
+            label = "L_PAREN"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N8)>;
         };
         /* ) (右丸括弧) | US: Shift + 9 */
         j_rp: j_rp {
-            label = ")"; // シンボル維持
+            label = "R_PAREN"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(N9)>;
         };
         /* { (左波括弧) | US: Shift + [ (Left Bracket) */
         j_lbrc: j_lbrc {
-            label = "{"; // シンボル維持
+            label = "L_BRACE"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(LBKT)>;
         };
         /* } (右波括弧) | US: Shift + \ (Backslash) */
         j_rbrc: j_rbrc {
-            label = "}"; // シンボル維持
+            label = "R_BRACE"; 
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LS(BSLH)>;
