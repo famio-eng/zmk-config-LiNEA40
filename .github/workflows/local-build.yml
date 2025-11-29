@@ -28,11 +28,3 @@ jobs:
         with:
           name: ja-locale
           path: generated_locale/*
-
-          # [ここに追加] PMW3610ドライバを最新の Kumamuk-git から確実に更新する
-      - name: Force west update for modules
-        run: west update
-        # west update は ZMK のセットアップが完了した後で実行する必要があります。
-
-      # ... 既存の west build コマンドを含むステップ
-      - name: West Build
