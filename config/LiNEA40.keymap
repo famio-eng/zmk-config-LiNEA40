@@ -84,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -221,11 +221,11 @@
 
         /* ^ (ハット/キャレット) | US: \ (Backslash) */
 
-        j_cr: j_cr {
+        j_caret: j_cr {
             label = "CARET";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp BSLH>;
+            bindings = <&kp EQUAL>;
         };
 
         /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
@@ -243,7 +243,7 @@
             label = "PLUS";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp SEMI>;
+            bindings = <&kp COLON>;
         };
 
         /* ~ (チルダ) | US: Shift + = */
@@ -252,7 +252,7 @@
             label = "TILDE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(EQUAL)>;
+            bindings = <&kp PLUS>;
         };
 
         /* | (パイプ) | US: Shift + INT1 (¥) */
@@ -324,7 +324,7 @@
             label = "R_BKT";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(LBKT)>;
+            bindings = <&kp BACKSLASH>;
         };
 
         /* ( (左丸括弧) | US: Shift + 8 */
@@ -333,7 +333,7 @@
             label = "L_PAREN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(N8)>;
+            bindings = <&kp ASTRK>;
         };
 
         /* ) (右丸括弧) | US: Shift + 9 */
@@ -342,7 +342,7 @@
             label = "R_PAREN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(N9)>;
+            bindings = <&kp LEFT_PARENTHESIS>;
         };
 
         /* { (左波括弧) | US: Shift + [ (Left Bracket) */
@@ -409,10 +409,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp   &j_sq          &j_under   &j_eq        &j_yen
-&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &j_plus  &kp QUESTION   &kp MINUS  &kp AT_SIGN  &trans
-&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_cr    &kp SEMICOLON  &j_colon   &j_ast       &trans
-&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                  &kp SLASH  &trans       &trans
+&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp    &j_sq          &j_under   &j_eq        &j_yen
+&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbrc     &trans                         &j_plus   &kp QUESTION   &kp MINUS  &kp AT_SIGN  &trans
+&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_lbkt   &j_rbkt     &kp SQT                        &j_caret  &kp SEMICOLON  &j_colon   &j_ast       &trans
+&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                   &kp SLASH  &trans       &trans
             >;
 
             sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
