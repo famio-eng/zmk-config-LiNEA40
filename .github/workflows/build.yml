@@ -3,28 +3,3 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.2.1
-    with:
-      # トラックボールドライバを修正版のリポジトリに上書きして指定します。
-      # ここに ZMK のデフォルトの modules の定義を含め、
-      # PMW3610 ドライバの部分のみを修正版に置き換えます。
-      # PMW3610 ドライバのみを上書きするための適切なキー（例：zmk-pmw3610-driver）を特定する必要があります。
-
-      # 公式ドキュメントに基づき、カスタムモジュール定義を追加します。
-      # PMW3610 ドライバのみを置き換えるための正確なキーが不明なため、
-      # 現状では ZMK コミュニティで一般的に使用されている方法を提案します。
-      
-      # ZMK のデフォルトのリモート定義をコピーします。
-      # 'remote' は zmkfirmware のデフォルトの remote name を使います。
-      # 'modules' の定義は、ZMK の公式アクションで指定する方法に依存します。
-      
-      # **一般的に、このアクションでは `modules` キーを使って上書きします。**
-      modules: |
-        - name: zmk
-          repo: https://github.com/zmkfirmware/zmk
-          revision: main
-        # ... 他のデフォルトモジュールも全てここに記述する必要があります（省略）
-        #
-        # **最も重要な修正：PMW3610 ドライバを Kumamuk のリポジトリに置き換える**
-        - name: zmk-pmw3610-driver
-          repo: https://github.com/kumamuk/zmk-pmw3610-driver
-          revision: main
