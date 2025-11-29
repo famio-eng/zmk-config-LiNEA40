@@ -84,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -351,7 +351,7 @@
             label = "L_BRACE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(LBKT)>;
+            bindings = <&kp RIGHT_BRACE>;
         };
 
         /* } (右波括弧) | US: Shift + \ (Backslash) */
@@ -409,10 +409,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp    &j_sq          &j_under   &j_eq        &j_yen
-&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_rbkt     &j_lp                          &j_plus   &kp QUESTION   &kp MINUS  &kp AT_SIGN  &trans
-&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_caret  &kp SEMICOLON  &j_colon   &j_ast       &trans
-&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                   &kp SLASH  &trans       &trans
+&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp    &j_sq          &j_under   &j_eq   &j_yen
+&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_lbkt     &j_lp                          &j_plus   &kp QUESTION   &kp MINUS  &j_at   &trans
+&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_caret  &kp SEMICOLON  &j_colon   &j_ast  &trans
+&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                   &kp SLASH  &trans  &trans
             >;
 
             sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
@@ -432,8 +432,8 @@
         SCROLL {
             bindings = <
 &trans          &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8    &kp NUMBER_9    &kp KP_PLUS
-&trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &kp KP_SLASH     &mkp LCLK     &mkp MCLK       &mkp RCLK       &kp KP_MINUS
-&kp LEFT_SHIFT  &kp PAGE_DOWN           &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &kp NUMBER_1  &kp NUMBER_2    &kp UP_ARROW    &kp ENTER
+&trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &kp KP_SLASH     &mkp LCLK     &mkp RCLK       &mkp RCLK       &kp KP_MINUS
+&kp LEFT_SHIFT  &kp PAGE_DOWN           &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
             >;
 
