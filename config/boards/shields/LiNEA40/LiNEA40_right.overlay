@@ -1,4 +1,5 @@
 #include "LiNEA40.dtsi"
+#include <input/processors.dtsi>  //Input Processor利用挑戦
 &default_transform {
     col-offset = <6>;
 };
@@ -17,6 +18,8 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+
+        input-processors = <&zip_temp_layer 2 10000>;  //Input Processor利用挑戦
 
     };
 };
@@ -57,7 +60,7 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-        automouse-layer = <2>;
+        //automouse-layer = <2>;  //Input Processor利用挑戦
         snipe-layers = <5>;
         scroll-layers = <5>;
         //scroll-layers = <4 5 6>;
