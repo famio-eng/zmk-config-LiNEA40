@@ -27,7 +27,7 @@
  //==========Input Processor利用挑戦========
 
 / {
-    trackball_listener {
+    trackball_listener: trackball_listener {  //Input Processor利用挑戦:「trackball_listener: 」追記
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
