@@ -23,7 +23,7 @@
         26 // N
         27 // M
     >;
-    require-prior-idles-ms = <200>;
+    require-prior-idle-ms = <200>;
 };
  //==========Input Processor利用挑戦========
 
