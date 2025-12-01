@@ -74,7 +74,7 @@
 
  //==========Input Processor利用挑戦========
 &mkp_input_listener {
-    input-processprs = <&zip_temp_layer 2 250>;
+    input-processors = <&zip_temp_layer 2 250>;
 };
 
  //==========Input Processor利用挑戦========
