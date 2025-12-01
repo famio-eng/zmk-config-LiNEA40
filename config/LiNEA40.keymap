@@ -72,6 +72,13 @@
     };
 };
 
+ //==========Input Processor利用挑戦========
+&mkp_input_listener {
+    input-processprs = <&zip_temp_layer 2 250>;
+};
+
+ //==========Input Processor利用挑戦========
+
 &msc_input_listener {
     speed_up {
         layers = <FUNCTION>;
