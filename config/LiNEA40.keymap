@@ -72,12 +72,11 @@
     };
 };
 
- //==========Input Processor利用挑戦========
-&mkp_input_listener {
-    input-processors = <&zip_temp_layer 2 250>;
-};
+//==========Input Processor利用挑戦========
 
- //==========Input Processor利用挑戦========
+&mkp_input_listener { input-processors = <&zip_temp_layer 2 250>; };
+
+//==========Input Processor利用挑戦========
 
 &msc_input_listener {
     speed_up {
@@ -91,7 +90,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -182,6 +181,7 @@
         };
 
         /*  Input Processor利用挑戦 */
+
         tog_off: toggle_layer_off {
             compatible = "zmk,behavior-toggle-layer";
             #binding-cells = <1>;
@@ -199,7 +199,6 @@
             flavor = "balanced";
             quick-tap-ms = <200>;
         };
-
     };
 
     /* ---------------------------------------------------------------------- */
@@ -211,6 +210,7 @@
 
     macros {
         /*  Input Processor利用挑戦 */
+
         exit_AML: exit_AML {
             compatible = "zmk,behavior-macro";
             wait-ms = <0>;
@@ -228,7 +228,6 @@
             bindings = <&macro_param_1to1 &kp MACRO_PLACEHOLDER &exit_AML>;
             label = "KP_exit_AML";
         };
-
 
         /* " (ダブルクォート) | US: Shift + 2 */
 
@@ -425,10 +424,10 @@
 
         default_layer_win {
             bindings = <
-&kp Q             &kp W         &kp E         &kp R  &kp T                                  &kp Y        &kp U  &kp I           &kp O                &lt 6 P
-&kp A             &kp S         &kp D         &kp F  &kp G                                  &kp H        &kp J  &kp K           &kp L                &lt 5 BACKSPACE
-&kp LEFT_SHIFT    &kp Z         &kp X         &kp C  &kp V                                  &kp B        &kp N  &kp M           &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD
-&kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &lt 7 LANG2  &kp LCTRL    &lt 4 ENTER  &lt 3 SPACE         &lt 7 QUESTION  &j_at                &kp MINUS
+&kp Q             &kp W         &kp E         &kp R  &kp T                                     &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
+&kp A             &kp S         &kp D         &kp F  &kp G                                     &kp H        &kp J  &kp K                &kp L                    &lt 5 BACKSPACE
+&kp Z             &kp X         &kp C         &kp V  &kp B                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
+&kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 4 ENTER  &lt 3 SPACE         &lt 7 QUESTION       &kp ENTER                &kp MINUS
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
@@ -456,10 +455,10 @@
 
         MARK {
             bindings = <
-&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp    &j_sq          &j_under   &j_eq   &j_yen
-&kp SLASH        &kp KP_NUMBER_4  &j_lbrc   &j_lbkt     &j_lp                          &j_plus   &kp QUESTION   &kp MINUS  &j_at   &trans
-&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_caret  &kp SEMICOLON  &j_colon   &j_ast  &kp SLASH
-&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                   &kp SLASH  &trans  &trans
+&kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp  &j_sq          &j_under   &j_tilde      &j_yen
+&kp SLASH        &j_pipe          &j_lbrc   &j_lbkt     &j_lp                          &j_eq   &j_plus        &kp MINUS  &j_caret      &j_at
+&kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_ast  &kp SEMICOLON  &j_colon   &kp QUESTION  &kp SLASH
+&trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                 &kp SLASH  &trans        &trans
             >;
 
             sensor-bindings = <&re_kp LC(K_SCROLL_DOWN) LC(C_AC_SCROLL_UP)>;
@@ -501,7 +500,7 @@
         CURSOR {
             bindings = <
 &trans          &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &trans  &trans  &kp PG_DN       &kp UP_ARROW    &kp PG_UP
-&trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
+&trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &trans  &trans  &kp LEFT_ARROW  &kp UP_ARROW    &kp RIGHT_ARROW
 &kp LEFT_SHIFT  &trans                  &trans            &trans                   &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
             >;
