@@ -84,7 +84,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -125,17 +125,17 @@
 
         screenshot {
             bindings = <&kp PRINTSCREEN>;
-            key-positions = <3 4>;
+            key-positions = <4 3>;
         };
 
         emoji {
             bindings = <&kp LG(PERIOD)>;
-            key-positions = <2 3>;
+            key-positions = <3 1>;
         };
 
         escape {
             bindings = <&kp ESCAPE>;
-            key-positions = <1 2>;
+            key-positions = <1 0>;
         };
 
         tab {
@@ -155,7 +155,7 @@
 
         katakana {
             bindings = <&kp LANG3>;
-            key-positions = <0 1>;
+            key-positions = <23 24>;
         };
     };
 
