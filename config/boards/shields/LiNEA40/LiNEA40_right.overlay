@@ -14,6 +14,17 @@
         ;
 };
 
+ //==========Input Processor利用挑戦========
+&zip_temp_layer {
+    excluded-positions = <
+        18 // J
+        19 // K
+        21 // ;
+        34 // Ctrl
+    >;
+};
+ //==========Input Processor利用挑戦========
+
 / {
     trackball_listener {
         compatible = "zmk,input-listener";
