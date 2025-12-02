@@ -34,15 +34,13 @@
     status = "okay";
     compatible = "nordic,nrf-spim";
     
+    // pinctrl-0 エラー回避のために維持 (ダミー)
     pinctrl-names = "default";
     pinctrl-0 = <&spi0_dummy_default>;
 
-    pinctrl-sleep-names = "sleep";
-    pinctrl-sleep-0 = <&spi0_dummy_default>;
-    // ------------------------------------
+    // pinctrl-sleep-names および pinctrl-sleep-0 は削除されました
 
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
-
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
@@ -50,10 +48,7 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
 
-        /* 感度調整: トラックボールの基本感度を下げる設定はKconfigで行います */
-        // cpi = <600>;        // <--- 削除
-        // snipe-layers = <5>; // <--- 削除
-        // scroll-layers = <5>; // <--- 削除
+        /* Kconfigに設定を移動したため、Devicetreeプロパティは削除済 */
     };
 };
 
@@ -65,7 +60,7 @@
         input-processors = <&zip_temp_layer 2 1000>; // 動きが止まってから1秒(1000ms)でレイヤー解除
     };
     
-    // ダミーのPinctrlノード (前回修正済み)
+    // ダミーのPinctrlノード (エラー回避のために維持)
     pinctrl {
         spi0_dummy_default: spi0_dummy_default {
         };
