@@ -1,6 +1,5 @@
 #include "LiNEA40.dtsi"
-#include <input/processors.dtsi>
-
+#include <input/processors.dtsi>  //Input Processor利用挑戦
 &default_transform {
     col-offset = <6>;
 };
@@ -15,11 +14,9 @@
         ;
 };
 
-//==========Input Processor設定========
+ //==========Input Processor利用挑戦========
 &zip_temp_layer {
     excluded-positions = <
-        6 // U
-        7 // I
         16 // J
         17 // K
         18 // l
@@ -28,48 +25,62 @@
     >;
     require-prior-idle-ms = <200>;
 };
+ //==========Input Processor利用挑戦========
 
-// トラックボールの設定 (右手側)
+/ {
+    trackball_listener: trackball_listener {  //Input Processor利用挑戦:「trackball_listener: 」追記
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+
+        input-processors = <&zip_temp_layer 2 10000>;  //Input Processor利用挑戦
+
+    };
+};
+
+
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
+        };
+    };
+
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
+            low-power-enable;
+        };
+    };
+};
+
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
-    
-    // pinctrl-0 エラー回避のために維持 (ダミー)
-    pinctrl-names = "default";
-    pinctrl-0 = <&spi0_dummy_default>;
-
-    // pinctrl-sleep-names および pinctrl-sleep-0 は削除されました
-
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
+
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-
-        /* Kconfigに設定を移動したため、Devicetreeプロパティは削除済 */
+        //automouse-layer = <2>;  //Input Processor利用挑戦
+        snipe-layers = <5>;
+        scroll-layers = <5>;
+        //scroll-layers = <4 5 6>;
     };
 };
 
-// トラックボールのリスナー（Auto Mouse Layer用）
-/ {
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        input-processors = <&zip_temp_layer 2 1000>; // 動きが止まってから1秒(1000ms)でレイヤー解除
-    };
-    
-    // ダミーのPinctrlノード (エラー回避のために維持)
-    pinctrl {
-        spi0_dummy_default: spi0_dummy_default {
-        };
-    };
-};
-
-/* 左エンコーダー（左手側）の設定を調整 */
-&left_encoder {
+&trackball_listener {
     status = "okay";
-    /* 解像度調整: 4回回して1回キーイベントを発生させる設定 */
-    resolution = <4>; 
+    device = <&trackball>;
 };
