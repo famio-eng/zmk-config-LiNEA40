@@ -34,9 +34,12 @@
     status = "okay";
     compatible = "nordic,nrf-spim";
     
-    // pinctrl-0 エラー回避 (前回修正済み)
     pinctrl-names = "default";
     pinctrl-0 = <&spi0_dummy_default>;
+
+    pinctrl-sleep-names = "sleep";
+    pinctrl-sleep-0 = <&spi0_dummy_default>;
+    // ------------------------------------
 
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
 
