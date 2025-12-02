@@ -33,13 +33,14 @@
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
-    /*
-     * seeeduino_xiao_ble ボードでは以下のピン制御ラベルが定義されていないため、
-     * エラーを避けるためにコメントアウトまたは削除します。
-     * pinctrl-0 = <&spi0_default>;
-     * pinctrl-1 = <&spi0_sleep>;
-     * pinctrl-names = "default", "sleep";
-     */
+    
+    // --- [修正開始] ---
+    // Devicetree検証エラー（'pinctrl-0' is required）を回避するため、
+    // ダミーのピン制御設定を追加します。
+    pinctrl-names = "default";
+    pinctrl-0 = <0>; // <0> は空のプロパティリストを意味し、検証をパスさせます
+    // --- [修正終了] ---
+
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
 
     trackball: trackball@0 {
