@@ -17,6 +17,8 @@
  //==========Input Processor利用挑戦========
 &zip_temp_layer {
     excluded-positions = <
+        6 // U
+        7 // I
         16 // J
         17 // K
         18 // l
