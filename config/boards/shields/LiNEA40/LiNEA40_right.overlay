@@ -34,11 +34,10 @@
     status = "okay";
     compatible = "nordic,nrf-spim";
     
-    // --- [修正開始] ---
-    // Devicetree検証エラー（'pinctrl-0' is required）を回避するため、
-    // ダミーのピン制御設定を追加します。
+    // --- [修正開始: ダミーPinctrlノードの参照] ---
+    // pinctrl-0 エラーを回避するため、ダミーノードを参照します。
     pinctrl-names = "default";
-    pinctrl-0 = <0>; // <0> は空のプロパティリストを意味し、検証をパスさせます
+    pinctrl-0 = <&spi0_dummy_default>;
     // --- [修正終了] ---
 
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
@@ -65,6 +64,14 @@
         device = <&trackball>;
         input-processors = <&zip_temp_layer 2 1000>; // 動きが止まってから1秒(1000ms)でレイヤー解除
     };
+    
+    // --- [追加: ダミーのPinctrlノード] ---
+    // spi0に必須のpinctrl-0プロパティを満たすための空のノードを定義します。
+    pinctrl {
+        spi0_dummy_default: spi0_dummy_default {
+        };
+    };
+    // --- [追加終了] ---
 };
 
 /* 左エンコーダー（左手側）の設定を調整 */
