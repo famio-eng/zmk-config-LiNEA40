@@ -12,4 +12,5 @@ endif
 
 # DTSでの必須プロパティの厳密なチェックを無効化し、エラーを回避する
 config DTS_USE_DEFAULTS
+    bool "Allow DTS default properties to be used" # 型を明記
     default y
