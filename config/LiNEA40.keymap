@@ -90,7 +90,7 @@
         layers = <SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -426,7 +426,7 @@
             bindings = <
 &kp Q             &kp W         &kp E         &kp R  &kp T                                     &kp Y        &kp U  &kp I                &kp O                    &kp P
 &kp A             &kp S         &kp D         &kp F  &kp G                                     &kp H        &kp J  &kp K                &kp L                    &lt 5 BACKSPACE
-&kp Z             &kp X         &kp C         &kp V  &kp B                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 4 ENTER  &lt 3 SPACE         &lt 7 QUESTION       &kp ENTER                &lt 6 TAB
             >;
 
@@ -446,10 +446,10 @@
 
         MOUSE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &msc SCRL_LEFT  &msc SCRL_RIGHT  &trans     &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK       &mkp RCLK        &mkp RCLK  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK       &mkp MCLK        &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                  &trans           &trans     &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &msc SCRL_LEFT  &msc SCRL_RIGHT  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK       &mkp RCLK        &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK       &trans           &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                  &trans           &trans  &trans
             >;
         };
 
