@@ -23,19 +23,23 @@
         26 // N
         27 // M
     >;
-    require-prior-idle-ms = <200>;
+    //require-prior-idle-ms = <200>;
 };
  //==========Input Processor利用挑戦========
 
+// keymap から移設：トラボ使用中に MOUSE レイヤー、500ms 無操作で解除
 / {
-    trackball_listener: trackball_listener {  //Input Processor利用挑戦:「trackball_listener: 」追記
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-
-        input-processors = <&zip_temp_layer 2 10000>;  //Input Processor利用挑戦
-
+        input-processors = <&zip_temp_layer MOUSE 500 &mouse_runtime_input_processor>;
+        scroller {
+            layers = <SCROLL>;
+            input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
+        };
     };
 };
+
 
 
 &pinctrl {
@@ -78,9 +82,4 @@
         scroll-layers = <5>;
         //scroll-layers = <4 5 6>;
     };
-};
-
-&trackball_listener {
-    status = "okay";
-    device = <&trackball>;
 };
