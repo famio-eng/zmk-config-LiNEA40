@@ -9,8 +9,6 @@
 #include <dt-bindings/zmk/pointing.h>
 #include "keycode_jp.h"
 
-#include <input/processors/runtime-input-processor.dtsi>
-
 #define MOUSE 1
 #define MARK 2
 #define CURSOR 3
@@ -75,12 +73,10 @@
 };
 
 //==========Input Processor利用挑戦========
-//&mkp_input_listener { input-processors = <&zip_temp_layer 2 250>; };
+
+&mkp_input_listener { input-processors = <&zip_temp_layer 2 250>; };
+
 //==========Input Processor利用挑戦========
-
-// （いったん無効化。トラックボールでだけ AML を発火させる）
-&mkp_input_listener { input-processors = <&zip_temp_layer MARK 250>; };
-
 
 &msc_input_listener {
     speed_up {
@@ -89,7 +85,15 @@
     };
 };
 
-
+&trackball_listener {
+    scroller {
+        layers = <SCROLL>;
+        input-processors =
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+            //スクロール方向を逆転,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            <&zip_xy_to_scroll_mapper>;
+    };
+};
 
 / {
     combos {
@@ -487,7 +491,7 @@
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                         &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR_ALL
 &trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &bt BT_CLR
 &trans        &trans        &trans        &trans        &trans                               &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &studio_unlock        &trans        &trans
+&trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &trans        &trans        &trans
             >;
 
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
