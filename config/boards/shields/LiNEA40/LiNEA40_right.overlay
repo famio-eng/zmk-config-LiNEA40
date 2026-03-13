@@ -38,12 +38,12 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         // MOUSE=1 に相当（overlay では数値で指定
-        input-processors = <&zip_temp_layer 1 500 &mouse_runtime_input_processor>;
-        scroller {
+        //input-processors = <&zip_temp_layer 1 500 &mouse_runtime_input_processor>;
+        //scroller {
             // SCROLL=5 に相当（overlay では数値で指定）
-            layers = <5>;
-            input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
-        };
+        //    layers = <5>;
+        //    input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
+        //};
     };
 };
 
