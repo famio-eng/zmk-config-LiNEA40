@@ -1,22 +1,59 @@
 #include "LiNEA40.dtsi"
-#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>  //Input Processor利用挑戦
+&default_transform {
+    col-offset = <6>;
+};
+
+&kscan0 {
+    col-gpios
+        = <&xiao_d 10 GPIO_ACTIVE_HIGH> //col0-D10
+        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  //col1-D9
+        , <&xiao_d 8 GPIO_ACTIVE_HIGH>  //col2-D8
+        , <&xiao_d 7 GPIO_ACTIVE_HIGH>  //col3-D7
+        , <&gpio0 10 GPIO_ACTIVE_HIGH>  //col4-NFC2
+        ;
+};
+
+ //==========Input Processor利用挑戦========
+&zip_temp_layer {
+    excluded-positions = <
+        16 // J
+        17 // K
+        18 // l
+        26 // N
+        27 // M
+    >;
+    require-prior-idle-ms = <200>;
+};
+ //==========Input Processor利用挑戦========
+
+/ {
+    trackball_listener: trackball_listener {  //Input Processor利用挑戦:「trackball_listener: 」追記
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+
+        input-processors = <&zip_temp_layer 2 10000>;  //Input Processor利用挑戦
+
+    };
+};
+
 
 &pinctrl {
-
     spi0_default: spi0_default {
         group1 {
-            /* SCLK-D5, SDIO-D4, SDIO-D4 */
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
         };
     };
 
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
             low-power-enable;
         };
     };
@@ -28,24 +65,22 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; // NCS (NFC1)
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";     // ※ Zephyr 3.5系での外部ドライバ想定
+        compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-
-        // 割り込みピン：古い系の driver は irq-gpios を使用
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-
-        // 入力イベント/軸コード（古い系は evt-type / x-input-code / y-input-code）
-        evt-type     = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-
-        // ★ ここでは cpi/res-cpi 等は一切書かない（世代差の食い違いを回避）
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
+        //automouse-layer = <2>;  //Input Processor利用挑戦
+        snipe-layers = <5>;
+        scroll-layers = <5>;
+        //scroll-layers = <4 5 6>;
     };
-}
+};
 
-// ★ 最小検証のためリスナは作らない。AMLやRuntime IPは後で戻す
+&trackball_listener {
+    status = "okay";
+    device = <&trackball>;
+};
