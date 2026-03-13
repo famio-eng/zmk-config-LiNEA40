@@ -1,5 +1,10 @@
 #include "LiNEA40.dtsi"
 #include <input/processors.dtsi>  //Input Processor利用挑戦
+
+// ランタイムIP（DYA Studio から動作パラメータを変えるやつ）
+#include <input/processors/runtime-input-processor.dtsi>
+
+
 &default_transform {
     col-offset = <6>;
 };
@@ -32,9 +37,11 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_temp_layer MOUSE 500 &mouse_runtime_input_processor>;
+        // MOUSE=1 に相当（overlay では数値で指定
+        input-processors = <&zip_temp_layer 1 500 &mouse_runtime_input_processor>;
         scroller {
-            layers = <SCROLL>;
+            // SCROLL=5 に相当（overlay では数値で指定）
+            layers = <5>;
             input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
         };
     };
