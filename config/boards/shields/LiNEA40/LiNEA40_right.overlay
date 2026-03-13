@@ -1,9 +1,6 @@
 // config/boards/shields/LiNEA40/LiNEA40_right.overlay
 #include "LiNEA40.dtsi"
-
-// ★ 今は input processors は使わない（最小検証のため include しない）
-// #include <input/processors.dtsi>
-// #include <input/processors/runtime-input-processor.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &pinctrl {
     spi0_default: spi0_default {
@@ -15,7 +12,6 @@
             >;
         };
     };
-
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <
@@ -34,28 +30,31 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; // NCS-NFC1
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; // NCS (NFC1)
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3610";      // Zephyr 標準ドライバ
         reg = <0>;
         spi-max-frequency = <2000000>;
 
-        // MOT(D6) 割り込み。pull-up は設計に合わせて指定。
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        // 割り込みピン: Zephyr の binding では motion-gpios
+        motion-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>;
 
-        // 念のため CPI を明示（任意）
-        cpi = <800>;
+        // 軸コードの指定（Zephyr binding では zephyr,axis-x / -y）
+        zephyr,axis-x = <INPUT_REL_X>;
+        zephyr,axis-y = <INPUT_REL_Y>;
 
-        // ★ 余計なモードは今は入れない（競合/誤動作の温床）
-        // automouse-layer = <...>;   // 使わない
-        // snipe-layers = <...>;      // 使わない
-        // scroll-layers = <...>;     // 使わない
+        // 感度（200〜3200 の 200刻み）: cpi ではなく res-cpi
+        res-cpi = <800>;
+
+        // 任意: 追従性を広げるスマートモード
+        // smart-mode;
+
+        // 任意: 反転が必要なら有効化
+        // invert-x;
+        // invert-y;
     };
-};
+}
 
-// ★ “最小” 検証中は trackball_listener を作らない
-// / {
-//     trackball_listener: trackball_listener { ... };
-// };
+// ★ “最小検証中” は trackball_listener を作らない（追加処理を一切差さない）
