@@ -1,4 +1,3 @@
-// --- LiNEA40_right.overlay (緊急用ミニマム) ---
 #include "LiNEA40.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
