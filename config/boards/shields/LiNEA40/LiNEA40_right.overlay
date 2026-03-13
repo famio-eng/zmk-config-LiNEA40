@@ -1,70 +1,28 @@
+// config/boards/shields/LiNEA40/LiNEA40_right.overlay
 #include "LiNEA40.dtsi"
-#include <input/processors.dtsi>  //Input Processor利用挑戦
 
-// ランタイムIP（DYA Studio から動作パラメータを変えるやつ）
-#include <input/processors/runtime-input-processor.dtsi>
-
-
-&default_transform {
-    col-offset = <6>;
-};
-
-&kscan0 {
-    col-gpios
-        = <&xiao_d 10 GPIO_ACTIVE_HIGH> //col0-D10
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  //col1-D9
-        , <&xiao_d 8 GPIO_ACTIVE_HIGH>  //col2-D8
-        , <&xiao_d 7 GPIO_ACTIVE_HIGH>  //col3-D7
-        , <&gpio0 10 GPIO_ACTIVE_HIGH>  //col4-NFC2
-        ;
-};
-
- //==========Input Processor利用挑戦========
-&zip_temp_layer {
-    excluded-positions = <
-        16 // J
-        17 // K
-        18 // l
-        26 // N
-        27 // M
-    >;
-    //require-prior-idle-ms = <200>;
-};
- //==========Input Processor利用挑戦========
-
-// keymap から移設：トラボ使用中に MOUSE レイヤー、500ms 無操作で解除
-// {
-//    trackball_listener: trackball_listener {
-//        compatible = "zmk,input-listener";
-//        device = <&trackball>;
-//        // MOUSE=1 に相当（overlay では数値で指定
-//        //input-processors = <&zip_temp_layer 1 500 &mouse_runtime_input_processor>;
-//        //scroller {
-//            // SCROLL=5 に相当（overlay では数値で指定）
-//        //    layers = <5>;
-//        //    input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
-//        //};
-//    };
-//};
-
-
+// ★ 今は input processors は使わない（最小検証のため include しない）
+// #include <input/processors.dtsi>
+// #include <input/processors/runtime-input-processor.dtsi>
 
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
-                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
-                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
-                  ;
+            psels = <
+                NRF_PSEL(SPIM_SCK, 0, 5)   // SCLK-D5
+                NRF_PSEL(SPIM_MOSI, 0, 4)  // SDIO-D4
+                NRF_PSEL(SPIM_MISO, 0, 4)  // SDIO-D4
+            >;
         };
     };
 
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
-                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
-                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
-                  ;
+            psels = <
+                NRF_PSEL(SPIM_SCK, 0, 5)
+                NRF_PSEL(SPIM_MOSI, 0, 4)
+                NRF_PSEL(SPIM_MISO, 0, 4)
+            >;
             low-power-enable;
         };
     };
@@ -76,18 +34,28 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; // NCS-NFC1
 
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
-        //automouse-layer = <2>;  //Input Processor利用挑戦
-        //snipe-layers = <5>;
-        //scroll-layers = <5>;
-        //scroll-layers = <4 5 6>;
-        cpi=<800>;
+
+        // MOT(D6) 割り込み。pull-up は設計に合わせて指定。
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+
+        // 念のため CPI を明示（任意）
+        cpi = <800>;
+
+        // ★ 余計なモードは今は入れない（競合/誤動作の温床）
+        // automouse-layer = <...>;   // 使わない
+        // snipe-layers = <...>;      // 使わない
+        // scroll-layers = <...>;     // 使わない
     };
 };
+
+// ★ “最小” 検証中は trackball_listener を作らない
+// / {
+//     trackball_listener: trackball_listener { ... };
+// };
