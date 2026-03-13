@@ -75,10 +75,12 @@
 };
 
 //==========Input Processor利用挑戦========
-
-&mkp_input_listener { input-processors = <&zip_temp_layer 2 250>; };
-
+//&mkp_input_listener { input-processors = <&zip_temp_layer 2 250>; };
 //==========Input Processor利用挑戦========
+
+// （いったん無効化。トラックボールでだけ AML を発火させる）
+&mkp_input_listener { input-processors = <&zip_temp_layer MARK 250>; };
+
 
 &msc_input_listener {
     speed_up {
@@ -90,7 +92,9 @@
 &trackball_listener {
     compatible = "zmk,input-listener";
     device = <&trackball>;
-    input-processors = <&mouse_runtime_input_processor>; //DYA studioへの対応
+    // トラックボール使用中だけ MOUSE を一時有効（500ms 無操作で戻る
+    input-processors = <&zip_temp_layer MOUSE 500 &mouse_runtime_input_processor>;
+
     scroller {
         layers = <SCROLL>;
         input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>; //DYA studioへの対応
@@ -100,6 +104,12 @@
         //    <&zip_xy_to_scroll_mapper>;
     };
 };
+
+&zip_temp_layer {
+    // 例：この位置番号のキーは“AML 解除の対象外”
+    excluded-positions = <16 17 26>;
+};
+
 
 / {
     combos {
