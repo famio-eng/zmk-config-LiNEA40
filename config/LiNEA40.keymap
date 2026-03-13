@@ -88,7 +88,7 @@
 };
 
 &trackball_listener {
-    compatible = "zmk,input-listener";
+    //compatible = "zmk,input-listener";
     input-processors = <&mouse_runtime_input_processor>; //DYA studioへの対応
     scroller {
         //layers = <SCROLL>;
