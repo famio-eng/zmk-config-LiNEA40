@@ -1,4 +1,4 @@
-// config/boards/shields/LiNEA40/LiNEA40_right.overlay
+// --- LiNEA40_right.overlay (緊急用ミニマム) ---
 #include "LiNEA40.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
@@ -34,27 +34,20 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";      // Zephyr 標準ドライバ
+        compatible = "pixart,pmw3610";     // ※ Zephyr 3.5系での外部ドライバ想定
         reg = <0>;
         spi-max-frequency = <2000000>;
 
-        // 割り込みピン: Zephyr の binding では motion-gpios
-        motion-gpios = <&xiao_d 6 GPIO_ACTIVE_LOW>;
+        // 割り込みピン：古い系の driver は irq-gpios を使用
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
-        // 軸コードの指定（Zephyr binding では zephyr,axis-x / -y）
-        zephyr,axis-x = <INPUT_REL_X>;
-        zephyr,axis-y = <INPUT_REL_Y>;
+        // 入力イベント/軸コード（古い系は evt-type / x-input-code / y-input-code）
+        evt-type     = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
 
-        // 感度（200〜3200 の 200刻み）: cpi ではなく res-cpi
-        res-cpi = <800>;
-
-        // 任意: 追従性を広げるスマートモード
-        // smart-mode;
-
-        // 任意: 反転が必要なら有効化
-        // invert-x;
-        // invert-y;
+        // ★ ここでは cpi/res-cpi 等は一切書かない（世代差の食い違いを回避）
     };
 }
 
-// ★ “最小検証中” は trackball_listener を作らない（追加処理を一切差さない）
+// ★ 最小検証のためリスナは作らない。AMLやRuntime IPは後で戻す
