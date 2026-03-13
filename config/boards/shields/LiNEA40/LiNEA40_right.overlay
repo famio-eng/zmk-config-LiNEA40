@@ -33,7 +33,7 @@
  //==========Input Processor利用挑戦========
 
 // keymap から移設：トラボ使用中に MOUSE レイヤー、500ms 無操作で解除
-/ {
+// {
 //    trackball_listener: trackball_listener {
 //        compatible = "zmk,input-listener";
 //        device = <&trackball>;
