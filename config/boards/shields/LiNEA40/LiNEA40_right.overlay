@@ -17,22 +17,35 @@
 };
 
 / {
-    /* 1. 通常移動・オートマウス用 (Studio上で TBall と表示) */
+    /* 1. 通常移動用 (TBall) */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "TBall";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
     };
 
-    /* 2. スクロール切り替え用 (Studio上で Scrl と表示) */
+    /* 2. スクロール用 (Scrl) */
     trackball_scroll_proc: trackball_scroll_proc {
-        compatible = "zmk,input-processor-runtime";
-        #input-processor-cells = <0>;
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
         processor-label = "Scrl";
-        x-codes = <0x00>;
-        y-codes = <0x01>;
+        type = <INPUT_EV_REL>;
+        
+        /* 入力軸の指定 */
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+        
+        /* 出力信号（ホイール）の指定 */
+        codes = <INPUT_REL_WHEEL INPUT_REL_HWHEEL>;
+        
+        track-remainders;          // 低速時のカクつきを解消
+        acceleration-exponent = <1>; // 1より大きくすると加速 (例: <2>)
+        acceleration-origin = <50>;  
+        
+        multiplier = <1>;
+        divisor = <1>;
     };
 
     /* リスナー：物理センサーの動きを上記2つの窓口に分配 */
@@ -40,11 +53,11 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
+        input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc 0 0>;
     };
 };
 
-/* --- SPI & センサー設定 (物理接続の根幹) --- */
+/* --- SPI & センサー設定 --- */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
