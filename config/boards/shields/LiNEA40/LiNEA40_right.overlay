@@ -1,6 +1,4 @@
 #include "LiNEA40.dtsi"
-#include <input/processors.dtsi>
-#include <input/processors/runtime-input-processor.dtsi>
 
 &default_transform {
     col-offset = <6>;
@@ -17,52 +15,26 @@
 };
 
 / {
-    /* 1. マウス移動用のランタイムプロセッサ実体 */
-    mouse_runtime_input_processor: mouse_runtime_input_processor {
+    /* これが DYA Studio との通信窓口です */
+    trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Trackball";
-        x-codes = <INPUT_REL_X>;
-        y-codes = <INPUT_REL_Y>;
+        x-codes = <0x00>; // REL_X
+        y-codes = <0x01>; // REL_Y
     };
 
-    /* 2. スクロール用のランタイムプロセッサ実体 */
-    scroll_runtime_input_processor: scroll_runtime_input_processor {
-        compatible = "zmk,input-processor-runtime";
-        #input-processor-cells = <0>;
-        processor-label = "Scroll";
-        x-codes = <INPUT_REL_X>;
-        y-codes = <INPUT_REL_Y>;
-    };
-
-    /* 3. XY移動をスクロールに変換するためのスケーラー */
-    zip_xy_to_scroll_mapper: zip_xy_to_scroll_mapper {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>;
-        type = <INPUT_EV_REL>;
-        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
-        track-remainders;
-    };
-
-    /* 4. メインリスナー */
+    /* メインのリスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        
-        /* XY移動の処理ルート */
-        input-processors = <&mouse_runtime_proc>;
-
-        /* スクロール用のサブリスナー */
-        scroll_view {
-            layers = <5>;
-            /* 引数 <1 1> を確実に指定し、次のノードへの干渉を防ぎます */
-            input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_proc>;
-        };
+        /* 参照エラーを防ぐため、定義済みのラベルのみを使用 */
+        input-processors = <&trackball_runtime_proc>;
     };
 };
- 
 
+/* --- SPI & センサー設定 (物理接続の根幹。ここは絶対に変えない) --- */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -71,7 +43,6 @@
                     <NRF_PSEL(SPIM_MISO, 0, 4)>;
         };
     };
-
     spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
