@@ -20,10 +20,14 @@
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "TBall";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
-        /* ここに追加：スクロール変換用のスロットを確保します */
-        input-processors = <&zip_scroll_scaler>;
+    };
+
+    /* 2. スクロール専用のプロセッサを独立して定義 */
+    trackball_scroll_proc: trackball_scroll_proc {
+        compatible = "zmk,input-processor-runtime";
+        #input-processor-cells = <0>;
+        processor-label = "Scrl"; // これで Studio に Scrl という項目が出る
+        input-processors = <&zip_scroll_scaler>; // ここに scaler を書く
     };
 
     /* メインのリスナー定義 */
@@ -31,8 +35,8 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        /* 参照エラーを防ぐため、定義済みのラベルのみを使用 */
-        input-processors = <&trackball_runtime_proc>;
+        /* 両方のプロセッサをリスナーに登録 */
+        input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
     };
 };
 
