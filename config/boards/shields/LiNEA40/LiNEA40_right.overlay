@@ -1,7 +1,7 @@
 #include "LiNEA40.dtsi"
 #include <input/processors.dtsi>
 #include <input/processors/runtime-input-processor.dtsi>
-#include <behaviors/battery_history_request.dts
+#include <behaviors/battery_history_request.dts>
 
 &default_transform {
     col-offset = <6>;
@@ -18,14 +18,46 @@
 };
 
 / {
+    /* --- プロセッサの実体を定義 --- */
+
+    /* マウス移動用のランタイムプロセッサ */
+    mouse_runtime_input_processor: mouse_runtime_input_processor {
+        compatible = "zmk,input-processor-runtime";
+        #input-processor-cells = <0>;
+        processor-label = "Trackball";
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+    };
+
+    /* スクロール用のランタイムプロセッサ */
+    scroll_runtime_input_processor: scroll_runtime_input_processor {
+        compatible = "zmk,input-processor-runtime";
+        #input-processor-cells = <0>;
+        processor-label = "Scroll";
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+    };
+
+    /* XY移動をスクロールに変換するマッパー */
+    zip_xy_to_scroll_mapper: zip_xy_to_scroll_mapper {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <2>;
+        type = <INPUT_EV_REL>;
+        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+        track-remainders;
+    };
+
+/ {
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;      
         input-processors = <&mouse_runtime_input_processor>;
-    status = "okay";
+        status = "okay";
 
-    scroller {
-       input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
+        /* スクロール設定の受け皿 */
+        scroller {
+           input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
+        };
     };
 };
 
@@ -62,6 +94,5 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        /* ドライバ独自の固定設定を削除し、Studio側での制御を優先させます */
     };
 };
