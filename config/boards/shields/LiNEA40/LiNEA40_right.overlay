@@ -20,7 +20,13 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         /* ダミーを割り当てることで文法エラーを回避し、Studio用のスロットを確保 */
-        input-processors = <&ib_dummy>;
+        input-processors = <&zip_temp_layer 0 0>, <&trackball_runtime_proc>;
+
+        /* このノードを定義することで DYA Studio が認識します */
+        trackball_runtime_proc: trackball_runtime_proc {
+            compatible = "zmk,input-processor-runtime";
+            #input-processor-cells = <0>;
+        };
     };
 };
 
