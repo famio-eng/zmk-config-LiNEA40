@@ -15,11 +15,13 @@
 };
 
 / {
-    /* これが DYA Studio との通信窓口です */
+    /* DYA Studio・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "TBall";
+        x-codes = <0x00>; // REL_X
+        y-codes = <0x01>; // REL_Y
     };
 
     /* 2. スクロール専用のプロセッサを独立して定義 */
@@ -27,7 +29,18 @@
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scrl"; // これで Studio に Scrl という項目が出る
-        input-processors = <&zip_scroll_scaler>; // ここに scaler を書く
+        x-codes = <0x00>; // REL_X
+        y-codes = <0x01>; // REL_Y
+        
+        /* スケーラー本体 */
+        zip_scroll_scaler: zip_scroll_scaler {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <0x00 0x01>; // XとY両方を対象
+            track-remainders;
+        };
+
     };
 
     /* メインのリスナー定義 */
