@@ -1,7 +1,6 @@
 #include "LiNEA40.dtsi"
 #include <input/processors.dtsi>
 #include <input/processors/runtime-input-processor.dtsi>
-#include <behaviors/battery_history_request.dts>
 
 &default_transform {
     col-offset = <6>;
@@ -18,9 +17,7 @@
 };
 
 / {
-    /* --- プロセッサの実体を定義 --- */
-
-    /* マウス移動用のランタイムプロセッサ */
+    /* 1. マウス移動用のランタイムプロセッサ実体 */
     mouse_runtime_input_processor: mouse_runtime_input_processor {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
@@ -29,7 +26,7 @@
         y-codes = <INPUT_REL_Y>;
     };
 
-    /* スクロール用のランタイムプロセッサ */
+    /* 2. スクロール用のランタイムプロセッサ実体 */
     scroll_runtime_input_processor: scroll_runtime_input_processor {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
@@ -38,7 +35,7 @@
         y-codes = <INPUT_REL_Y>;
     };
 
-    /* XY移動をスクロールに変換するマッパー */
+    /* 3. XY移動をスクロールに変換するためのスケーラー */
     zip_xy_to_scroll_mapper: zip_xy_to_scroll_mapper {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <2>;
@@ -46,21 +43,21 @@
         codes = <INPUT_REL_X>, <INPUT_REL_Y>;
         track-remainders;
     };
-};
 
-/ {
+    /* 4. リスナー定義（DYA Studioの窓口） */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;      
         input-processors = <&mouse_runtime_input_processor>;
         status = "okay";
 
-        /* スクロール設定の受け皿 */
+        /* DYA Studioで「Scroll」として認識させるためのサブノード */
         scroller {
            input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
         };
     };
 };
+ 
 
 &pinctrl {
     spi0_default: spi0_default {
