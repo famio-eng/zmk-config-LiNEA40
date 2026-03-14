@@ -53,7 +53,8 @@
 
         /* DYA Studioで「Scroll」として認識させるためのサブノード */
         scroller {
-           input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
+            layers = <5>; // ここを 5 にしておくことで、最初からレイヤー5でスクロールが動くようになります
+            input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
         };
     };
 };
