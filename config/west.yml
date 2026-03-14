@@ -23,7 +23,7 @@ manifest:
       revision: main
     - name: zmk-module-runtime-input-processor
       remote: cormoran
-      revision: main
+      revision: v0.3
     - name: zmk-pmw3610-driver
       remote: inorichi
       revision: main
