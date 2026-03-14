@@ -44,18 +44,20 @@
         track-remainders;
     };
 
-    /* 4. リスナー定義 */
+    /* 4. メインリスナー */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball>;      
-        input-processors = <&mouse_runtime_input_processor>;
+        device = <&trackball>;
         status = "okay";
+        
+        /* XY移動の処理ルート */
+        input-processors = <&mouse_runtime_proc>;
 
-        /* 修正ポイント：名前を scroller から scroll-process に変更し、
-           プロセッサの参照形式を整理しました */
-        scroll-process {
-           layers = <5>; 
-           input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
+        /* スクロール用のサブリスナー */
+        scroll_view {
+            layers = <5>;
+            /* 引数 <1 1> を確実に指定し、次のノードへの干渉を防ぎます */
+            input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_proc>;
         };
     };
 };
