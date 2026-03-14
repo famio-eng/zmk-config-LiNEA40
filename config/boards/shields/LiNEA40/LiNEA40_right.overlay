@@ -14,6 +14,8 @@
         ;
 };
 
+#include <dt-bindings/zmk/input_transform.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h> // これが必要でした
 / {
     /* DYA Studio・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
@@ -31,16 +33,6 @@
         processor-label = "Scrl"; // これで Studio に Scrl という項目が出る
         x-codes = <0x00>; // REL_X
         y-codes = <0x01>; // REL_Y
-        
-        /* スケーラー本体 */
-        zip_scroll_scaler: zip_scroll_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <0x00 0x01>; // XとY両方を対象
-            track-remainders;
-        };
-
     };
 
     /* メインのリスナー定義 */
@@ -51,6 +43,11 @@
         /* 両方のプロセッサをリスナーに登録 */
         input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
     };
+};
+
+/* スケーラー本体 */
+zip_scroll_scaler {
+    #input-processor-cells = <2>;
 };
 
 /* --- SPI & センサー設定 (物理接続の根幹。ここは絶対に変えない) --- */
