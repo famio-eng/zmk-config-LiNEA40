@@ -22,6 +22,8 @@
         processor-label = "TBall";
         x-codes = <0x00>; // REL_X
         y-codes = <0x01>; // REL_Y
+        /* ここに追加：スクロール変換用のスロットを確保します */
+        input-processors = <&zip_scroll_scaler>;
     };
 
     /* メインのリスナー定義 */
