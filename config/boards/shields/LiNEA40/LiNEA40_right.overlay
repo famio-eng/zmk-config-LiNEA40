@@ -19,8 +19,8 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        /* 以下の行が重要：Studioからプロセッサを登録できる「空きスロット」を作ります */
-        input-processors = <>;
+        /* ダミーを割り当てることで文法エラーを回避し、Studio用のスロットを確保 */
+        input-processors = <&ib_dummy>;
     };
 };
 
