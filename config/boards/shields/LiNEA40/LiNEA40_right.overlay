@@ -19,13 +19,15 @@
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        /* ダミーを割り当てることで文法エラーを回避し、Studio用のスロットを確保 */
-        input-processors = <&zip_temp_layer 0 0>, <&trackball_runtime_proc>;
+        /* Studio側で設定するためのランタイムプロセッサを指定 */
+        input-processors = <&trackball_runtime_proc>;
 
         /* このノードを定義することで DYA Studio が認識します */
         trackball_runtime_proc: trackball_runtime_proc {
             compatible = "zmk,input-processor-runtime";
             #input-processor-cells = <0>;
+            /* 必須プロパティ: Studioの画面上に表示される名前になります */
+            processor-label = "Trackball";
         };
     };
 };
