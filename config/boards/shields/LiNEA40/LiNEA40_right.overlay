@@ -17,12 +17,15 @@
         ;
 };
 
-&trackball_listener {
-    input-processors = <&mouse_runtime_input_processor>;
+/ {
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;      
+        input-processors = <&mouse_runtime_input_processor>;
     status = "okay";
 
     scroller {
-        input-processors = <&scroll_runtime_input_processor>;
+       input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
     };
 };
 
