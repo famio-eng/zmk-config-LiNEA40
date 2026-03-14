@@ -19,7 +19,7 @@
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "Trackball";
+        processor-label = "TBall";
         x-codes = <0x00>; // REL_X
         y-codes = <0x01>; // REL_Y
     };
