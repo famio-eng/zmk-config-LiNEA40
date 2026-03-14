@@ -44,17 +44,18 @@
         track-remainders;
     };
 
-    /* 4. リスナー定義（DYA Studioの窓口） */
+    /* 4. リスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;      
         input-processors = <&mouse_runtime_input_processor>;
         status = "okay";
 
-        /* DYA Studioで「Scroll」として認識させるためのサブノード */
-        scroller {
-            layers = <5>; // ここを 5 にしておくことで、最初からレイヤー5でスクロールが動くようになります
-            input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
+        /* 修正ポイント：名前を scroller から scroll-process に変更し、
+           プロセッサの参照形式を整理しました */
+        scroll-process {
+           layers = <5>; 
+           input-processors = <&zip_xy_to_scroll_mapper 1 1>, <&scroll_runtime_input_processor>;
         };
     };
 };
