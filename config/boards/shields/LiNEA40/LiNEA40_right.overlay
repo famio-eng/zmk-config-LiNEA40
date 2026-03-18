@@ -64,13 +64,14 @@
         y-codes = <0x01>; /* REL_Y */
     };
 
-/* 2. スクロール用の減速スケーラー */
+    /* 2. スクロール用の減速スケーラー */
     trackball_scroll_scaler: trackball_scroll_scaler {
         compatible = "zmk,input-processor-scaler";
-        /* エラーに基づき 0 から 2 に変更 */
-        #input-processor-cells = <2>; 
+        /* この環境では 0 が正解です */
+        #input-processor-cells = <0>; 
         type = <0x02>; /* EV_REL */
-        /* codes は引数として渡すため、ここでは空にするか削除します */
+        /* 必須プロパティ 'codes' を明示的に指定 */
+        codes = <0x00 0x01>; /* REL_X, REL_Y */
         multiplier = <1>;
         divisor = <16>; 
     };
@@ -84,15 +85,14 @@
         y-codes = <0x08>; /* REL_WHEEL */
     };
 
-    /* リスナー：上記で定義した 'trackball' を参照 */
+    /* リスナー：引数なしのシンプルな呼び出しに戻します */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
         input-processors = 
             <&trackball_runtime_proc>, 
-            /* スケーラーに REL_X(0) と REL_Y(1) を適用するように指定 */
-            <&trackball_scroll_scaler 0x00 0x01>, 
+            <&trackball_scroll_scaler>, 
             <&trackball_scroll_proc>;
     };
 };
