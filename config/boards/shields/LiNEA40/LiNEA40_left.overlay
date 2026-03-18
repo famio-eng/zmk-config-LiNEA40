@@ -16,3 +16,11 @@
 &left_encoder {
     status = "okay";
 };
+
+/ {
+    /* Studioにエンコーダーを認識させるための定義 */
+    studio_sensors {
+        compatible = "zmk,studio-sensors";
+        sensors = <&left_encoder>;
+    };
+};
