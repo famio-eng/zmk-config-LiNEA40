@@ -62,6 +62,12 @@
 
 
 / {
+    /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
+    left_encoder_proc: left_encoder_proc {
+        compatible = "zmk,behavior-runtime-sensor-rotate";
+        #sensor-binding-cells = <0>;
+    };
+
     combos {
         compatible = "zmk,combos";
 
