@@ -54,7 +54,7 @@
 
 /* --- 2. 入力プロセッサの定義 --- */
 / {
-    /* マウス移動用 */
+    /* マウス移動用：DYA Studioで調整可能 */
     trackball_mouse_proc: trackball_mouse_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
@@ -63,21 +63,20 @@
         y-codes = <0x01>; 
     };
 
-    /* スクロール変換用 */
+    /* スクロール用：DYA Studioで調整可能 */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scroll";
-        x-codes = <0x06>; /* REL_HWHEEL */
-        y-codes = <0x08>; /* REL_WHEEL */
+        x-codes = <0x06>; 
+        y-codes = <0x08>; 
     };
 
-    /* リスナー：不確定な scaler を排除した最小構成 */
+    /* リスナー：初期状態はマウスのみ */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = 
-            <&trackball_mouse_proc>, 
+        input-processors = <&trackball_mouse_proc>;
     };
 };
