@@ -12,17 +12,17 @@
         ;
 };
 
+/* 物理的なエンコーダーとプロセッサを紐付け、Studioの管理下に置く */
+&left_encoder {
+    status = "okay";
+};
 
 / {
     /* DYA Studioが内部的に個別のセンサーを識別するためのID定義 */
     studio_sensors {
         compatible = "zmk,studio-sensors";
-        sensor-bindings = <&left_encoder_proc>;
+        sensor = <&left_encoder>;
     };
 };
 
-/* 物理的なエンコーダーとプロセッサを紐付け、Studioの管理下に置く */
-&left_encoder {
-    status = "okay";
-    sensor-bindings = <&left_encoder_proc>;
-};
+
