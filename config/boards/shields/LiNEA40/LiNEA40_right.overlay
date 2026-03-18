@@ -79,6 +79,5 @@
         status = "okay";
         input-processors = 
             <&trackball_mouse_proc>, 
-            <&trackball_scroll_proc>;
     };
 };
