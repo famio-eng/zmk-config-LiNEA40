@@ -17,20 +17,31 @@
 };
 
 / {
-    /* 1. 通常移動・オートマウス用 (Studio上で TBall と表示) */
+    /* 1. 通常移動・オートマウス用 (Studio上でcursorと表示) */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "TBall";
+        processor-label = "cursor";
         x-codes = <0x00>; // REL_X
         y-codes = <0x01>; // REL_Y
     };
 
-    /* 2. スクロール切り替え用 (Studio上で Scrl と表示) */
+    /* 2. スクロール用の減速スケーラー */
+    /* divisor(分母)を16に設定。2の累乗にすることでマイコンの計算処理が安定します */
+    trackball_scroll_scaler: trackball_scroll_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <0>;
+        type = <EV_REL>;
+        codes = <INPUT_REL_X>, <INPUT_REL_Y>;
+        multiplier = <1>;
+        divisor = <16>; 
+    };
+
+    /* 2. スクロール切り替え用 (Studio上で Scroll と表示) */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "Scrl";
+        processor-label = "Scroll";
         x-codes = <0x00>;
         y-codes = <0x01>;
     };
@@ -40,7 +51,11 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
+        /* 通常移動の後に、スケーラーで小さくした値をスクロール処理に渡す */
+        input-processors = 
+            <&trackball_runtime_proc>, 
+            <&trackball_scroll_scaler>, 
+            <&trackball_scroll_proc>;
     };
 };
 
