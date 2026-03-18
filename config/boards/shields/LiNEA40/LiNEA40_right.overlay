@@ -63,6 +63,17 @@
         y-codes = <0x01>; /* REL_Y */
     };
 
+    /* 【重要】カクつき防止用スケーラー */
+    /* DYA Studioからは見えない「固定の分母」として 16 を設定 */
+    trackball_scaler: trackball_scaler {
+        compatible = "zmk,input-processor-scaler";
+        #input-processor-cells = <0>; 
+        type = <0x02>;       /* EV_REL */
+        codes = <0x00 0x01>; /* REL_X, REL_Y */
+        multiplier = <1>;
+        divisor = <16>;      /* 1/16に縮小して解像度を確保 */
+    };
+
     /* スクロール用：DYA Studioで 'Scroll' タブとして表示されます */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
@@ -81,7 +92,8 @@
          * 直接プロセッサをカンマ区切りで並べています。
          */
         input-processors = 
-            <&trackball_mouse_proc>, 
+            <&trackball_mouse_proc>,
+            <&trackball_scaler>,
             <&trackball_scroll_proc>;
     };
 };
