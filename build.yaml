@@ -15,8 +15,11 @@ include:
 
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    # snippet を使わず、機能を .conf に集約します
+    # 成功時の状態：snippet を独立した項目として定義
     cmake-args: -DCONFIG_ZMK_STUDIO=y
+    snippet:
+      - studio-rpc-usb-uart
+      - studio-rpc-ble
     extra-modules:
       - ../zmk-behavior-runtime-sensor-rotate
       - ../zmk-module-settings-rpc
