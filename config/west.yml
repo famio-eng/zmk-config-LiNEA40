@@ -35,7 +35,7 @@ manifest:
       revision: e9472d6
   self:
     path: config
-    import: true  #
+    import: west.yml  #
 
 
 
