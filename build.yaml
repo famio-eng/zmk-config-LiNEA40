@@ -8,15 +8,19 @@
 #     cmake-args: -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y
 #     artifact-name: corne_central
 
-# build.yaml
 include:
   - board: seeeduino_xiao_ble
     shield: LiNEA40_left rgbled_adapter
 
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    # 成功時の状態：snippet を独立した項目として定義
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    # 警告でビルドを止めず、かつ DYA Studio の全機能を強制有効化する唯一の手段です
+    cmake-args: >
+      -DCONFIG_ZMK_STUDIO=y
+      -DCONFIG_ZMK_STUDIO_RPC_RUNTIME_INPUT_PROCESSOR=y
+      -DCONFIG_ZMK_BATTERY_HISTORY_STUDIO_RPC=y
+      -DCONFIG_ZMK_STUDIO_RPC_SENSORS=y
+      -DCONFIG_ZMK_SETTINGS_RPC_STUDIO_RPC=y
     snippet: studio-rpc-usb-uart
     extra-modules:
       - ../zmk-behavior-runtime-sensor-rotate
