@@ -62,13 +62,12 @@
         y-codes = <0x01>; 
     };
 
+    /* 2. スクロール用の減速スケーラー */
+    /* 物理的な定義のみを行い、具体的な設定はリスナー側から注入します */
     trackball_scroll_scaler: trackball_scroll_scaler {
         compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <0>; 
-        type = <0x02>; 
-        codes = <0x00 0x01>; 
-        multiplier = <1>;
-        divisor = <16>; 
+        #input-processor-cells = <2>; /* システムの要求通り 2 に固定 */
+        /* ここには type, codes, multiplier, divisor を書かない（引数で渡すため） */
     };
 
     trackball_scroll_proc: trackball_scroll_proc {
@@ -86,7 +85,9 @@
         /* 修正箇所：各プロセッサの間をカンマで区切りました */
         input-processors = 
             <&trackball_runtime_proc>, 
-            <&trackball_scroll_scaler>, 
+            /* スケーラーに対し [イベント種別] [対象軸] を引数として渡します */
+            <&trackball_scroll_scaler 0x02 0x00>, /* EV_REL, REL_X */
+            <&trackball_scroll_scaler 0x02 0x01>, /* EV_REL, REL_Y */
             <&trackball_scroll_proc>;
     };
 };
