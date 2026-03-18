@@ -16,7 +16,7 @@
         ;
 };
 
-/* --- 1. 物理センサー(SPI)の定義 --- */
+/* --- 1. 物理センサー(SPI)とトラックボールの定義 --- */
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -52,42 +52,36 @@
     };
 };
 
-/* --- 2. 入力プロセッサとリスナーの定義 --- */
+/* --- 2. 入力プロセッサの定義 --- */
 / {
-    trackball_runtime_proc: trackball_runtime_proc {
+    /* マウス移動用：DYA Studioで 'Mouse' タブとして表示されます */
+    trackball_mouse_proc: trackball_mouse_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Mouse";
-        x-codes = <0x00>; 
-        y-codes = <0x01>; 
+        x-codes = <0x00>; /* REL_X */
+        y-codes = <0x01>; /* REL_Y */
     };
 
-    /* 2. スクロール用の減速スケーラー */
-    /* 物理的な定義のみを行い、具体的な設定はリスナー側から注入します */
-    trackball_scroll_scaler: trackball_scroll_scaler {
-        compatible = "zmk,input-processor-scaler";
-        #input-processor-cells = <2>; /* システムの要求通り 2 に固定 */
-        /* ここには type, codes, multiplier, divisor を書かない（引数で渡すため） */
-    };
-
+    /* スクロール用：DYA Studioで 'Scroll' タブとして表示されます */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scroll";
-        x-codes = <0x06>; 
-        y-codes = <0x08>; 
+        x-codes = <0x06>; /* REL_HWHEEL */
+        y-codes = <0x08>; /* REL_WHEEL */
     };
 
+    /* リスナー：物理デバイスからの入力を上記2つのプロセッサへ橋渡しします */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        /* 修正箇所：各プロセッサの間をカンマで区切りました */
+        /* * エラー回避のため、scaler（スケーラー）は使用せず、
+         * 直接プロセッサをカンマ区切りで並べています。
+         */
         input-processors = 
-            <&trackball_runtime_proc>, 
-            /* スケーラーに対し [イベント種別] [対象軸] を引数として渡します */
-            <&trackball_scroll_scaler 0x02 0x00>, /* EV_REL, REL_X */
-            <&trackball_scroll_scaler 0x02 0x01>, /* EV_REL, REL_Y */
+            <&trackball_mouse_proc>, 
             <&trackball_scroll_proc>;
     };
 };
