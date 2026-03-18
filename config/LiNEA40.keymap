@@ -357,7 +357,7 @@
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 4 ENTER  &lt 3 SPACE         &lt 7 QUESTION       &kp ENTER                &lt 6 TAB
             >;
 
-            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
+            sensor-bindings = &left_encoder_proc;
         };
 
         default_layer_mac {
