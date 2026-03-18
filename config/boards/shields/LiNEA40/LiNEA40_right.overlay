@@ -16,38 +16,74 @@
         ;
 };
 
+/* --- 1. 物理センサー(SPI)の定義 --- */
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+        };
+    };
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            low-power-enable;
+        };
+    };
+};
+
+&spi0 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+
+    /* ここで 'trackball' ラベルを定義しています */
+    trackball: trackball@0 {
+        status = "okay";
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+};
+
+/* --- 2. 入力プロセッサとリスナーの定義 --- */
 / {
-    /* 1. 通常移動用プロセッサ */
+    /* 通常移動用 */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "TBall";
-        /* 0x00 = REL_X, 0x01 = REL_Y */
-        x-codes = <0x00>;
-        y-codes = <0x01>;
+        processor-label = "Mouse";
+        x-codes = <0x00>; /* REL_X */
+        y-codes = <0x01>; /* REL_Y */
     };
 
-    /* 2. スクロール用の減速スケーラー */
+    /* スクロール減速用スケーラー (1/16) */
     trackball_scroll_scaler: trackball_scroll_scaler {
         compatible = "zmk,input-processor-scaler";
         #input-processor-cells = <0>;
         type = <0x02>; /* EV_REL */
-        codes = <0x00 0x01>; /* REL_X, REL_Y を対象 */
+        codes = <0x00 0x01>; /* REL_X, REL_Y */
         multiplier = <1>;
         divisor = <16>; 
     };
 
-    /* 3. スクロール変換プロセッサ */
+    /* スクロール変換用 */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "Scrl";
-        /* 0x06 = REL_HWHEEL (横), 0x08 = REL_WHEEL (縦) */
-        x-codes = <0x06>;
-        y-codes = <0x08>;
+        processor-label = "Scroll";
+        x-codes = <0x06>; /* REL_HWHEEL */
+        y-codes = <0x08>; /* REL_WHEEL */
     };
 
-    /* リスナー */
+    /* リスナー：上記で定義した 'trackball' を参照 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
