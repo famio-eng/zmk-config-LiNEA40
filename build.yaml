@@ -14,11 +14,9 @@ include:
     
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    #snippet: studio-rpc-usb-uart
-    cmake-args: >
-      -DCONFIG_ZMK_STUDIO=y 
-      -DZMK_EXTRA_MODULES="/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-behavior-runtime-sensor-rotate;/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-module-settings-rpc;/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-module-ble-management;/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-module-runtime-input-processor;/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-pmw3610-driver;/__w/zmk-config-LiNEA40/zmk-config-LiNEA40/zmk-module-battery-history"
-    # 念のため extra-modules セクションも維持します
+    # 複雑なパス指定を廃止し、Studioの基本フラグのみにします
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
+    # west.yml で定義されたディレクトリ名を相対パスで指定します
     extra-modules:
       - ../zmk-behavior-runtime-sensor-rotate
       - ../zmk-module-settings-rpc
