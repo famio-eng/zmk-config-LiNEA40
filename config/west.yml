@@ -11,7 +11,7 @@ manifest:
     - name: zmk
       remote: cormoran
       revision: v0.3-branch+dya
-      import: true
+      import: app/west.yml
     - name: zmk-module-ble-management
       remote: cormoran
       revision: main
@@ -35,8 +35,7 @@ manifest:
       revision: e9472d6
   self:
     path: config
-
-
+    import: true  #
 
 
 
