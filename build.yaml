@@ -11,20 +11,9 @@
 include:
   - board: seeeduino_xiao_ble
     shield: LiNEA40_left rgbled_adapter
-
   - board: seeeduino_xiao_ble
     shield: LiNEA40_right rgbled_adapter
-    # 以前成功していた最小限の引数に戻します
-    cmake-args: -DCONFIG_ZMK_STUDIO=y
-    # 文法エラーを回避する文字列形式
     snippet: studio-rpc-usb-uart
-    extra-modules:
-      - ../zmk-behavior-runtime-sensor-rotate
-      - ../zmk-module-settings-rpc
-      - ../zmk-module-ble-management
-      - ../zmk-module-runtime-input-processor
-      - ../zmk-pmw3610-driver
-      - ../zmk-module-battery-history
-
+    cmake-args: -DCONFIG_ZMK_STUDIO=y
   - board: seeeduino_xiao_ble
     shield: settings_reset
