@@ -43,7 +43,6 @@
     pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 
-    /* ここで 'trackball' ラベルを定義しています */
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
@@ -55,41 +54,36 @@
 
 /* --- 2. 入力プロセッサとリスナーの定義 --- */
 / {
-    /* 通常移動用 */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Mouse";
-        x-codes = <0x00>; /* REL_X */
-        y-codes = <0x01>; /* REL_Y */
+        x-codes = <0x00>; 
+        y-codes = <0x01>; 
     };
 
-    /* 2. スクロール用の減速スケーラー */
     trackball_scroll_scaler: trackball_scroll_scaler {
         compatible = "zmk,input-processor-scaler";
-        /* この環境では 0 が正解です */
         #input-processor-cells = <0>; 
-        type = <0x02>; /* EV_REL */
-        /* 必須プロパティ 'codes' を明示的に指定 */
-        codes = <0x00 0x01>; /* REL_X, REL_Y */
+        type = <0x02>; 
+        codes = <0x00 0x01>; 
         multiplier = <1>;
         divisor = <16>; 
     };
 
-    /* スクロール変換用 */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scroll";
-        x-codes = <0x06>; /* REL_HWHEEL */
-        y-codes = <0x08>; /* REL_WHEEL */
+        x-codes = <0x06>; 
+        y-codes = <0x08>; 
     };
 
-    /* リスナー：引数なしのシンプルな呼び出しに戻します */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
+        /* 修正箇所：各プロセッサの間をカンマで区切りました */
         input-processors = 
             <&trackball_runtime_proc>, 
             <&trackball_scroll_scaler>, 
