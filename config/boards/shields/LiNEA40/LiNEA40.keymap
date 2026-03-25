@@ -90,7 +90,7 @@
     input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 };
 
-/*
+
 &trackball_listener {
     status = "okay"; // ★リスナーを有効化して .keymap の設定を反映させる
 
@@ -103,7 +103,7 @@
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
-*/
+
 
 / {
     /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
@@ -181,7 +181,8 @@
                 &kp Z          &kp X         &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&left_encoder_proc>;;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>; 
+            // ※ &left_encoder_proc から変更。これで behaviors の mouse_scrl が動き出します。
         };
 
         //1
