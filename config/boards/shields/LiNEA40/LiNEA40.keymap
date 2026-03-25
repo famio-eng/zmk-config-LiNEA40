@@ -90,14 +90,21 @@
 };
 */
 
+/* --- ここから書き換え --- */
+&trackball_peripheral {
+    /* GUIの代わりに、ここで「ボールを動かしたらレイヤー5（SCROLL）へ」と命じます */
+    input-processors = <&zip_auto_layer 5>; 
+};
+
 &trackball_listener {
     scroller {
-        layers = <SCROLL>;
-        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // 1. 方向逆転
-                           <&zip_xy_to_scroll_mapper>,                   // 2. 変換
-                           <&low_speed_scaler 1 32>;                    // 3. ★重要: 引数「1 12」を追加
+        layers = <5>; // SCROLLレイヤー
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+                           <&zip_xy_to_scroll_mapper>,
+                           <&low_speed_scaler 1 12>; // ★これで 1/12倍 が100%効くようになります
     };
 };
+/* --- ここまで --- */
 
 
 
