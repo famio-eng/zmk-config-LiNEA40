@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600 // ★ここを150➡600 くらいに増やしてください
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/pointing.h>
@@ -83,7 +83,8 @@
         layers = <SCROLL>;
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT> //スクロール方向を逆転
                          , <&zip_xy_to_scroll_mapper>,                  // 2. 移動をスクロール信号に変換
-                           <&zip_wheel_scaler 1 4>;                     // 3. ここで1/4倍に減速！
+                          // <&zip_wheel_scaler 1 4>                    // 3. ここで1/4倍に減速！
+                            ;
     };
 };
 
