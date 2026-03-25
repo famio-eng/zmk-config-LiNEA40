@@ -154,7 +154,9 @@
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
+            /* 1ノッチで &msc を「3回」連続発行する力技です */
+            bindings = <&msc SCRL_DOWN &msc SCRL_DOWN &msc SCRL_DOWN>, 
+                       <&msc SCRL_UP &msc SCRL_UP &msc SCRL_UP>;
         };
 
         mouse_scrl: mouse_wheel_scrl {
