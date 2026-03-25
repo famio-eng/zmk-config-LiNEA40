@@ -51,8 +51,8 @@
 
 //mouse scroll
 &msc {
-    delay-ms = <3>;
-    trigger-period-ms = <3>;
+    delay-ms = <0>;// 遅延をなくす3→0
+    trigger-period-ms = <1>;// ★最短の 1ms に設定
     time-to-max-speed-ms = <10>;
     acceleration-exponent = <0>;
 };
@@ -83,7 +83,7 @@
         layers = <SCROLL>;
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT> //スクロール方向を逆転
                          , <&zip_xy_to_scroll_mapper>,                  // 2. 移動をスクロール信号に変換
-                           <&zip_wheel_scaler 1 3>                    // 3. ここで1/3倍に減速！
+                           <&zip_wheel_scaler 1 12>                    // 3. ここで1/3倍に減速！
                             ;
     };
 };
