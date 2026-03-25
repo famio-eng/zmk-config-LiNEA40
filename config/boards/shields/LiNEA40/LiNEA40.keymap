@@ -71,7 +71,8 @@
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // スクロール信号のみ対象
-            track-remainders; // ぬるぬる動かすための必須設定
+            /* track-remainders; をあえて削除します */
+            /* これにより、微細なゴミ信号を捨て、リアルタイムな応答性を優先します */
         };
     };
 };
@@ -93,7 +94,9 @@
     status = "okay"; // ★リスナーを有効化して .keymap の設定を反映させる
 
     /* GUIが作った信号も含め、全てのスクロール信号を最後に1/12にする */
-    input-processors = <&scroll_final_filter 1 12>;
+    /* 1 12 ではなく 1 1 (等倍) にして、調整はDYA Studioに任せる */
+    input-processors = <&scroll_final_filter 1 1>;
+
     scroller {
         layers = <5>; 
         input-processors = <&zip_xy_to_scroll_mapper>;
@@ -156,8 +159,9 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc>, <&msc>;
-            tap-ms = <50>; // 20 から 150 に変更（1クリック1信号に固定）
+            /* bindings の各要素を2回(あるいは3回)繰り返すことで、1クリックの進む量を増やします */
+            bindings = <&msc SCRL_DOWN &msc SCRL_DOWN>, <&msc SCRL_UP &msc SCRL_UP>;
+            tap-ms = <30>; // 反応をさらに鋭く
         };
     };
 
