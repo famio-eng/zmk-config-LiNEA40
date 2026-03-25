@@ -53,7 +53,7 @@
 // mouse scroll: Studioと干渉しにくい設定へ微調整
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <5>; // 1msだと負荷が高すぎるため、安定感のある5msへ
+    trigger-period-ms = <1>; // 1msだと負荷が高すぎるため、安定感のある5msへ
     time-to-max-speed-ms = <0>; // 加速を排除
     acceleration-exponent = <0>;
 };
@@ -95,7 +95,7 @@
         layers = <SCROLL>;
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // 1. 方向逆転
                            <&zip_xy_to_scroll_mapper>,                   // 2. 変換
-                           <&low_speed_scaler 1 12>;                    // 3. ★重要: 引数「1 12」を追加
+                           <&low_speed_scaler 1 32>;                    // 3. ★重要: 引数「1 12」を追加
     };
 };
 
