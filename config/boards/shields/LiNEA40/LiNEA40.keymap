@@ -64,6 +64,15 @@
             codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // 垂直・水平両方対象
             track-remainders; //端数の持越し
         };
+
+        /* 最終出口でスクロールを1/12に薄めるプロセッサ */
+        scroll_final_filter: scroll_final_filter {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // スクロール信号のみ対象
+            track-remainders; // ぬるぬる動かすための必須設定
+        };
     };
 };
 
@@ -81,6 +90,8 @@
 };
 
 &trackball_listener {
+    /* GUIが作った信号も含め、全てのスクロール信号を最後に1/12にする */
+    input-processors = <&scroll_final_filter 1 12>;
     scroller {
         layers = <5>; 
         input-processors = <&zip_xy_to_scroll_mapper>;
