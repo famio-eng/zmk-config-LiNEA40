@@ -82,7 +82,8 @@
     scroller {
         layers = <SCROLL>;
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT> //スクロール方向を逆転
-                         , <&zip_xy_to_scroll_mapper>;
+                         , <&zip_xy_to_scroll_mapper>,                  // 2. 移動をスクロール信号に変換
+                           <&zip_wheel_scaler 1 4>;                     // 3. ここで1/4倍に減速！
     };
 };
 
