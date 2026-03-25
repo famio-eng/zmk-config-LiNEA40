@@ -166,9 +166,10 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* SCRL_VAL を 1200 まで引き上げます（標準150の8倍） */
-            /* これにより、物理CPIが下がった分をソフトウェアで強引に補填します */
-            bindings = <&msc SCRL_DOWN(600)>, <&msc SCRL_UP(600)>;
+            /* SCRL_2D を使い、OSの「行」という概念を飛び越えて、
+               ダイレクトに「移動ピクセル数」に近い信号を叩き込みます。
+               第1引数(0)は水平、第2引数(1200)が垂直方向の移動量です。 */
+            bindings = <&msc SCRL_2D(0,1200)>, <&msc SCRL_2D(0,-1200)>;
             tap-ms = <0>;
         };
     };
