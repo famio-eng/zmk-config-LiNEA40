@@ -45,8 +45,8 @@
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
-    time-to-max-speed-ms = <100>;
-    acceleration-exponent = <2>;
+    time-to-max-speed-ms = <20>;
+    acceleration-exponent = <1>;
 };
 
 //mouse scroll
@@ -65,7 +65,7 @@
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_WHEEL>;
-            track-remainders;
+            //track-remainders; //端数の持越し
         };
     };
 };
