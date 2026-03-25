@@ -1,10 +1,12 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 300 // ★ここを150➡300 くらいに増やしてください
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
+
+#undef ZMK_POINTING_DEFAULT_SCRL_VAL
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 300 // ★ここを150➡300 くらいに増やしてください
 
 #define MOUSE 1
 #define MARK 2
@@ -166,7 +168,7 @@
             #sensor-binding-cells = <2>;
             /* SCRL_VAL を 1200 まで引き上げます（標準150の8倍） */
             /* これにより、物理CPIが下がった分をソフトウェアで強引に補填します */
-            bindings = <&msc SCRL_DOWN(1200)>, <&msc SCRL_UP(1200)>;
+            bindings = <&msc SCRL_DOWN(2400)>, <&msc SCRL_UP(2400)>;
             tap-ms = <30>;
         };
     };
