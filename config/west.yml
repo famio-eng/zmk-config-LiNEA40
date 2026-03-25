@@ -32,7 +32,7 @@ manifest:
       revision: main
     - name: zmk-rgbled-widget
       remote: caksoylar
-      revision: e9472d6
+      revision: v0.3-branch
   self:
     path: config
 
