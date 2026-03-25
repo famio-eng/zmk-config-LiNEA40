@@ -62,7 +62,7 @@
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
             codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // 垂直・水平両方対象
-            track-remainders; //端数の持越し
+            //track-remainders; //端数の持越し
         };
 
         /* 最終出口でスクロールを1/12に薄めるプロセッサ */
@@ -156,12 +156,13 @@
             #sensor-binding-cells = <2>;
             bindings = <&kp>, <&kp>;
         };
+
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* bindings の各要素を2回(あるいは3回)繰り返すことで、1クリックの進む量を増やします */
-            bindings = <&msc SCRL_DOWN &msc SCRL_DOWN>, <&msc SCRL_UP &msc SCRL_UP>;
-            tap-ms = <30>; // 反応をさらに鋭く
+            /* 1クリックで送るスクロール量を 150 -> 300 に倍増させます */
+            bindings = <&msc SCRL_DOWN(300)>, <&msc SCRL_UP(300)>;
+            tap-ms = <30>;
         };
     };
 
