@@ -15,12 +15,12 @@
 
 // OS設定を日本語キーボードのまま使用するための変換定義
 #define JP_DQUOTE       AT                // "
-#define JP_AMPERSAND    CARET             // &
-#define JP_QUOTE        AMPERSAND         // '
-#define JP_EQUAL        UNDER             // =
-#define JP_CARET        EQUAL             // ^
+#define JP_AMPERSAND    CARET              // &
+#define JP_QUOTE        AMPERSAND          // '
+#define JP_EQUAL        UNDER              // =
+#define JP_CARET        EQUAL              // ^
 #define JP_YEN          0x89              // ¥
-#define JP_PLUS         COLON             // +
+#define JP_PLUS         COLON              // +
 #define JP_TILDE        PLUS              // ~
 #define JP_PIPE         LS(0x89)          // |
 #define JP_AT           LEFT_BRACKET      // @
@@ -28,18 +28,15 @@
 #define JP_ASTERISK     DOUBLE_QUOTES     // *
 #define JP_BACKQUOTE    LEFT_BRACE        // `
 #define JP_UNDERSCORE   LS(0x87)          // _
-#define JP_LBRACKET     RIGHT_BRACKET     // [
-#define JP_RBRACKET     BACKSLASH         // ]
+#define JP_LBRACKET     RIGHT_BRACKET      // [
+#define JP_RBRACKET     BACKSLASH          // ]
 #define JP_LPAREN       ASTERISK          // (
 #define JP_RPAREN       LEFT_PARENTHESIS  // )
-#define JP_LBRACE       RIGHT_BRACE       // {
+#define JP_LBRACE       RIGHT_BRACE        // {
 #define JP_RBRACE       PIPE              // }
 #define JP_KANA         LANGUAGE_1        // かな
 #define JP_EISU         LANGUAGE_2        // 英数
 #define JP_HANZEN       GRAVE             // 半角/全角
-
-
-
 
 //mouse cursol
 &mmv {
@@ -53,11 +50,10 @@
 // mouse scroll: Studioと干渉しにくい設定へ微調整
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <1>; // 1msだと負荷が高すぎるため、安定感のある5msへ
+    trigger-period-ms = <5>; 
     time-to-max-speed-ms = <0>; // 加速を排除
     acceleration-exponent = <0>;
 };
-
 
 / {
     input_processors {
@@ -68,16 +64,6 @@
             codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // 垂直・水平両方対象
             track-remainders; //端数の持越し
         };
-
-        /* 既存の zip_wheel_scaler があればその下に追加 */
-        low_speed_scaler: low_speed_scaler {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>;
-            track-remainders; // ★これが「カクつき」を防ぐ肝です
-        };
-
     };
 };
 
@@ -90,23 +76,16 @@
 };
 */
 
-/* --- ここから書き換え --- */
 &trackball_peripheral {
-    /* 自動遷移（auto_layer）を削除し、標準の動きに戻します */
     input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 };
 
 &trackball_listener {
     scroller {
-        /* 「レイヤー5」がアクティブな時だけ、この中身（スクロール変換）が発動します */
         layers = <5>; 
-        input-processors = <&zip_xy_to_scroll_mapper>,
-                           <&low_speed_scaler 1 12>; // ここで「滑らかな1/12倍」を適用
+        input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
-/* --- ここまで --- */
-
-
 
 / {
     /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
@@ -174,9 +153,9 @@
 
         default_layer {
             bindings = <
-                &kp Q          &kp W         &kp E               &kp R    &kp T                                    &kp Y        &kp U     &kp I            &kp O        &kp P
-                &kp A          &kp S         &kp D               &kp F    &kp G                                    &kp H        &kp J     &kp K            &kp L        &lt 5 MINUS
-                &kp Z          &kp X         &kp C               &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
+                &kp Q          &kp W         &kp E                &kp R    &kp T                                    &kp Y        &kp U     &kp I            &kp O        &kp P
+                &kp A          &kp S         &kp D                &kp F    &kp G                                    &kp H        &kp J     &kp K            &kp L        &lt 5 MINUS
+                &kp Z          &kp X         &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
             sensor-bindings = <&left_encoder_proc>;;
@@ -216,9 +195,9 @@
         //4
         FUNCTION {
             bindings = <
-                &kp F1  &kp F2  &kp F3  &kp F4   &kp F5                     &trans      &trans  &kp LA(PRINTSCREEN)  &trans  &kp LC(LA(DELETE))
-                &kp F6  &kp F7  &kp F8  &kp F9   &kp F10                    &trans      &trans  &kp LS(LG(S))        &trans  &kp LC(LS(ESCAPE))
-                &trans  &trans  &trans  &kp F11  &kp F12                    &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
+                &kp F1  &kp F2  &kp F3  &kp F4   &kp F5                       &trans      &trans  &kp LA(PRINTSCREEN)  &trans  &kp LC(LA(DELETE))
+                &kp F6  &kp F7  &kp F8  &kp F9   &kp F10                      &trans      &trans  &kp LS(LG(S))        &trans  &kp LC(LS(ESCAPE))
+                &trans  &trans  &trans  &kp F11  &kp F12                      &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
                 &trans  &trans  &trans  &trans   &trans   &trans   &trans   &trans              &trans               &trans  &trans
             >;
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
