@@ -18,11 +18,11 @@
 };
 
 / {
-    /* DYA Studioが内部的に個別のセンサーを識別するためのID定義 */
+    /* DYA Studioが内部的に個別のセンサーを識別するためのID定義 
     studio_sensors {
         compatible = "zmk,studio-sensors";
         sensor = <&left_encoder>;
-    };
+    };*/
 };
 
 
