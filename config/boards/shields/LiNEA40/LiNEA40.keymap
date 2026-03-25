@@ -90,6 +90,7 @@
     input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 };
 
+/*
 &trackball_listener {
     status = "okay"; // ★リスナーを有効化して .keymap の設定を反映させる
 
@@ -102,6 +103,7 @@
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
+*/
 
 / {
     /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
@@ -162,8 +164,9 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* 1クリックで送るスクロール量を 150 -> 300 に倍増させます */
-            bindings = <&msc SCRL_DOWN(300)>, <&msc SCRL_UP(300)>;
+            /* SCRL_VAL を 1200 まで引き上げます（標準150の8倍） */
+            /* これにより、物理CPIが下がった分をソフトウェアで強引に補填します */
+            bindings = <&msc SCRL_DOWN(1200)>, <&msc SCRL_UP(1200)>;
             tap-ms = <30>;
         };
     };
