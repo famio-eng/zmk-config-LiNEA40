@@ -100,13 +100,13 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc SCRL_DOWN(300)>, <&msc SCRL_UP(300)>;
+            bindings = <&msc SCRL_DOWN(300) &msc SCRL_UP(300)>;
             tap-ms = <0>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&kp C_VOLUME_DOWN>, <&kp C_VOLUME_UP>;
+            bindings = <&kp C_VOLUME_DOWN &kp C_VOLUME_UP>;
         };
     };
 
