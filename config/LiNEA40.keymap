@@ -58,6 +58,9 @@
 /* dtsiにあるラベルを使用してリスナーを設定 */
 &trackball_listener {
     status = "okay";
+    /* 【重要】監視対象デバイスを指定。LiNEA40の標準的なラベル &trackball を使用 */
+    /* もしこれでもエラーが出る場合は &trackball を &pmw3610 に書き換えてみてください */
+    device = <&trackball>;
     /* Y軸反転などのトランスフォームをここで適用 */
     input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 
