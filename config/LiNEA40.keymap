@@ -50,7 +50,7 @@
     /* 2. トラックボール・リスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
-        device = <&trackball_peripheral>;
+        device = <&trackball>;
         status = "okay";
 
         /* 要求④：トラックボールを回したら MOUSE(2) レイヤーへ自動遷移 */
