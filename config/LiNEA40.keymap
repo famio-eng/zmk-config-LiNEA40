@@ -66,9 +66,7 @@
         status = "okay";
 
     /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
-    input-processors = 
-        <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // Y軸反転
-        <&zip_msl_speed_transformer 0 100>;          // オートマウス用
+    input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // Y軸反転
 
     /* オートマウス設定 */
     msl-layers = <2>;      
