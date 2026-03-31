@@ -65,17 +65,18 @@
         device = <&trackball>;
         status = "okay";
 
-    /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
-    input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
+        /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
+        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
 
-    /* オートマウス設定 */
-    msl-layers = <2>;      
-    msl-timeout-ms = <500>; 
+        /* オートマウス設定 */
+        msl-layers = <2>;      
+        msl-timeout-ms = <500>; 
 
-    /* 【重要】スクロール切り替えはここだけで定義する */
-    scroller {
-        layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        /* 【重要】スクロール切り替えはここだけで定義する */
+        scroller {
+            layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
+            input-processors = <&zip_xy_to_scroll_mapper>;
+        };
     };
 };
 
@@ -277,7 +278,7 @@
             label = "R_PAREN";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LEFT_PARENTHESIS>;
+            bindings = <&kp LS(N0)>;
         };
 
         /* { (左波括弧) | US: Shift + [ (Left Bracket) */
@@ -295,7 +296,7 @@
             label = "R_BRACE";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LS(BSLH)>;
+            bindings = <&kp LS(RBKT)>;
         };
     };
 
