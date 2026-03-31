@@ -52,9 +52,9 @@
 // mouse scroll: Studioと干渉しにくい設定へ微調整
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <1>; 
-    time-to-max-speed-ms = <0>; // 加速を排除
-    acceleration-exponent = <0>;
+    trigger-period-ms = <12>; // 少し余裕を持たせて滑らかに
+    time-to-max-speed-ms = <100>; // 慣性が乗り始めるまでの時間
+    acceleration-exponent = <1>;  // ★ 0から1へ。これで「慣性・加速」が効きます
 };
 
 / {
@@ -94,14 +94,11 @@
 
 
 &trackball_listener {
-    status = "okay"; // ★リスナーを有効化して .keymap の設定を反映させる
-
-    /* GUIが作った信号も含め、全てのスクロール信号を最後に1/12にする */
-    /* 1 12 ではなく 1 1 (等倍) にして、調整はDYA Studioに任せる */
-    input-processors = <&scroll_final_filter 1 1>;
-
+    status = "okay";
+    /* 全体にかかっていた input-processors（scroll_final_filter）を削除しました */
     scroller {
         layers = <5>; 
+        /* ここはトラックボールのXY軸をスクロールに変換する専用の設定です */
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -166,14 +163,11 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* SCRL_2D を使い、OSの「行」という概念を飛び越えて、
-               ダイレクトに「移動ピクセル数」に近い信号を叩き込みます。
-               第1引数(0)は水平、第2引数(1200)が垂直方向の移動量です。 */
-            //bindings = <&msc SCRL_2D(0,1200)>, <&msc SCRL_2D(0,-1200)>;
-            bindings = <&msc>, <&msc>;
-            //tap-ms = <20>;
+            /* 2400から300へ。Macでの爆速を抑えつつ、
+               修正1の「加速設定」によってWinでの移動量を補填します */
+            bindings = <&msc SCRL_DOWN(300)>, <&msc SCRL_UP(300)>;
             tap-ms = <0>;
-        };
+        }
     };
 
     keymap {
