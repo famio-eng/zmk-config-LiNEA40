@@ -105,7 +105,7 @@
     scroller {
         layers = <5>; 
         /* ここはトラックボールのXY軸をスクロールに変換する専用の設定です */
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        input-processors = <&zip_xy_to_scroll_mapper>, <&zip_wheel_scaler 1 10>;
     };
 };
 
@@ -171,7 +171,7 @@
             #sensor-binding-cells = <2>;
             /* 2400から300へ。Macでの爆速を抑えつつ、
                修正1の「加速設定」によってWinでの移動量を補填します */
-            bindings = <&msc SCRL_DOWN(300)>, <&msc SCRL_UP(300)>;
+            bindings = <&msc SCRL_DOWN(600)>, <&msc SCRL_UP(600)>;
             tap-ms = <0>;
         }
     };
