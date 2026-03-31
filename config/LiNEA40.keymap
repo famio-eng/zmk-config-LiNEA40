@@ -56,20 +56,24 @@
 };
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
+/* すでに right.overlay で device = <&trackball> が定義されているため、
+   ここでは追加したい設定（status, input-processors 等）のみを記述します */
 &trackball_listener {
     status = "okay";
-    /* 【重要】監視対象デバイスを指定。LiNEA40の標準的なラベル &trackball を使用 */
-    /* もしこれでもエラーが出る場合は &trackball を &pmw3610 に書き換えてみてください */
     device = <&trackball>;
-    /* Y軸反転などのトランスフォームをここで適用 */
-    input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
 
-    /* オートマウス有効化：ボール検知でレイヤー2(MOUSE)へ */
+    /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
+    input-processors = 
+        <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, // Y軸反転
+        <&zip_msl_speed_transformer 0 100>;          // オートマウス用
+
+    /* オートマウス設定 */
     msl-layers = <2>;      
     msl-timeout-ms = <500>; 
 
+    /* 【重要】スクロール切り替えはここだけで定義する */
     scroller {
-        layers = <6>;      /* レイヤー6(SCROLL)でボールスクロール */
+        layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
