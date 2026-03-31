@@ -86,7 +86,6 @@
     };
 
     combos {
-    combos {
         compatible = "zmk,combos";
 
         DeleteKey {  
