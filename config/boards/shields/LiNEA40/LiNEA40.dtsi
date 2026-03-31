@@ -94,8 +94,9 @@
         triggers-per-rotation = <16>;    //8→16に修正ｊ
     };
 
+/*
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
-    };
+    };*/
 };
