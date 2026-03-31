@@ -89,7 +89,10 @@
     combos {
         compatible = "zmk,combos";
 
-        DeleteKey {  bindings = <&kp DEL>;  key-positions = <8 7>;  };
+        DeleteKey {  
+            bindings = <&kp DEL>;  
+            key-positions = <8 7>; 
+        };
 
         InsertKey {
             bindings = <&kp INS>;
