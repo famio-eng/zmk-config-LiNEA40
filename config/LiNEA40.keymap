@@ -55,31 +55,6 @@
     acceleration-exponent = <1>;
 };
 
-/* dtsiにあるラベルを使用してリスナーを設定 */
-/* すでに right.overlay で device = <&trackball> が定義されているため、
-   ここでは追加したい設定（status, input-processors 等）のみを記述します */
-/* 右手側（trackballラベルが存在する側）のビルド時のみ有効にする */
-/ {
-    /* 参照（&）ではなく、ここでノードを定義・ラベル付けする */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        status = "okay";
-
-        /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
-        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
-
-        /* オートマウス設定 */
-        msl-layers = <2>;      
-        msl-timeout-ms = <500>; 
-
-        /* 【重要】スクロール切り替えはここだけで定義する */
-        scroller {
-            layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
-            input-processors = <&zip_xy_to_scroll_mapper>;
-        };
-    };
-};
 
 / {
     left_encoder_proc: left_encoder_proc {
