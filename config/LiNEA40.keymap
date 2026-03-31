@@ -86,14 +86,70 @@
     };
 
     combos {
+    combos {
         compatible = "zmk,combos";
-        ZenkakuHankaku { bindings = <&kp GRAVE>; key-positions = <11 12>; };
-        DeleteKey { bindings = <&kp DEL>; key-positions = <7 8>; };
-        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
-        CenterClick { bindings = <&mkp MB3>; key-positions = <17 16>; };
-        RightClick { bindings = <&mkp MB2>; key-positions = <18 17>; };
-        PrevClick { bindings = <&mkp MB4>; key-positions = <27 28>; };
-        ClickNext { bindings = <&mkp MB5>; key-positions = <26 27>; };
+
+        DeleteKey {  bindings = <&kp DEL>;  key-positions = <8 7>;  };
+
+        InsertKey {
+            bindings = <&kp INS>;
+            key-positions = <6 7>;
+        };
+
+        Enter {
+            bindings = <&kp ENTER>;
+            key-positions = <18 17 16>;
+        };
+
+        PrevClick {
+            bindings = <&mkp MB4>;
+            key-positions = <16 17>;
+        };
+
+        ClickNext {
+            bindings = <&mkp MB5>;
+            key-positions = <17 18>;
+        };
+
+        back {
+            bindings = <&kp BACKSPACE>;
+            key-positions = <8 9>;
+        };
+
+        screenshot {
+            bindings = <&kp PRINTSCREEN>;
+            key-positions = <4 3>;
+        };
+
+        emoji {
+            bindings = <&kp LG(PERIOD)>;
+            key-positions = <3 1>;
+        };
+
+        escape {
+            bindings = <&kp ESCAPE>;
+            key-positions = <1 0>;
+        };
+
+        tab {
+            bindings = <&kp TAB>;
+            key-positions = <11 12>;
+        };
+
+        EN {
+            bindings = <&kp LANG2>;
+            key-positions = <12 13>;
+        };
+
+        JP {
+            bindings = <&kp LANG1>;
+            key-positions = <22 23>;
+        };
+
+        katakana {
+            bindings = <&kp LANG3>;
+            key-positions = <23 24>;
+        };
     };
 
     behaviors {
