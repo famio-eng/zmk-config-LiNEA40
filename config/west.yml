@@ -6,7 +6,9 @@ manifest:
       url-base: https://github.com/inorichi
     - name: caksoylar
       url-base: https://github.com/caksoylar
-      
+    - name: urob
+      url-base: https://github.com/urob
+
   projects:
     - name: zmk
       remote: cormoran
@@ -33,5 +35,9 @@ manifest:
     - name: zmk-rgbled-widget
       remote: caksoylar
       revision: v0.3-branch
+    - name: zmk-auto-layer
+      remote: urob
+      revision: main
+
   self:
     path: config
