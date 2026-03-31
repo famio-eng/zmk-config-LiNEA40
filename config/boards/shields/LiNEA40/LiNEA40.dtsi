@@ -3,15 +3,18 @@
 
 / {
     chosen {
-        zmk,physical-layout = &physical_layout0;
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+        zmk,physical_layout = &physical_layout0;
     };
 
+    /* あなたが定義した詳細な物理座標を完全に保持します */
     physical_layout0: physical_layout_0 {
         compatible = "zmk,physical-layout";
         display-name = "LiNEA40";
         kscan = <&kscan0>;
         transform = <&default_transform>;
-        keys  //                     w   h    x    y     rot    rx    ry
+        keys
             = <&key_physical_attrs 100 100    0    0       0     0     0>
             , <&key_physical_attrs 100 100  100    0       0     0     0>
             , <&key_physical_attrs 100 100  200    0       0     0     0>
@@ -70,33 +73,34 @@
 
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
         diode-direction = "col2row";
-
         row-gpios
-            = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   //row0-D0
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   //row1-D1
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   //row2-D2
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>   //row3-D3
+            = <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
 
+    /* エンコーダーの設定を保持 */
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <40>; // 現在の <24> から <40> に変更してみてください
+        steps = <40>;
         status = "disabled";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        triggers-per-rotation = <16>;    //8→16に修正ｊ
+        triggers-per-rotation = <16>;
     };
 
-/*
-    trackball_listener: trackball_listener {
+    /* overlayで上書きするためのダミーノード。コメントアウトせず status=disabledで定義 */
+    v_trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
-    };*/
+    };
 };
