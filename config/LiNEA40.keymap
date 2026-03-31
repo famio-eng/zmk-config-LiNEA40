@@ -370,7 +370,7 @@
 &trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                      &trans                   &trans  &trans
             >;
 
-            sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         SCROLL {
