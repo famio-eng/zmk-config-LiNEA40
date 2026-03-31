@@ -8,7 +8,7 @@
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 600 
 
-/* レイヤー定義を元の構成（Win/Mac分離）に完全復元 */
+/* レイヤー定義 */
 #define MOUSE 2
 #define MARK 3
 #define CURSOR 4
@@ -55,12 +55,12 @@
     acceleration-exponent = <1>;
 };
 
-&trackball_peripheral {
-    input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
-};
-
+/* dtsiにあるラベルを使用してリスナーを設定 */
 &trackball_listener {
     status = "okay";
+    /* Y軸反転などのトランスフォームをここで適用 */
+    input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
+
     /* オートマウス有効化：ボール検知でレイヤー2(MOUSE)へ */
     msl-layers = <2>;      
     msl-timeout-ms = <500>; 
