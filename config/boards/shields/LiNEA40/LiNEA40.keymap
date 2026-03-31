@@ -5,9 +5,11 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+/* Windowsの1行制限を物理的に突破するためのベースライン */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 
+/* レイヤー定義を当初の順序で固定 */
 #define MOUSE 1
 #define MARK 2
 #define CURSOR 3
@@ -15,7 +17,7 @@
 #define SCROLL 5
 #define WIRELESS 6
 
-//mouse cursol
+// mouse cursol
 &mmv {
     delay-ms = <0>;
     trigger-period-ms = <5>;
@@ -23,7 +25,7 @@
     acceleration-exponent = <1>;
 };
 
-//mouse scroll
+// mouse scroll
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <8>;
@@ -33,7 +35,7 @@
 
 / {
     input_processors {
-        /* トラックボールの爆速スクロールを抑えるための減速器 */
+        /* トラックボールのスクロールを1/4に減速するプロセッサ */
         zip_wheel_scaler_factor: zip_wheel_scaler_factor {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
@@ -49,40 +51,23 @@
         device = <&trackball_peripheral>;
         status = "okay";
         
-        /* オートマウス機能をここに定義。動かすとMOUSE(1)レイヤーへ */
-        msl-layers = <MOUSE>;
+        /* 要求④：動かした時にレイヤー3(CURSOR)へ自動遷移 */
+        msl-layers = <CURSOR>; 
 
+        /* 要求⑤：レイヤー5(SCROLL)遷移時にスクロール動作 */
         scroller {
-            layers = <5>; 
+            layers = <SCROLL>; 
             input-processors = <&zip_xy_to_scroll_mapper>, <&zip_wheel_scaler_factor 1 4>;
         };
     };
 
-    combos {
-        compatible = "zmk,combos";
-        ZenkakuHankaku { bindings = <&kp GRAVE>; key-positions = <11 12>; };
-        DeleteKey { bindings = <&kp DEL>; key-positions = <7 8>; };
-        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
-        CenterClick { bindings = <&mkp MB3>; key-positions = <17 16>; };
-        RightClick { bindings = <&mkp MB2>; key-positions = <18 17>; };
-        PrevClick { bindings = <&mkp MB4>; key-positions = <27 28>; };
-        ClickNext { bindings = <&mkp MB5>; key-positions = <26 27>; };
-    };
-
     behaviors {
-        /* エンコーダーの挙動：Win/Mac両対応の600設定 */
+        /* 要求③：1ノッチで600動かす挙動（Win/Mac両対応） */
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
             bindings = <&msc SCRL_DOWN(600)>, <&msc SCRL_UP(600)>;
             tap-ms = <0>;
-        };
-
-        /* 音量調整用の明示的定義 */
-        re_kp: sensor_rotate_kp {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
         };
     };
 
@@ -96,8 +81,8 @@
                 &kp Z          &kp X          &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_WIN   &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            /* 音量操作をここに割り当て */
-            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
+            /* デフォルトレイヤーでエンコーダーによるスクロールを実行 */
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         MOUSE {
@@ -116,7 +101,6 @@
                 &mt LSHFT N0 &kp N1 &kp N2 &kp APOS  &kp SQT               &kp EQUAL  &kp INT3  &kp LS(RBKT) &kp LS(BSLH) &kp LS(INT1)
                 &trans    &trans  &trans    &trans    &trans  &trans &trans &trans          &kp ASTRK &kp LPAR &kp LS(QUESTION)
             >;
-            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
         };
 
         CURSOR {
@@ -135,8 +119,6 @@
                 &trans  &trans  &trans  &kp F11  &kp F12                       &kp C_MUTE &trans &trans      &trans  &kp LC(LA(INS))
                 &trans  &trans  &trans  &trans   &trans  &trans &trans &trans          &trans                &trans  &trans
             >;
-            /* FUNCTIONレイヤー時はエンコーダーをスクロール挙動に */
-            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         SCROLL {
