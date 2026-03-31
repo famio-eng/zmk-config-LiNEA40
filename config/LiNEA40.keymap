@@ -58,9 +58,12 @@
 /* dtsiにあるラベルを使用してリスナーを設定 */
 /* すでに right.overlay で device = <&trackball> が定義されているため、
    ここでは追加したい設定（status, input-processors 等）のみを記述します */
-&trackball_listener {
-    status = "okay";
-    device = <&trackball>;
+/ {
+    /* 参照（&）ではなく、ここでノードを定義・ラベル付けする *
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+        status = "okay";
 
     /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
     input-processors = 
