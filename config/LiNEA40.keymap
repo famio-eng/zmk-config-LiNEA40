@@ -52,17 +52,17 @@
     };
 
     behaviors {
-        /* 修正：センサーバインディングの各要素を個別のブラケットで囲み、カンマで区切る */
+        /* 修正箇所：カンマを削除し、一つのブラケット内に挙動を並べます */
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&kp>, <&kp>;
+            bindings = <&kp &kp>;
         };
 
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
             tap-ms = <10>;
         };
     };
@@ -159,7 +159,6 @@
 &trans        &trans        &trans        &trans        &trans                           &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
 &trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &trans        &trans        &trans
             >;
-            /* re_kp の呼び出し引数を修正 */
             sensor-bindings = <&re_kp RIGHT_ARROW LEFT_ARROW>;
         };
 
