@@ -19,8 +19,7 @@
 #define WIRELESS    6
 #define CURSOR      7
 
-/* keycode_jp.h との二重定義を回避するため、keymap側での再定義を削除し
-   必要に応じてエイリアスとして整理します */
+/* keycode_jp.h との二重定義回避のため、このファイル内での JP_YEN 等の #define は削除しました */
 
 &mmv {
     delay-ms = <20>;
@@ -60,11 +59,12 @@
             #sensor-binding-cells = <2>;
             bindings = <&kp>, <&kp>;
         };
-        /* 修正箇所: bindings = < > 内のカンマを削除し、一組の括弧にまとめました */
+
+        /* 修正箇所: 引数を持つバインディングをカンマで区切り、個別の < > で囲みます */
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             tap-ms = <10>;
         };
     };
