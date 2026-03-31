@@ -17,36 +17,48 @@
 };
 
 / {
-    /* Studioで "Mouse" として操作するプロセッサ */
+    /* 1. 通常移動用プロセッサ (Studio上の "Mouse" ラベル) */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
-        processor-label = "Mouse"; 
-        /* 初期値としてY軸反転をセット */
+        processor-label = "Mouse";
+        
+        /* 必須項目の追加: REL_X(0x00), REL_Y(0x01) */
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+
+        /* 初期設定としてY軸反転を適用 */
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
     };
 
-    /* Studioで "Scroll" として操作するプロセッサ */
+    /* 2. スクロール用プロセッサ (Studio上の "Scroll" ラベル) */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scroll";
+
+        /* 必須項目の追加 */
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
+
+        /* スクロールへの変換プロセッサを適用 */
         input-processors = <&zip_xy_to_scroll_mapper>;
     };
 
+    /* リスナー設定 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
 
-        /* 通常時は "Mouse" プロセッサを使用 */
+        /* デフォルトの挙動 */
         input-processors = <&trackball_runtime_proc>;
 
-        /* オートマウス設定（レイヤー2へ） */
-        msl-layers = <2>;
-        msl-timeout-ms = <500>;
+        /* オートマウス設定（レイヤー2へ遷移） */
+        msl-layers = <2>;      
+        msl-timeout-ms = <500>; 
 
-        /* レイヤー6の時は "Scroll" プロセッサに切り替え */
+        /* スクロール設定（レイヤー6で切り替え） */
         scroller {
             layers = <6>;
             input-processors = <&trackball_scroll_proc>;
