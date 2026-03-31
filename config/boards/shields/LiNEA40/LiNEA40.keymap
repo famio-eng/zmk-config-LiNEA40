@@ -6,7 +6,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 300 // ★ここを150➡300 くらいに増やしてください
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 2400 // ★ここを150➡300 くらいに増やしてください
 
 #define MOUSE 1
 #define MARK 2
