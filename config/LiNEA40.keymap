@@ -1,6 +1,4 @@
-/* スクロールの基本値を Windows 1行制限を突破する 600 へ変更 */
-#undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
 
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
@@ -11,60 +9,60 @@
 #include <dt-bindings/zmk/pointing.h>
 #include "keycode_jp.h"
 
-/* レイヤー番号定義（keymap内の出現順序に一致させています） */
-#define WIN 0
-#define MAC 1
-#define MOUSE 2
-#define MARK 3
-#define NUMBER 4
+#define MOUSE 1
+#define MARK 2
+#define CURSOR 3
+#define FUNCTION 4
 #define SCROLL 5
 #define WIRELESS 6
-#define CURSOR 7
 
-/* マウス・スクロールの応答速度設定 */
+// OS設定を日本語キーボードのまま使用するための変換定義
+
+#define JP_DQUOTE       AT                // "
+#define JP_AMPERSAND    CARET             // &
+#define JP_QUOTE        AMPERSAND         // '
+#define JP_EQUAL        UNDER             // =
+#define JP_CARET        EQUAL             // ^
+#define JP_YEN          0x89              // ¥
+#define JP_PLUS         COLON             // +
+#define JP_TILDE        PLUS              // ~
+#define JP_PIPE         LS(0x89)          // |
+#define JP_AT           LEFT_BRACKET      // @
+#define JP_COLON        SINGLE_QUOTE      // :
+#define JP_ASTERISK     DOUBLE_QUOTES     // *
+#define JP_BACKQUOTE    LEFT_BRACE        // `
+#define JP_UNDERSCORE   LS(0x87)          // _
+#define JP_LEFT_BRACKET     RIGHT_BRACKET     // [
+#define JP_RIGHT_BRACKET     BACKSLASH         // ]
+#define JP_LPAREN       ASTERISK          // (
+#define JP_RPAREN       LEFT_PARENTHESIS  // )
+#define JP_LBRACE       RIGHT_BRACE       // {
+#define JP_RBRACE       PIPE              // }
+#define JP_KANA         LANGUAGE_1        // かな
+#define JP_EISU         LANGUAGE_2        // 英数
+#define JP_HANZEN       GRAVE             // 半角/全角
+
+//mouse cursol
+
 &mmv {
-    delay-ms = <0>;
+    delay-ms = <20>;
     trigger-period-ms = <5>;
-    acceleration-exponent = <1>;
+    time-to-max-speed-ms = <100>;
+    acceleration-exponent = <2>;
 };
+
+//mouse scroll
 
 &msc {
-    delay-ms = <0>;
-    trigger-period-ms = <8>;
-    acceleration-exponent = <1>;
+    delay-ms = <3>;
+    trigger-period-ms = <3>;
+    time-to-max-speed-ms = <100>;
+    acceleration-exponent = <0>;
 };
 
+
 / {
-    /* 1. スクロール減速用プロセッサ */
-    input_processors {
-        zip_wheel_scaler_factor: zip_wheel_scaler_factor {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>;
-            multiplier = <1>;
-            divisor = <4>; 
-        };
-    };
-
-    /* 2. トラックボール・リスナー定義 */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        /* &trackball を &pmw3610 に書き換え */
-        device = <&pmw3610>; 
-        status = "okay";
-
-        /* 要求④：トラックボールを回したら MOUSE(2) レイヤーへ自動遷移 */
-        msl-layers = <MOUSE>; 
-
-        /* 要求⑤：SCROLL(5) レイヤー遷移時にスクロール挙動にする */
-        scroller {
-            layers = <SCROLL>; 
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_wheel_scaler_factor 1 4>;
-        };
-    };
-
-    /* DYA Studio 用 */
+    /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
     left_encoder_proc: left_encoder_proc {
         compatible = "zmk,behavior-runtime-sensor-rotate";
         #sensor-binding-cells = <0>;
@@ -72,20 +70,71 @@
 
     combos {
         compatible = "zmk,combos";
-        /* --- 既存のコンボ定義（DeleteKey, Enter等）はそのまま維持 --- */
-        DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
-        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
-        Enter { bindings = <&kp ENTER>; key-positions = <18 17 16>; };
-        PrevClick { bindings = <&mkp MB4>; key-positions = <16 17>; };
-        ClickNext { bindings = <&mkp MB5>; key-positions = <17 18>; };
-        back { bindings = <&kp BACKSPACE>; key-positions = <8 9>; };
-        screenshot { bindings = <&kp PRINTSCREEN>; key-positions = <4 3>; };
-        emoji { bindings = <&kp LG(PERIOD)>; key-positions = <3 1>; };
-        escape { bindings = <&kp ESCAPE>; key-positions = <1 0>; };
-        tab { bindings = <&kp TAB>; key-positions = <11 12>; };
-        EN { bindings = <&kp LANG2>; key-positions = <12 13>; };
-        JP { bindings = <&kp LANG1>; key-positions = <22 23>; };
-        katakana { bindings = <&kp LANG3>; key-positions = <23 24>; };
+
+        DeleteKey {
+            bindings = <&kp DEL>;
+            key-positions = <8 7>;
+        };
+
+        InsertKey {
+            bindings = <&kp INS>;
+            key-positions = <6 7>;
+        };
+
+        Enter {
+            bindings = <&kp ENTER>;
+            key-positions = <18 17 16>;
+        };
+
+        PrevClick {
+            bindings = <&mkp MB4>;
+            key-positions = <16 17>;
+        };
+
+        ClickNext {
+            bindings = <&mkp MB5>;
+            key-positions = <17 18>;
+        };
+
+        back {
+            bindings = <&kp BACKSPACE>;
+            key-positions = <8 9>;
+        };
+
+        screenshot {
+            bindings = <&kp PRINTSCREEN>;
+            key-positions = <4 3>;
+        };
+
+        emoji {
+            bindings = <&kp LG(PERIOD)>;
+            key-positions = <3 1>;
+        };
+
+        escape {
+            bindings = <&kp ESCAPE>;
+            key-positions = <1 0>;
+        };
+
+        tab {
+            bindings = <&kp TAB>;
+            key-positions = <11 12>;
+        };
+
+        EN {
+            bindings = <&kp LANG2>;
+            key-positions = <12 13>;
+        };
+
+        JP {
+            bindings = <&kp LANG1>;
+            key-positions = <22 23>;
+        };
+
+        katakana {
+            bindings = <&kp LANG3>;
+            key-positions = <23 24>;
+        };
     };
 
     behaviors {
@@ -95,37 +144,212 @@
             bindings = <&kp>, <&kp>;
         };
 
-        /* 要求③：ロータリーエンコーダー爆速化（1ノッチ600） */
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            bindings = <&msc SCRL_DOWN(600)>, <&msc SCRL_UP(600)>;
-            tap-ms = <0>;
+            bindings = <&msc>, <&msc>;
+
+            tap-ms = <20>;
+        };
+
+    };
+
+    /* ---------------------------------------------------------------------- */
+    /* 日本語入力用カスタムマクロ定義 (視認性を優先し、エラー箇所のみ略称化) */
+    /* ---------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------- */
+    /* 日本語入力用カスタムマクロ定義 (ビルド成功を優先し全て略称ラベルを使用) */
+    /* ---------------------------------------------------------------------- */
+
+    macros {
+        /* " (ダブルクォート) | US: Shift + 2 */
+
+        j_dq: j_dq {
+            label = "DQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N2)>;
+        };
+
+        /* & (アンパサンド) | US: Shift + 6 */
+
+        j_amp: j_amp {
+            label = "AMP";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N6)>;
+        };
+
+        /* ' (シングルクォート) | US: Shift + 7 */
+
+        j_sq: j_sq {
+            label = "SQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N7)>;
+        };
+
+        /* = (イコール) | US: Shift + - */
+
+        j_eq: j_eq {
+            label = "EQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(MINUS)>;
+        };
+
+        /* ^ (ハット/キャレット) | US: \ (Backslash) */
+
+        j_caret: j_cr {
+            label = "CARET";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp EQUAL>;
+        };
+
+        /* ¥ (円マーク/バックスラッシュ) | US: INT1 */
+
+        j_yen: j_yen {
+            label = "YEN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INT1>;
+        };
+
+        /* + (プラス) | US: ; (Semi-colon) */
+
+        j_plus: j_plus {
+            label = "PLUS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON>;
+        };
+
+        /* ~ (チルダ) | US: Shift + = */
+
+        j_tilde: j_tilde {
+            label = "TILDE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp PLUS>;
+        };
+
+        /* | (パイプ) | US: Shift + INT1 (¥) */
+
+        j_pipe: j_pipe {
+            label = "PIPE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(INT1)>;
+        };
+
+        /* @ (アットマーク) | US: [ (Left Bracket) */
+
+        j_at: j_at {
+            label = "AT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT>;
+        };
+
+        /* : (コロン) | US: ' (Single Quote) */
+
+        j_colon: j_colon {
+            label = "COLON";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>;
+        };
+
+        /* * (アスタリスク) | US: Shift + ' */
+
+        j_ast: j_ast {
+            label = "AST";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SQT)>;
+        };
+
+        /* ` (バッククォート) | US: Shift + ] */
+
+        j_bt: j_bt {
+            label = "BT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(RBKT)>;
+        };
+
+        /* _ (アンダースコア) | US: Shift + INT1 (¥) */
+
+        j_under: j_under {
+            label = "UNDER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(INT1)>;
+        };
+
+        /* [ (左角括弧) | US: ] (Right Bracket) */
+
+        j_lbkt: j_lbkt {
+            label = "L_BKT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RBKT>;
+        };
+
+        /* ] (右角括弧) | US: Shift + [ */
+
+        j_rbkt: j_rbkt {
+            label = "R_BKT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSLASH>;
+        };
+
+        /* ( (左丸括弧) | US: Shift + 8 */
+
+        j_lp: j_lp {
+            label = "L_PAREN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp ASTRK>;
+        };
+
+        /* ) (右丸括弧) | US: Shift + 9 */
+
+        j_rp: j_rp {
+            label = "R_PAREN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_PARENTHESIS>;
+        };
+
+        /* { (左波括弧) | US: Shift + [ (Left Bracket) */
+
+        j_lbrc: j_lbrc {
+            label = "L_BRACE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RIGHT_BRACE>;
+        };
+
+        /* } (右波括弧) | US: Shift + \ (Backslash) */
+
+        j_rbrc: j_rbrc {
+            label = "R_BRACE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(BSLH)>;
         };
     };
 
-    macros {
-        /* --- 日本語入力用マクロ(j_dq, j_amp等)はそのまま維持 --- */
-        j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
-        j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
-        j_sq: j_sq { label = "SQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N7)>; };
-        j_eq: j_eq { label = "EQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; };
-        j_caret: j_cr { label = "CARET"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp EQUAL>; };
-        j_yen: j_yen { label = "YEN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp INT1>; };
-        j_plus: j_plus { label = "PLUS"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp COLON>; };
-        j_tilde: j_tilde { label = "TILDE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp PLUS>; };
-        j_pipe: j_pipe { label = "PIPE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
-        j_at: j_at { label = "AT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LBKT>; };
-        j_colon: j_colon { label = "COLON"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp SQT>; };
-        j_ast: j_ast { label = "AST"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(SQT)>; };
-        j_bt: j_bt { label = "BT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; };
-        j_under: j_under { label = "UNDER"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
-        j_lbkt: j_lbkt { label = "L_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RBKT>; };
-        j_rbkt: j_rbkt { label = "R_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp BACKSLASH>; };
-        j_lp: j_lp { label = "L_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp ASTRK>; };
-        j_rp: j_rp { label = "R_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LEFT_PARENTHESIS>; };
-        j_lbrc: j_lbrc { label = "L_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RIGHT_BRACE>; };
-        j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
+    /* ZMK標準の日本語入力切り替えキー（マクロ化不要） */
+
+    behaviors {
+        // キーバインディングとして直接利用します。
+        // &kp KANA
+        // &kp EISU
+        // &kp GRAVE
     };
 
     keymap {
@@ -138,24 +362,26 @@
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 4 ENTER  &lt 3 SPACE         &lt 7 QUESTION       &kp ENTER                &lt 6 TAB
             >;
+
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         default_layer_mac {
             bindings = <
-&kp Q             &kp W         &kp E               &kp R  &kp T                                   &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
-&kp A             &kp S         &kp D               &kp F  &kp G                                   &kp H        &kp J  &kp K                &kp L                    &lt 5 MINUS
-&kp Z             &kp X         &kp C               &kp V  &kp B                                   &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
+&kp Q             &kp W         &kp E               &kp R  &kp T                                  &kp Y        &kp U  &kp I                &kp O                    &lt 6 P
+&kp A             &kp S         &kp D               &kp F  &kp G                                  &kp H        &kp J  &kp K                &kp L                    &lt 5 MINUS
+&kp Z             &kp X         &kp C               &kp V  &kp B                                  &kp N        &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &none  &lt 5 ENTER  &lt 3 TAB    &lt 3 SPACE  &lt 4 ENTER         &lt 6 QUESTION       &kp BACKSLASH            &trans
             >;
+
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         MOUSE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                    &trans  &msc SCRL_LEFT  &msc SCRL_RIGHT  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK        &mkp RCLK        &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK        &trans           &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK       &mkp RCLK        &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK       &trans           &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                  &trans           &trans  &trans
             >;
         };
@@ -167,16 +393,18 @@
 &kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_ast  &kp SEMICOLON  &j_colon   &kp QUESTION  &kp SLASH
 &trans           &trans           &trans    &trans      &trans       &trans    &trans  &trans                 &kp SLASH  &trans        &trans
             >;
+
             sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
         NUMBER {
             bindings = <
-&kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp N5                              &kp NUMBER_6            &kp N7            &kp N8                &kp N9  &kp N0
-&kp F1        &kp F2        &kp F3        &kp F4        &kp F5                              &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LG(LS(RIGHT_ARROW))  &kp F9  &kp F10
+&kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp NUMBER_4  &kp N5                              &kp NUMBER_6            &kp N7              &kp N8                   &kp N9  &kp N0
+&kp F1        &kp F2        &kp F3        &kp F4        &kp F5                              &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)    &kp LG(LS(RIGHT_ARROW))  &kp F9  &kp F10
 &kp F6        &kp F7        &kp F8        &trans        &trans                              &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans  &trans
-&trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                                          &trans  &trans
+&trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                      &trans                   &trans  &trans
             >;
+
             sensor-bindings = <&mouse_scrl SCRL_RIGHT SCRL_LEFT>;
         };
 
@@ -187,23 +415,24 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN           &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            /* 要求に従いこのレイヤーではボールを動かすとスクロールします（リスナー側で処理） */
+
             sensor-bindings = <&inc_dec_kp DOWN_ARROW UP_ARROW>;
         };
 
         WIRELESS {
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR_ALL
-&trans        &trans        &trans        &trans        &trans                          &trans          &trans        &trans        &trans        &bt BT_CLR
-&trans        &trans        &trans        &trans        &trans                          &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                         &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_CLR_ALL
+&trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &bt BT_CLR
+&trans        &trans        &trans        &trans        &trans                               &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
 &trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &trans        &trans        &trans
             >;
+
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
         };
 
         CURSOR {
             bindings = <
-&trans          &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &trans  &trans  &kp PG_DN        &kp UP_ARROW    &kp PG_UP
+&trans          &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &trans  &trans  &kp PG_DN       &kp UP_ARROW    &kp PG_UP
 &trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &trans  &trans  &kp LEFT_ARROW  &kp UP_ARROW    &kp RIGHT_ARROW
 &kp LEFT_SHIFT  &trans                  &trans            &trans                   &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
