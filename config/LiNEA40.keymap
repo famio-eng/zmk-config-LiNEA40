@@ -120,7 +120,7 @@
                 &kp Z          &kp X          &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_WIN   &mt LEFT_ALT GRAVE  &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE            &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         default_layer_mac {
@@ -130,7 +130,7 @@
                 &kp Z          &kp X          &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE            &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         MOUSE {
@@ -140,7 +140,7 @@
                 &trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
                 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans            &trans  &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         MARK {
@@ -150,7 +150,7 @@
                 &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                                              &kp KP_EQUAL  &kp INT3       &kp LS(RIGHT_BRACKET)  &kp LS(BACKSLASH)     &kp LS(INT1)
                 &trans                      &trans            &trans            &trans         &trans         &trans          &trans                &trans                       &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LS(QUESTION)
             >;
-            sensor-bindings = <&re_kp 0 0>;
+            sensor-bindings = <&re_kp>;
         };
 
         CURSOR {
@@ -160,7 +160,7 @@
                 &kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
                 &trans    &trans                  &trans        &trans                   &trans  &trans    &kp ENTER  &kp NUMBER_0                   &kp DOT       &kp ENTER     &kp QUESTION
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         FUNCTION {
@@ -170,7 +170,7 @@
                 &trans  &trans  &trans  &kp F11  &kp F12                      &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
                 &trans  &trans  &trans  &trans   &trans   &trans   &trans   &trans              &trans               &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         SCROLL {
@@ -180,7 +180,7 @@
                 &kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
                 &trans    &trans                  &trans        &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp NUMBER_0  &kp DOT       &kp QUESTION
             >;
-            sensor-bindings = <&mouse_scrl 0 0>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         WIRELESS {
