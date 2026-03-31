@@ -58,6 +58,8 @@
 /* dtsiにあるラベルを使用してリスナーを設定 */
 /* すでに right.overlay で device = <&trackball> が定義されているため、
    ここでは追加したい設定（status, input-processors 等）のみを記述します */
+/* 右手側（trackballラベルが存在する側）のビルド時のみ有効にする */
+#if DT_NODE_EXISTS(DT_NODELABEL(trackball))
 / {
     /* 参照（&）ではなく、ここでノードを定義・ラベル付けする */
     trackball_listener: trackball_listener {
@@ -79,6 +81,7 @@
         };
     };
 };
+#endif
 
 / {
     left_encoder_proc: left_encoder_proc {
