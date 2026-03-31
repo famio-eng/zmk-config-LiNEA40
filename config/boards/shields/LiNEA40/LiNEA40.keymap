@@ -8,6 +8,12 @@
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 2400 // ★ここを150➡300 くらいに増やしてください
 
+/* Studioが起動時に読み込む「マウススクロールの基本倍率」を2400に強制固定します */
+#undef ZMK_STUDIO_SC_MS_V
+#define ZMK_STUDIO_SC_MS_V 2400
+#undef ZMK_STUDIO_SC_MS_H
+#define ZMK_STUDIO_SC_MS_H 2400
+
 #define MOUSE 1
 #define MARK 2
 #define CURSOR 3
