@@ -52,7 +52,7 @@
     };
 
     behaviors {
-        /* 修正箇所：カンマを削除し、一つのブラケット内に挙動を並べます */
+        /* 重要：bindings = <&behavior1 &behavior2>; の形式（カンマなし）に統一 */
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
