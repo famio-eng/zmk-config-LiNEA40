@@ -59,7 +59,7 @@
 /* すでに right.overlay で device = <&trackball> が定義されているため、
    ここでは追加したい設定（status, input-processors 等）のみを記述します */
 / {
-    /* 参照（&）ではなく、ここでノードを定義・ラベル付けする *
+    /* 参照（&）ではなく、ここでノードを定義・ラベル付けする */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
