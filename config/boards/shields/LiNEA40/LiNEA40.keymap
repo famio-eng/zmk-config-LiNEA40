@@ -52,9 +52,9 @@
 // mouse scroll: Studioと干渉しにくい設定へ微調整
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <12>; // 少し余裕を持たせて滑らかに
-    time-to-max-speed-ms = <100>; // 慣性が乗り始めるまでの時間
-    acceleration-exponent = <1>;  // ★ 0から1へ。これで「慣性・加速」が効きます
+    trigger-period-ms = <1>; // 少し余裕を持たせて滑らかに
+    time-to-max-speed-ms = <0>; // 慣性が乗り始めるまでの時間
+    acceleration-exponent = <0>;  // ★ 0から1へ。これで「慣性・加速」が効きます
 };
 
 / {
