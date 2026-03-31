@@ -6,13 +6,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 2400 // ★ここを150➡300 くらいに増やしてください
-
-/* Studioが起動時に読み込む「マウススクロールの基本倍率」を2400に強制固定します */
-#undef ZMK_STUDIO_SC_MS_V
-#define ZMK_STUDIO_SC_MS_V 2400
-#undef ZMK_STUDIO_SC_MS_H
-#define ZMK_STUDIO_SC_MS_H 2400
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 
 #define MOUSE 1
 #define MARK 2
@@ -21,159 +15,75 @@
 #define SCROLL 5
 #define WIRELESS 6
 
-// OS設定を日本語キーボードのまま使用するための変換定義
-#define JP_DQUOTE       AT                // "
-#define JP_AMPERSAND    CARET              // &
-#define JP_QUOTE        AMPERSAND          // '
-#define JP_EQUAL        UNDER              // =
-#define JP_CARET        EQUAL              // ^
-#define JP_YEN          0x89              // ¥
-#define JP_PLUS         COLON              // +
-#define JP_TILDE        PLUS              // ~
-#define JP_PIPE         LS(0x89)          // |
-#define JP_AT           LEFT_BRACKET      // @
-#define JP_COLON        SINGLE_QUOTE      // :
-#define JP_ASTERISK     DOUBLE_QUOTES     // *
-#define JP_BACKQUOTE    LEFT_BRACE        // `
-#define JP_UNDERSCORE   LS(0x87)          // _
-#define JP_LBRACKET     RIGHT_BRACKET      // [
-#define JP_RBRACKET     BACKSLASH          // ]
-#define JP_LPAREN       ASTERISK          // (
-#define JP_RPAREN       LEFT_PARENTHESIS  // )
-#define JP_LBRACE       RIGHT_BRACE        // {
-#define JP_RBRACE       PIPE              // }
-#define JP_KANA         LANGUAGE_1        // かな
-#define JP_EISU         LANGUAGE_2        // 英数
-#define JP_HANZEN       GRAVE             // 半角/全角
-
 //mouse cursol
 &mmv {
-    delay-ms = <20>;
+    delay-ms = <0>;
     trigger-period-ms = <5>;
     time-to-max-speed-ms = <20>;
     acceleration-exponent = <1>;
 };
 
 //mouse scroll
-// mouse scroll: Studioと干渉しにくい設定へ微調整
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <1>; // 少し余裕を持たせて滑らかに
-    time-to-max-speed-ms = <0>; // 慣性が乗り始めるまでの時間
-    acceleration-exponent = <0>;  // ★ 0から1へ。これで「慣性・加速」が効きます
+    trigger-period-ms = <8>;
+    time-to-max-speed-ms = <50>;
+    acceleration-exponent = <1>;
 };
 
 / {
     input_processors {
-        zip_wheel_scaler: zip_wheel_scaler {
+        /* トラックボールの爆速スクロールを抑えるための減速器 */
+        zip_wheel_scaler_factor: zip_wheel_scaler_factor {
             compatible = "zmk,input-processor-scaler";
             #input-processor-cells = <2>;
             type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // 垂直・水平両方対象
-            //track-remainders; //端数の持越し
-        };
-
-        /* 最終出口でスクロールを1/12に薄めるプロセッサ */
-        scroll_final_filter: scroll_final_filter {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>; // スクロール信号のみ対象
-            /* track-remainders; をあえて削除します */
-            /* これにより、微細なゴミ信号を捨て、リアルタイムな応答性を優先します */
+            codes = <INPUT_REL_WHEEL>, <INPUT_REL_HWHEEL>;
+            multiplier = <1>;
+            divisor = <4>; 
         };
     };
-};
 
-/* 一旦コメントアウト
-&msc_input_listener {
-    speed_up {
-        layers = <FUNCTION>;
-        input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
-    };
-};
-*/
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball_peripheral>;
+        status = "okay";
+        
+        /* オートマウス機能をここに定義。動かすとMOUSE(1)レイヤーへ */
+        msl-layers = <MOUSE>;
 
-&trackball_peripheral {
-    input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
-};
-
-
-&trackball_listener {
-    status = "okay";
-    /* 全体にかかっていた input-processors（scroll_final_filter）を削除しました */
-    scroller {
-        layers = <5>; 
-        /* ここはトラックボールのXY軸をスクロールに変換する専用の設定です */
-        input-processors = <&zip_xy_to_scroll_mapper>, <&zip_wheel_scaler 1 10>;
-    };
-};
-
-
-/ {
-    /* DYA Studio 用のエンコーダープロセッサ定義（左右共通） */
-        left_encoder_proc: left_encoder_proc {
-            compatible = "zmk,behavior-runtime-sensor-rotate";
-            #sensor-binding-cells = <0>;
+        scroller {
+            layers = <5>; 
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_wheel_scaler_factor 1 4>;
         };
+    };
 
-        combos {
+    combos {
         compatible = "zmk,combos";
-
-        ZenkakuHankaku {
-            bindings = <&kp GRAVE>;
-            key-positions = <11 12>;
-        };
-
-        DeleteKey {
-            bindings = <&kp DEL>;
-            key-positions = <7 8>;
-        };
-
-        InsertKey {
-            bindings = <&kp INS>;
-            key-positions = <6 7>;
-        };
-
-        CenterClick {
-            bindings = <&mkp MB3>;
-            key-positions = <17 16>;
-        };
-
-        RightClick {
-            bindings = <&mkp MB2>;
-            key-positions = <18 17>;
-        };
-
-        PrevClick {
-            bindings = <&mkp MB4>;
-            key-positions = <27 28>;
-        };
-
-        ClickNext {
-            bindings = <&mkp MB5>;
-            key-positions = <26 27>;
-        };
-
+        ZenkakuHankaku { bindings = <&kp GRAVE>; key-positions = <11 12>; };
+        DeleteKey { bindings = <&kp DEL>; key-positions = <7 8>; };
+        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
+        CenterClick { bindings = <&mkp MB3>; key-positions = <17 16>; };
+        RightClick { bindings = <&mkp MB2>; key-positions = <18 17>; };
+        PrevClick { bindings = <&mkp MB4>; key-positions = <27 28>; };
+        ClickNext { bindings = <&mkp MB5>; key-positions = <26 27>; };
     };
 
     behaviors {
-        re_kp: sensor_rotate_kp {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            /* 1ノッチで &msc を「3回」連続発行する力技です */
-            bindings = <&msc SCRL_DOWN &msc SCRL_DOWN &msc SCRL_DOWN>, 
-                       <&msc SCRL_UP &msc SCRL_UP &msc SCRL_UP>;
-        };
-
+        /* エンコーダーの挙動：Win/Mac両対応の600設定 */
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate-var";
             #sensor-binding-cells = <2>;
-            /* 2400から300へ。Macでの爆速を抑えつつ、
-               修正1の「加速設定」によってWinでの移動量を補填します */
             bindings = <&msc SCRL_DOWN(600)>, <&msc SCRL_UP(600)>;
             tap-ms = <0>;
-        }
+        };
+
+        /* 音量調整用の明示的定義 */
+        re_kp: sensor_rotate_kp {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&kp>, <&kp>;
+        };
     };
 
     keymap {
@@ -181,16 +91,15 @@
 
         default_layer {
             bindings = <
-                &kp Q          &kp W         &kp E                &kp R    &kp T                                    &kp Y        &kp U     &kp I            &kp O        &kp P
-                &kp A          &kp S         &kp D                &kp F    &kp G                                    &kp H        &kp J     &kp K            &kp L        &lt 5 MINUS
-                &kp Z          &kp X         &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
-                &mt LCTRL ESC  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
+                &kp Q          &kp W          &kp E                &kp R    &kp T                                    &kp Y        &kp U     &kp I            &kp O        &kp P
+                &kp A          &kp S          &kp D                &kp F    &kp G                                    &kp H        &kp J     &kp K            &kp L        &lt 5 MINUS
+                &kp Z          &kp X          &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
+                &mt LCTRL ESC  &kp LEFT_WIN   &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings =<&re_kp C_VOL_DN C_VOL_UP>;
-            // ※ &left_encoder_proc から変更。これで behaviors の mouse_scrl が動き出します。
+            /* 音量操作をここに割り当て */
+            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
         };
 
-        //1
         MOUSE {
             bindings = <
                 &trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
@@ -200,55 +109,51 @@
             >;
         };
 
-        //2
         MARK {
             bindings = <
-                &kp EXCLAMATION             &kp AT           &kp HASH         &kp DOLLAR     &kp PERCENT                                          &kp CARET     &kp AMPERSAND  &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LBKT
-                &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                                        &kp C_MUTE    &kp LS(LBKT)   &kp RIGHT_BRACKET      &kp BACKSLASH         &kp EQUAL
-                &mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                                              &kp KP_EQUAL  &kp INT3       &kp LS(RIGHT_BRACKET)  &kp LS(BACKSLASH)     &kp LS(INT1)
-                &trans                      &trans           &trans           &trans         &trans         &trans          &trans                &trans                       &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LS(QUESTION)
+                &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT            &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp LBKT
+                &kp SLASH &kp N4  &kp N5    &kp SEMI  &kp SEMI             &kp C_MUTE &kp LS(LBKT) &kp RBKT &kp BSLH &kp EQUAL
+                &mt LSHFT N0 &kp N1 &kp N2 &kp APOS  &kp SQT               &kp EQUAL  &kp INT3  &kp LS(RBKT) &kp LS(BSLH) &kp LS(INT1)
+                &trans    &trans  &trans    &trans    &trans  &trans &trans &trans          &kp ASTRK &kp LPAR &kp LS(QUESTION)
             >;
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
+            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
         };
 
-        //3
         CURSOR {
             bindings = <
-                &trans    &kp LC(LG(LEFT_ARROW))  &kp UP_ARROW  &kp LC(LG(RIGHT_ARROW))  &trans                       &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp KP_PLUS
-                &trans    &kp LEFT_ARROW          &kp DOWN      &kp RIGHT_ARROW          &trans                       &kp KP_SLASH     &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp KP_MINUS
-                &kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
-                &trans    &trans                  &trans        &trans                   &trans  &trans    &kp ENTER  &kp NUMBER_0                   &kp DOT       &kp ENTER     &kp QUESTION
+                &trans    &kp LC(LG(LEFT)) &kp UP   &kp LC(LG(RIGHT)) &trans          &kp KP_MULTIPLY &kp N7 &kp N8 &kp N9 &kp KP_PLUS
+                &trans    &kp LEFT         &kp DOWN &kp RIGHT          &trans          &kp KP_SLASH    &kp N4 &kp N5 &kp N6 &kp KP_MINUS
+                &kp HOME  &kp PG_DN        &kp END  &kp PG_UP          &trans          &kp UNDER       &kp N1 &kp N2 &kp N3 &kp ENTER
+                &trans    &trans           &trans   &trans             &trans &trans &kp ENTER &kp N0      &kp DOT &kp ENTER &kp QUESTION
             >;
         };
 
-        //4
         FUNCTION {
             bindings = <
-                &kp F1  &kp F2  &kp F3  &kp F4   &kp F5                       &trans      &trans  &kp LA(PRINTSCREEN)  &trans  &kp LC(LA(DELETE))
-                &kp F6  &kp F7  &kp F8  &kp F9   &kp F10                      &trans      &trans  &kp LS(LG(S))        &trans  &kp LC(LS(ESCAPE))
-                &trans  &trans  &trans  &kp F11  &kp F12                      &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
-                &trans  &trans  &trans  &trans   &trans   &trans   &trans   &trans              &trans               &trans  &trans
+                &kp F1  &kp F2  &kp F3  &kp F4   &kp F5                        &trans  &trans  &kp LA(PSCRN) &trans  &kp LC(LA(DEL))
+                &kp F6  &kp F7  &kp F8  &kp F9   &kp F10                       &trans  &trans  &kp LS(LG(S))  &trans  &kp LC(LS(ESC))
+                &trans  &trans  &trans  &kp F11  &kp F12                       &kp C_MUTE &trans &trans      &trans  &kp LC(LA(INS))
+                &trans  &trans  &trans  &trans   &trans  &trans &trans &trans          &trans                &trans  &trans
             >;
+            /* FUNCTIONレイヤー時はエンコーダーをスクロール挙動に */
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        //5
         SCROLL {
              bindings = <
-                &trans    &kp LC(LG(LEFT_ARROW))  &kp UP_ARROW  &kp LC(LG(RIGHT_ARROW))  &trans                       &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp KP_PLUS
-                &trans    &kp LEFT_ARROW          &kp DOWN      &kp RIGHT_ARROW          &trans                       &kp KP_SLASH     &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp KP_MINUS
-                &kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
-                &trans    &trans                  &trans        &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp NUMBER_0  &kp DOT       &kp QUESTION
+                &trans    &kp LC(LG(LEFT)) &kp UP   &kp LC(LG(RIGHT)) &trans          &kp KP_MULTIPLY &kp N7 &kp N8 &kp N9 &kp KP_PLUS
+                &trans    &kp LEFT         &kp DOWN &kp RIGHT          &trans          &kp KP_SLASH    &kp N4 &kp N5 &kp N6 &kp KP_MINUS
+                &kp HOME  &kp PG_DN        &kp END  &kp PG_UP          &trans          &kp UNDER       &kp N1 &kp N2 &kp N3 &kp ENTER
+                &trans    &trans           &trans   &trans             &trans &trans &trans &kp N0          &kp N0 &kp DOT &kp QUESTION
             >;
         };
 
-        //6
         WIRELESS {
             bindings = <
-                &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                 &trans &trans &trans &trans &trans
-                &trans        &trans        &trans        &trans        &trans                       &trans &trans &trans &trans &trans
-                &trans        &trans        &trans        &trans        &trans                       &trans &trans &trans &trans &bt BT_CLR
-                &trans        &trans        &trans        &trans        &trans        &trans  &trans &trans        &trans &trans &bt BT_CLR_ALL
+                &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4    &trans &trans &trans &trans &trans
+                &trans       &trans       &trans       &trans       &trans          &trans &trans &trans &trans &trans
+                &trans       &trans       &trans       &trans       &trans          &trans &trans &trans &trans &bt BT_CLR
+                &trans       &trans       &trans       &trans       &trans &trans &trans &trans &trans &trans &bt BT_CLR_ALL
             >;
         };
     };
