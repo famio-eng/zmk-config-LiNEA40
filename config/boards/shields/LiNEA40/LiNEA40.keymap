@@ -180,7 +180,7 @@
                 &kp Z          &kp X         &kp C                &kp V    &kp B                                    &kp N        &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
                 &mt LCTRL ESC  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB  &lt 2 BACKSPACE  &lt 4 SPACE            &lt 6 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>; 
+            sensor-bindings =<&re_kp C_VOL_DN C_VOL_UP>;
             // ※ &left_encoder_proc から変更。これで behaviors の mouse_scrl が動き出します。
         };
 
