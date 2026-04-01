@@ -16,11 +16,6 @@
         ;
 };
 
-/* 右側ではエンコーダーを無効化してD6ピン競合を解く */
-&left_encoder {
-    status = "disabled";
-};
-
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
@@ -41,24 +36,13 @@
 
 &spi0 {
     status = "okay";
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+};
 
-    /* 修正箇所: ラベル参照 &trackball ではなくノード名で記述 */
-    trackball: trackball@0 {
-        status = "okay";
-        compatible = "pixart,pmw3610";
-        reg = <0>;
-        spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    };
+&trackball {
+    status = "okay";
 };
 
 / {
-    /* 1. 通常移動・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
@@ -67,7 +51,6 @@
         y-codes = <0x01>; // REL_Y
     };
 
-    /* 2. スクロール切り替え用 */
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
