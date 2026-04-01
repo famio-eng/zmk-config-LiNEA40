@@ -159,7 +159,9 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <20>;
+            /* tap-msを短くすることで、信号の「キレ」を良くし、
+             高速回転時に信号が重なって暴走するのを防ぎます */
+            tap-ms = <5>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
