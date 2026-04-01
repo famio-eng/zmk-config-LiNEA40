@@ -92,7 +92,7 @@
     };
 };
 
-/* SPIとtrackballラベルだけは共通定義として置く（ビルドエラー回避のため） */
+/* trackballラベルのみを定義（初期状態はdisabled） */
 &spi0 {
     status = "disabled";
     trackball: trackball@0 {
