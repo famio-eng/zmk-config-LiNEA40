@@ -94,7 +94,7 @@
         sensors = <&left_encoder>;
         /* 24から48へ。15度→7.5度ごとに信号を出すようにし、
            Windowsでの「スカスカ感」を密度で埋めます */
-        triggers-per-rotation = <48>;    //8→16➡24に修正
+        triggers-per-rotation = <24>;    //8→16➡24に修正
     };
 
 /*
