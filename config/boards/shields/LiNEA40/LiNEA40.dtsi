@@ -86,7 +86,7 @@
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         /* 非クリック式のため、物理ステップの概念がないため40を維持 */
         steps = <40>; 
-        status = "okay";
+        status = "disabled"; // 初期値は無効
     };
 
     sensors: sensors {
@@ -130,7 +130,7 @@
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 
     trackball: trackball@0 {
-        status = "okay";
+        status = "disabled"; // 初期値は無効
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
