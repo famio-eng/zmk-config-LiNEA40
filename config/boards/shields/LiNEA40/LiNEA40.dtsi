@@ -92,7 +92,9 @@
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        triggers-per-rotation = <20>;    //8→16➡20に修正
+        /* 1回転で24回の入力（15度ごとに1入力）を発生させる */
+        /* これにより、クリック感がなくても「指の動き」と「画面の動き」が一致します */
+        triggers-per-rotation = <24>;    //8→16➡24に修正
     };
 
 /*
