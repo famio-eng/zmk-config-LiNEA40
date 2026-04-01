@@ -59,12 +59,6 @@
     acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
 };
 
-/* トラックボールのスクロール感度（ハードウェアレベル）の調整 */
-/* ここで 1/4 に間引くことで、Macでのトラックボール爆速スクロールを抑え込みます */
-&ib_scrl {
-    multiplier = <1>;
-    divider = <4>;
-};
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
 /* すでに right.overlay で device = <&trackball> が定義されているため、
@@ -86,7 +80,8 @@
     /* 【重要】スクロール切り替えはここだけで定義する */
     scroller {
         layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        /* ここを修正：mapperの後にscalerを追加して 1/4 (divider 4) に設定 */
+        input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 4>;
     };
 };
 
@@ -170,9 +165,9 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* 5msから20msへ。Windows/Mac共に確実に「入力」として
+            /* 5msから30msへ。Windows/Mac共に確実に「入力」として
                受理される長さに戻します */
-            tap-ms = <20>;
+            tap-ms = <30>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
