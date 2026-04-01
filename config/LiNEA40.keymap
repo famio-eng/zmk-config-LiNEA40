@@ -6,9 +6,9 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-/* 600➡140からさらに下げて100へ。Macでの「一歩」を最小にします。
+/* 600➡300へ。Macでの「一歩」を最小にします。
    Windowsでの速度不足は、下の trigger-period-ms の短縮で補います */
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 300
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -52,10 +52,18 @@
 
 &msc {
     delay-ms = <0>;
-    /* 周期を10msに設定。1秒間に最大100回の信号を送れるようにします */
-    trigger-period-ms = <10>;
+      /* 周期を20msに広げ、OSが1回ずつの入力を「別の操作」として
+       認識できるようにして、Macの加速アルゴリズムの発動を遅らせます */
+    trigger-period-ms = <20>;
     time-to-max-speed-ms = <0>;    /* 0に設定し、加速を排除 */
     acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
+};
+
+/* トラックボールのスクロール感度（ハードウェアレベル）の調整 */
+/* ここで 1/4 に間引くことで、Macでのトラックボール爆速スクロールを抑え込みます */
+&ib_scrl {
+    multiplier = <1>;
+    divider = <4>;
 };
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
@@ -162,9 +170,9 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* 重要：tap-ms を周期の半分(5ms)に設定。
-               「5ms ON / 5ms OFF」の状態を強制し、信号の重なり（暴走）を物理的に防ぎます */
-            tap-ms = <5>;
+            /* 5msから20msへ。Windows/Mac共に確実に「入力」として
+               受理される長さに戻します */
+            tap-ms = <20>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
