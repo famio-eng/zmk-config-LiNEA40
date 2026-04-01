@@ -84,8 +84,8 @@
         compatible = "alps,ec11";
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        /* 多くのEC11で安定する「1クリック=4パルス」の定義に変更 */
-        steps = <80>;    // 24➡40➡20➡80に修正
+        /* 24パルスのエンコーダーの全状態変化(24*4)を拾う設定 */
+        steps = <96>;    // 24➡40➡20➡96に修正
         status = "disabled";
     };
 
