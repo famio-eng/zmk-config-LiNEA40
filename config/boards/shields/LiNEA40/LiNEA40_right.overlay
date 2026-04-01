@@ -48,8 +48,31 @@
     status = "disabled"; // 右側にエンコーダーはないので無効
 };
 
+&pinctrl {
+    /* 右側だけで使うピン設定 */
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+        };
+    };
+    // ... spi0_sleep もここに記述 ...
+};
+
 &spi0 {
     status = "okay";
+    pinctrl-1 = <&spi0_sleep>;
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+
+    trackball: trackball@0 {
+        status = "okay";
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        /* 右側でのみ D6 を IRQ として使用 */
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
 };
 
 &trackball {
