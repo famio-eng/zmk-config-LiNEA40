@@ -11,7 +11,7 @@
         display-name = "LiNEA40";
         kscan = <&kscan0>;
         transform = <&default_transform>;
-        keys  //                     w   h    x    y     rot    rx    ry
+        keys  //                       w   h    x    y     rot   rx   ry
             = <&key_physical_attrs 100 100    0    0       0     0     0>
             , <&key_physical_attrs 100 100  100    0       0     0     0>
             , <&key_physical_attrs 100 100  200    0       0     0     0>
@@ -84,17 +84,14 @@
         compatible = "alps,ec11";
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        /* 24パルスのエンコーダーの全状態変化(24*4)を拾う設定 */
-        steps = <80>;    // 24➡40➡20➡96に修正
+        steps = <40>; // 現在の <24> から <40> に変更してみてください
         status = "disabled";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        /* 24から48へ。15度→7.5度ごとに信号を出すようにし、
-           Windowsでの「スカスカ感」を密度で埋めます */
-        triggers-per-rotation = <20>;    //8→16➡24➡20に修正
+        triggers-per-rotation = <16>;    //8→16に修正ｊ
     };
 
 /*
