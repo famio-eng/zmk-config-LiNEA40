@@ -6,9 +6,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-/* 600➡300へ。Macでの「一歩」を最小にします。
-   Windowsでの速度不足は、下の trigger-period-ms の短縮で補います */
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 300
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600 
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -52,13 +50,10 @@
 
 &msc {
     delay-ms = <0>;
-   /* 周期を25msに。
-       20ms(認識限界)に対して5msの余裕を持たせ、飽和（暴走）を防ぎます */
-    trigger-period-ms = <40>;
-    time-to-max-speed-ms = <0>;    /* 0に設定し、加速を排除 */
-    acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
+    trigger-period-ms = <12>;
+    time-to-max-speed-ms = <100>;
+    acceleration-exponent = <1>;
 };
-
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
 /* すでに right.overlay で device = <&trackball> が定義されているため、
@@ -164,7 +159,6 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* 10msで動かなかったので、確実に動く「20ms」に固定します */
             tap-ms = <20>;
         };
         re_kp: sensor_rotate_kp {
