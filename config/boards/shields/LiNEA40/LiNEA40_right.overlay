@@ -16,6 +16,44 @@
         ;
 };
 
+/* 右側ではエンコーダーを無効化してD6ピン競合を解く */
+&left_encoder {
+    status = "disabled";
+};
+
+&pinctrl {
+    spi0_default: spi0_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+        };
+    };
+    spi0_sleep: spi0_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            low-power-enable;
+        };
+    };
+};
+
+&spi0 {
+    status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+
+    &trackball {
+        status = "okay";
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        spi-max-frequency = <2000000>;
+    };
+};
+
 / {
     /* 1. 通常移動・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
@@ -35,43 +73,11 @@
         y-codes = <0x01>; // REL_Y
     };
 
-    /* 修正点: ラベル v_trackball_listener を追加 */
     v_trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
         input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
-    };
-};
-
-&left_encoder {
-    status = "disabled"; // 右側にエンコーダーはないので無効
-};
-
-&pinctrl {
-    /* 右側だけで使うピン設定 */
-    spi0_default: spi0_default {
-        group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
-        };
-    };
-    // ... spi0_sleep もここに記述 ...
-};
-
-&spi0 {
-    status = "okay";
-    pinctrl-1 = <&spi0_sleep>;
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
-
-    trackball: trackball@0 {
-        status = "okay";
-        compatible = "pixart,pmw3610";
-        reg = <0>;
-        spi-max-frequency = <2000000>;
-        /* 右側でのみ D6 を IRQ として使用 */
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
 
