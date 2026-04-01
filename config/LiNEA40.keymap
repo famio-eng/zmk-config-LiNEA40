@@ -6,7 +6,9 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 300 //600➡300
+/* 600➡140からさらに下げて100へ。Macでの「一歩」を最小にします。
+   Windowsでの速度不足は、下の trigger-period-ms の短縮で補います */
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -50,7 +52,8 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <12>;      /* 信号の間隔を標準値に戻して安定化 */
+    /* 周期を10msに設定。1秒間に最大100回の信号を送れるようにします */
+    trigger-period-ms = <10>;
     time-to-max-speed-ms = <0>;    /* 0に設定し、加速を排除 */
     acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
 };
@@ -159,9 +162,9 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* tap-ms = 15 は、Windowsが「1回のスクロール」として
-               認識するのに最も安定し、かつスタックしにくい数値です */
-            tap-ms = <15>;
+            /* 重要：tap-ms を周期の半分(5ms)に設定。
+               「5ms ON / 5ms OFF」の状態を強制し、信号の重なり（暴走）を物理的に防ぎます */
+            tap-ms = <5>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
