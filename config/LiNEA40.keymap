@@ -52,9 +52,9 @@
 
 &msc {
     delay-ms = <0>;
-      /* 周期を20msに広げ、OSが1回ずつの入力を「別の操作」として
-       認識できるようにして、Macの加速アルゴリズムの発動を遅らせます */
-    trigger-period-ms = <20>;
+   /* 周期を25msに。
+       20ms(認識限界)に対して5msの余裕を持たせ、飽和（暴走）を防ぎます */
+    trigger-period-ms = <25>;
     time-to-max-speed-ms = <0>;    /* 0に設定し、加速を排除 */
     acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
 };
@@ -165,9 +165,8 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* 5msから30msへ。Windows/Mac共に確実に「入力」として
-               受理される長さに戻します */
-            tap-ms = <10>;
+            /* 10msで動かなかったので、確実に動く「20ms」に固定します */
+            tap-ms = <20>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
