@@ -84,14 +84,16 @@
         compatible = "alps,ec11";
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <40>; // 現在の <24> から <40> に変更してみてください
+        /* 非クリック式のため、物理ステップの概念がないため40を維持 */
+        steps = <40>; 
         status = "okay";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        triggers-per-rotation = <16>;    //8→16に修正
+        /* 重要：非クリック式ではここを小さくして、入力感度を意図的に落とす */
+        triggers-per-rotation = <12>; 
     };
 
 /*
