@@ -44,6 +44,10 @@
     };
 };
 
+&left_encoder {
+    status = "disabled"; // 右側にエンコーダーはないので無効
+};
+
 &spi0 {
     status = "okay";
 };
