@@ -124,16 +124,16 @@
 &spi0 {
     status = "disabled";
     compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
+    //pinctrl-0 = <&spi0_default>;
+    //pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
     //cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 
-    trackball: trackball@0 {
+    /*trackball: trackball@0 {
         status = "disabled"; // 初期値は無効
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    };
+    };*/
 };
