@@ -92,9 +92,9 @@
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        /* 1回転で24回の入力（15度ごとに1入力）を発生させる */
-        /* これにより、クリック感がなくても「指の動き」と「画面の動き」が一致します */
-        triggers-per-rotation = <24>;    //8→16➡24に修正
+        /* 24から48へ。15度→7.5度ごとに信号を出すようにし、
+           Windowsでの「スカスカ感」を密度で埋めます */
+        triggers-per-rotation = <48>;    //8→16➡24に修正
     };
 
 /*
