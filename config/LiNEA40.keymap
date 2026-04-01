@@ -8,7 +8,7 @@
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 /* 600➡300へ。Macでの「一歩」を最小にします。
    Windowsでの速度不足は、下の trigger-period-ms の短縮で補います */
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 300
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -167,7 +167,7 @@
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             /* 5msから30msへ。Windows/Mac共に確実に「入力」として
                受理される長さに戻します */
-            tap-ms = <30>;
+            tap-ms = <10>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
