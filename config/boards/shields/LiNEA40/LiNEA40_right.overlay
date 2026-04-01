@@ -41,12 +41,14 @@
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
-};
 
-&trackball {
-    status = "okay";
-    irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    spi-max-frequency = <2000000>;
+    trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        status = "okay";
+    };
 };
 
 / {
@@ -54,16 +56,16 @@
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Mouse";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
     };
 
     trackball_scroll_proc: trackball_scroll_proc {
         compatible = "zmk,input-processor-runtime";
         #input-processor-cells = <0>;
         processor-label = "Scroll";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
+        x-codes = <INPUT_REL_X>;
+        y-codes = <INPUT_REL_Y>;
     };
 
     v_trackball_listener: trackball_listener {
