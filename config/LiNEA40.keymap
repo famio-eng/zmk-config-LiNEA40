@@ -8,7 +8,7 @@
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 /* 600➡300へ。Macでの「一歩」を最小にします。
    Windowsでの速度不足は、下の trigger-period-ms の短縮で補います */
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 300
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -54,7 +54,7 @@
     delay-ms = <0>;
    /* 周期を25msに。
        20ms(認識限界)に対して5msの余裕を持たせ、飽和（暴走）を防ぎます */
-    trigger-period-ms = <25>;
+    trigger-period-ms = <40>;
     time-to-max-speed-ms = <0>;    /* 0に設定し、加速を排除 */
     acceleration-exponent = <0>;   /* 0に設定：回した速さでスクロール量が変わるのを防ぐ */
 };
@@ -80,8 +80,7 @@
     /* 【重要】スクロール切り替えはここだけで定義する */
     scroller {
         layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
-        /* ここを修正：mapperの後にscalerを追加して 1/4 (divider 4) に設定 */
-        input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 4>;
+        input-processors = <&zip_xy_to_scroll_mapper>;
     };
 };
 
