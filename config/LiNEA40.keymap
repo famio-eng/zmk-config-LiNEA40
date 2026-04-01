@@ -50,9 +50,10 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <12>;
-    time-to-max-speed-ms = <100>;
-    acceleration-exponent = <1>;
+    /* 信号の発信周期を30msに広げ、OS側の処理待ちを防ぐ */
+    trigger-period-ms = <30>;      
+    time-to-max-speed-ms = <0>;
+    acceleration-exponent = <0>;
 };
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
