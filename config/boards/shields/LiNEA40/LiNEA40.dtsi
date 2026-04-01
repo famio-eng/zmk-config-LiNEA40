@@ -85,7 +85,7 @@
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         /* 24パルスのエンコーダーの全状態変化(24*4)を拾う設定 */
-        steps = <96>;    // 24➡40➡20➡96に修正
+        steps = <80>;    // 24➡40➡20➡96に修正
         status = "disabled";
     };
 
@@ -94,7 +94,7 @@
         sensors = <&left_encoder>;
         /* 24から48へ。15度→7.5度ごとに信号を出すようにし、
            Windowsでの「スカスカ感」を密度で埋めます */
-        triggers-per-rotation = <24>;    //8→16➡24に修正
+        triggers-per-rotation = <20>;    //8→16➡24➡20に修正
     };
 
 /*
