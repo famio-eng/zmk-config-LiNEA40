@@ -36,10 +36,17 @@
 
 &spi0 {
     status = "okay";
+    compatible = "nordic,nrf-spim";
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 };
 
 &trackball {
     status = "okay";
+    irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    spi-max-frequency = <2000000>;
 };
 
 / {
