@@ -79,7 +79,6 @@
             ;
     };
 
-    /* 左手エンコーダーの器（ピンはleft.overlayで指定） */
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         steps = <40>; 
@@ -93,7 +92,7 @@
     };
 };
 
-/* SPIとトラックボールの器（ピンはright.overlayで指定） */
+/* SPIとtrackballラベルだけは共通定義として置く（ビルドエラー回避のため） */
 &spi0 {
     status = "disabled";
     trackball: trackball@0 {
