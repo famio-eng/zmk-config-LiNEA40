@@ -13,16 +13,5 @@
 };
 
 &left_encoder {
-    a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-    b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
     status = "okay";
-};
-
-/* 左側ビルドではSPIとtrackball定義を完全に無効化しD6ピン競合を解く */
-&spi0 {
-    status = "disabled";
-};
-
-&trackball {
-    status = "disabled";
 };
