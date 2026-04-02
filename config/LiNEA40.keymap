@@ -156,8 +156,8 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* 1回の信号を10msに短縮し、次の信号までの空隙を確保 */
-            tap-ms = <10>;
+            /* 暴走対策：tap-msをtrigger-period-msと同期させ、1クリックの処理時間を最小化 */
+            tap-ms = <5>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
