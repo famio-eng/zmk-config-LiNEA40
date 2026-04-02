@@ -34,27 +34,21 @@
 };
 
 / {
+    /* --- STEP 2: トラックボール・リスナーの正常化 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
 
-        /* 【修正】エラーの元となる zip_auto_layer と、
-           未定義マクロを含む zip_xy_transform を完全に削除しました。
-           これにより、ビルドエラーを回避し、トラックボールの上下逆転が解消されます。
-        */
-        input-processors = <&zip_temp_force_none>; 
+        /* 【重要】未定義のプロセッサ参照を完全に削除しました。
+           空のブラケット <> にすることで、'lacks binding' エラーを回避し、
+           かつ上下逆転（変形処理）を物理的に無効化します。 */
+        input-processors = <>; 
 
         scroller {
             layers = <SCROLL>;
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
-    };
-
-    /* ダミーのプロセッサ（何もしない）を定義して、listenerの構文を維持 */
-    zip_temp_force_none: zip_temp_force_none {
-        compatible = "zmk,input-processor-temp"; /* 汎用的なものを仮定 */
-        #input-processor-cells = <0>;
     };
 
     /* --- STEP 5: コンボ定義 --- */
