@@ -5,10 +5,10 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-/* Macでの爆速スクロールを防ぐため標準値(100)に設定 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 100 
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 600 
 
+/* レイヤー定義 */
 #define MOUSE 2
 #define MARK 3
 #define CURSOR 4
@@ -16,30 +16,30 @@
 #define SCROLL 6
 #define WIRELESS 7
 
-/* JIS環境用マッピング */
+// OS設定変換定義
 #define JP_DQUOTE        AT
-#define JP_AMPERSAND      CARET
-#define JP_QUOTE          AMPERSAND
-#define JP_EQUAL          UNDER
-#define JP_CARET          EQUAL
-#define JP_YEN            0x89
-#define JP_PLUS           COLON
-#define JP_TILDE          PLUS
-#define JP_PIPE           LS(0x89)
-#define JP_AT             LEFT_BRACKET
-#define JP_COLON          SINGLE_QUOTE
-#define JP_ASTERISK       DOUBLE_QUOTES
-#define JP_BACKQUOTE      LEFT_BRACE
-#define JP_UNDERSCORE     LS(0x87)
-#define JP_LBRACKET       RIGHT_BRACKET
-#define JP_RBRACKET       BACKSLASH
-#define JP_LPAREN         ASTERISK
-#define JP_RPAREN         LEFT_PARENTHESIS
-#define JP_LBRACE         RIGHT_BRACE
-#define JP_RBRACE         PIPE
-#define JP_KANA           LANGUAGE_1
-#define JP_EISU           LANGUAGE_2
-#define JP_HANZEN         GRAVE
+#define JP_AMPERSAND     CARET
+#define JP_QUOTE         AMPERSAND
+#define JP_EQUAL         UNDER
+#define JP_CARET         EQUAL
+#define JP_YEN           0x89
+#define JP_PLUS          COLON
+#define JP_TILDE         PLUS
+#define JP_PIPE          LS(0x89)
+#define JP_AT            LEFT_BRACKET
+#define JP_COLON         SINGLE_QUOTE
+#define JP_ASTERISK      DOUBLE_QUOTES
+#define JP_BACKQUOTE     LEFT_BRACE
+#define JP_UNDERSCORE    LS(0x87)
+#define JP_LBRACKET      RIGHT_BRACKET
+#define JP_RBRACKET      BACKSLASH
+#define JP_LPAREN        ASTERISK
+#define JP_RPAREN        LEFT_PARENTHESIS
+#define JP_LBRACE        RIGHT_BRACE
+#define JP_RBRACE        PIPE
+#define JP_KANA          LANGUAGE_1
+#define JP_EISU          LANGUAGE_2
+#define JP_HANZEN        GRAVE
 
 &mmv {
     delay-ms = <20>;
@@ -50,26 +50,33 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <10>;
+    /* 非クリック式エンコーダーの連射を抑えるため、周期を40msに拡大 */
+    trigger-period-ms = <40>;      
     time-to-max-speed-ms = <0>;
     acceleration-exponent = <0>;
 };
 
+/* dtsiにあるラベルを使用してリスナーを設定 */
 / {
     trackball_listener: trackball_listener {
         compatible = "zmk,input-behavior-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; 
+
+        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
+
+        /* オートマウス設定 */
         msl-layers = <2>;      
         msl-timeout-ms = <500>; 
+
         scroller {
-            layers = <6>;      
+            layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
     };
+};
 
-    /* Studioでエンコーダーを動的に変更するためのプロセッサ */
+/ {
     left_encoder_proc: left_encoder_proc {
         compatible = "zmk,behavior-runtime-sensor-rotate";
         #sensor-binding-cells = <0>;
@@ -77,19 +84,71 @@
 
     combos {
         compatible = "zmk,combos";
-        DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
-        InsertKey { bindings = <&kp INS>; key-positions = <6 7>; };
-        Enter { bindings = <&kp ENTER>; key-positions = <18 17 16>; };
-        PrevClick { bindings = <&mkp MB4>; key-positions = <16 17>; };
-        ClickNext { bindings = <&mkp MB5>; key-positions = <17 18>; };
-        back { bindings = <&kp BACKSPACE>; key-positions = <8 9>; };
-        screenshot { bindings = <&kp PRINTSCREEN>; key-positions = <4 3>; };
-        emoji { bindings = <&kp LG(PERIOD)>; key-positions = <3 1>; };
-        escape { bindings = <&kp ESCAPE>; key-positions = <1 0>; };
-        tab { bindings = <&kp TAB>; key-positions = <11 12>; };
-        EN { bindings = <&kp LANG2>; key-positions = <12 13>; };
-        JP { bindings = <&kp LANG1>; key-positions = <22 23>; };
-        katakana { bindings = <&kp LANG3>; key-positions = <23 24>; };
+
+        DeleteKey {  
+            bindings = <&kp DEL>;  
+            key-positions = <8 7>; 
+        };
+
+        InsertKey {
+            bindings = <&kp INS>;
+            key-positions = <6 7>;
+        };
+
+        Enter {
+            bindings = <&kp ENTER>;
+            key-positions = <18 17 16>;
+        };
+
+        PrevClick {
+            bindings = <&mkp MB4>;
+            key-positions = <16 17>;
+        };
+
+        ClickNext {
+            bindings = <&mkp MB5>;
+            key-positions = <17 18>;
+        };
+
+        back {
+            bindings = <&kp BACKSPACE>;
+            key-positions = <8 9>;
+        };
+
+        screenshot {
+            bindings = <&kp PRINTSCREEN>;
+            key-positions = <4 3>;
+        };
+
+        emoji {
+            bindings = <&kp LG(PERIOD)>;
+            key-positions = <3 1>;
+        };
+
+        escape {
+            bindings = <&kp ESCAPE>;
+            key-positions = <1 0>;
+        };
+
+        tab {
+            bindings = <&kp TAB>;
+            key-positions = <11 12>;
+        };
+
+        EN {
+            bindings = <&kp LANG2>;
+            key-positions = <12 13>;
+        };
+
+        JP {
+            bindings = <&kp LANG1>;
+            key-positions = <22 23>;
+        };
+
+        katakana {
+            bindings = <&kp LANG3>;
+            key-positions = <23 24>;
+        };
     };
 
     behaviors {
@@ -97,7 +156,8 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <30>;
+            /* 1回の信号を10msに短縮し、次の信号までの空隙を確保 */
+            tap-ms = <10>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
@@ -107,26 +167,145 @@
     };
 
     macros {
-        j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
-        j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
-        j_sq: j_sq { label = "SQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N7)>; };
-        j_eq: j_eq { label = "EQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; };
-        j_caret: j_cr { label = "CARET"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp EQUAL>; };
-        j_yen: j_yen { label = "YEN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp INT1>; };
-        j_plus: j_plus { label = "PLUS"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp COLON>; };
-        j_tilde: j_tilde { label = "TILDE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp PLUS>; };
-        j_pipe: j_pipe { label = "PIPE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
-        j_at: j_at { label = "AT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LBKT>; };
-        j_colon: j_colon { label = "COLON"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp SQT>; };
-        j_ast: j_ast { label = "AST"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(SQT)>; };
-        j_bt: j_bt { label = "BT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; };
-        j_under: j_under { label = "UNDER"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
-        j_lbkt: j_lbkt { label = "L_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RBKT>; };
-        j_rbkt: j_rbkt { label = "R_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp BACKSLASH>; };
-        j_lp: j_lp { label = "L_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp ASTRK>; };
-        j_rp: j_rp { label = "R_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LEFT_PARENTHESIS>; };
-        j_lbrc: j_lbrc { label = "L_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RIGHT_BRACE>; };
-        j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
+        j_dq: j_dq {
+            label = "DQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N2)>;
+        };
+
+        j_amp: j_amp {
+            label = "AMP";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N6)>;
+        };
+
+        j_sq: j_sq {
+            label = "SQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(N7)>;
+        };
+
+        j_eq: j_eq {
+            label = "EQ";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(MINUS)>;
+        };
+
+        j_caret: j_cr {
+            label = "CARET";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp EQUAL>;
+        };
+
+        j_yen: j_yen {
+            label = "YEN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp INT1>;
+        };
+
+        j_plus: j_plus {
+            label = "PLUS";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON>;
+        };
+
+        j_tilde: j_tilde {
+            label = "TILDE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp PLUS>;
+        };
+
+        j_pipe: j_pipe {
+            label = "PIPE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(INT1)>;
+        };
+
+        j_at: j_at {
+            label = "AT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LBKT>;
+        };
+
+        j_colon: j_colon {
+            label = "COLON";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp SQT>;
+        };
+
+        j_ast: j_ast {
+            label = "AST";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(SQT)>;
+        };
+
+        j_bt: j_bt {
+            label = "BT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(RBKT)>;
+        };
+
+        j_under: j_under {
+            label = "UNDER";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(INT1)>;
+        };
+
+        j_lbkt: j_lbkt {
+            label = "L_BKT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RBKT>;
+        };
+
+        j_rbkt: j_rbkt {
+            label = "R_BKT";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp BACKSLASH>;
+        };
+
+        j_lp: j_lp {
+            label = "L_PAREN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp ASTRK>;
+        };
+
+        j_rp: j_rp {
+            label = "R_PAREN";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_PARENTHESIS>;
+        };
+
+        j_lbrc: j_lbrc {
+            label = "L_BRACE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RIGHT_BRACE>;
+        };
+
+        j_rbrc: j_rbrc {
+            label = "R_BRACE";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(BSLH)>;
+        };
     };
 
     keymap {
@@ -134,20 +313,20 @@
 
         default_layer_win {
             bindings = <
-&kp Q               &kp W          &kp E          &kp R  &kp T                                     &kp Y          &kp U  &kp I                 &kp O                    &kp P
-&kp A               &kp S          &kp D          &kp F  &kp G                                     &kp H          &kp J  &kp K                 &kp L                    &lt 6 BACKSPACE
-&mt LEFT_SHIFT Z    &kp X          &kp C          &kp V  &kp B                                     &kp N          &kp M  &mt LESS_THAN COMMA   &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
-&kp LEFT_CONTROL    &kp LEFT_WIN   &kp LEFT_ALT   &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 5 ENTER  &lt 3 SPACE           &lt 4 QUESTION        &kp ENTER                &lt 7 TAB
+&kp Q               &kp W          &kp E          &kp R  &kp T                                     &kp Y         &kp U  &kp I                 &kp O                    &kp P
+&kp A               &kp S          &kp D          &kp F  &kp G                                     &kp H         &kp J  &kp K                 &kp L                    &lt 6 BACKSPACE
+&mt LEFT_SHIFT Z    &kp X          &kp C          &kp V  &kp B                                     &kp N         &kp M  &mt LESS_THAN COMMA   &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
+&kp LEFT_CONTROL    &kp LEFT_WIN   &kp LEFT_ALT   &none  &kp LEFT_SHIFT  &kp LCTRL    &lt 5 ENTER  &lt 3 SPACE          &lt 4 QUESTION        &kp ENTER                &lt 7 TAB
             >;
             sensor-bindings = <&mouse_scrl>;
         };
 
         default_layer_mac {
             bindings = <
-&kp Q           &kp W           &kp E                   &kp R    &kp T                                     &kp Y          &kp U     &kp I            &kp O        &kp P
-&kp A           &kp S           &kp D                   &kp F    &kp G                                     &kp H          &kp J     &kp K            &kp L        &lt 6 MINUS
-&kp Z           &kp X           &kp C                   &kp V    &kp B                                     &kp N          &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
-&mt LCTRL ESC   &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE               &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
+                &kp Q           &kp W           &kp E                 &kp R    &kp T                                     &kp Y         &kp U     &kp I            &kp O        &kp P
+                &kp A           &kp S           &kp D                 &kp F    &kp G                                     &kp H         &kp J     &kp K            &kp L        &lt 6 MINUS
+                &kp Z           &kp X           &kp C                 &kp V    &kp B                                     &kp N         &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
+                &mt LCTRL ESC   &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE             &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
             sensor-bindings = <&mouse_scrl>;
         };
@@ -167,7 +346,7 @@
 &kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp  &j_sq          &j_under   &j_tilde      &j_yen
 &kp SLASH        &j_pipe          &j_lbrc   &j_lbkt     &j_lp                          &j_eq   &j_plus        &kp MINUS  &j_caret      &j_at
 &kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_ast  &kp SEMICOLON  &j_colon   &kp QUESTION  &kp SLASH
-&trans           &trans           &trans    &trans      &trans        &trans    &trans  &trans                  &kp SLASH  &trans        &trans
+&trans           &trans           &trans    &trans      &trans        &trans    &trans  &trans                 &kp SLASH  &trans        &trans
             >;
             sensor-bindings = <&re_kp>;
         };
@@ -204,10 +383,10 @@
 
         WIRELESS {
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &trans &trans &trans &trans &bt BT_CLR_ALL
-&trans        &trans        &trans        &trans        &trans                         &trans &trans &trans &trans &bt BT_CLR
-&trans        &trans        &trans        &trans        &trans                         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  
-&trans        &trans        &trans        &trans        &trans        &trans  &trans &studio_unlock        &trans &trans &trans
+                &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &trans &trans &trans &trans &bt BT_CLR_ALL
+                &trans        &trans        &trans        &trans        &trans                         &trans &trans &trans &trans &bt BT_CLR
+                &trans        &trans        &trans        &trans        &trans                         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  
+                &trans        &trans        &trans        &trans        &trans        &trans  &trans &studio_unlock        &trans &trans &trans
             >;
         };
     };
