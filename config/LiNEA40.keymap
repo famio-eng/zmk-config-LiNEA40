@@ -32,12 +32,12 @@
 
 / {
     /* --- 1. オートマウス定義 --- */
-    /* compatible 名をモジュールの定義 "zmk,input-processor-auto-layer" に固定 */
+    /* urob/zmk-auto-layer の正確な定義に修正 */
     auto_mouse_layer: auto_mouse_layer {
         compatible = "zmk,input-processor-auto-layer";
         #input-processor-cells = <1>;
-        layers = <2>;           /* MOUSEレイヤーに遷移 */
-        timeout-ms = <500>;     /* 500ms入力がないと戻る */
+        layer = <2>;             /* プロパティ名は 'layer' (単数形) */
+        timeout-ms = <500>;
     };
 
     /* --- 2. リスナー定義 --- */
@@ -46,7 +46,6 @@
         device = <&trackball>;
         status = "okay";
         
-        /* XY反転適用後、オートマウスレイヤープロセッサに渡す */
         input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&auto_mouse_layer 0>;
 
         scroller {
