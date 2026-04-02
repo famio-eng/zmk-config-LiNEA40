@@ -34,22 +34,29 @@
 };
 
 / {
-    /* --- STEP 2: トラックボール・リスナー定義 --- */
-    /* エラーの原因だった zip_auto_layer ノードを削除し、標準のレイヤー制御に寄せます */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        status = "okay";
-
-        /* Y軸反転のみを適用。オートレイヤーは外部モジュールの Binding エラーが解消するまで、一旦この構造で疎通を確認します */
-        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;
-
-        /* レイヤー6(SCROLL)でのスクロール変換 */
-        scroller {
-            layers = <SCROLL>;
-            input-processors = <&zip_xy_to_scroll_mapper>;
+    /* --- STEP 2: オートレイヤープロセッサ (urob版対応) --- */
+        zip_auto_layer: zip_auto_layer {
+            /* 名称を debug 版に変更し、必須項目を網羅 */
+            compatible = "urob,debug-input-processor-auto-layer";
+            #input-processor-cells = <1>;
+            target-layer = <MOUSE>;
+            timeout-ms = <500>;
         };
-    };
+    
+        /* --- STEP 3: トラックボール・リスナー定義 --- */
+        trackball_listener: trackball_listener {
+            compatible = "zmk,input-listener";
+            device = <&trackball>;
+            status = "okay";
+    
+            /* 上下逆転を直すため transform を一旦削除、または正規化 */
+            input-processors = <&zip_auto_layer 0>;
+    
+            scroller {
+                layers = <SCROLL>;
+                input-processors = <&zip_xy_to_scroll_mapper>;
+            };
+        };
 
     /* --- STEP 5: コンボ定義 --- */
     combos {
