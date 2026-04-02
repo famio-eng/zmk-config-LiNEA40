@@ -40,11 +40,6 @@
         device = <&trackball>;
         status = "okay";
 
-        /* 【重要】未定義のプロセッサ参照を完全に削除しました。
-           空のブラケット <> にすることで、'lacks binding' エラーを回避し、
-           かつ上下逆転（変形処理）を物理的に無効化します。 */
-        input-processors = <>; 
-
         scroller {
             layers = <SCROLL>;
             input-processors = <&zip_xy_to_scroll_mapper>;
