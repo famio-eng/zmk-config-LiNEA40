@@ -78,4 +78,26 @@
             , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
+
+    left_encoder: encoder_left {
+        compatible = "alps,ec11";
+        steps = <40>; 
+        status = "disabled";
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&left_encoder>;
+        triggers-per-rotation = <12>; 
+    };
+};
+
+/* trackballラベルのみを定義（初期状態はdisabled） */
+&spi0 {
+    status = "disabled";
+    trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        status = "disabled";
+    };
 };
