@@ -17,13 +17,15 @@
         compatible = "alps,ec11";
         a-gpios = <&xiao_d 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <40>;
+        /* 物理的なステップ数を適正化 */
+        steps = <80>;
         status = "okay";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        triggers-per-rotation = <12>;
+        /* 1回転あたりのトリガー数を落として誤検知（暴走）を防ぎます */
+        triggers-per-rotation = <20>;
     };
 };
