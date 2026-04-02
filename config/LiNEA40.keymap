@@ -34,6 +34,11 @@
 };
 
 / {
+    /* 【追加】DYA Studio 設定保存用ノード */
+    zmk_studio: zmk_studio {
+        compatible = "zmk,studio";
+    };
+
     /* --- STEP 2: トラックボール・リスナーの正常化 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
