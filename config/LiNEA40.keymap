@@ -70,7 +70,7 @@
         msl-timeout-ms = <500>; 
 
         /*scroller {
-            layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
+            layers = <6>;      //レイヤー6にいる時だけスクロールになる
             input-processors = <&zip_xy_to_scroll_mapper>;
         };*/
     };
