@@ -31,7 +31,7 @@
 };
 
 / {
-    /* --- 1. オートマウス定義 (リスナーより上に配置) --- */
+    /* --- 1. オートマウス定義 --- */
     auto_mouse_layer: auto_mouse_layer {
         compatible = "zmk,input-processor-auto-layer";
         #input-processor-cells = <1>;
@@ -126,10 +126,10 @@
 
         default_layer_mac {
             bindings = <
-                &kp Q          &kp W          &kp E                &kp R    &kp T                                     &kp Y         &kp U     &kp I            &kp O        &kp P
-                &kp A          &kp S          &kp D                &kp F    &kp G                                     &kp H         &kp J     &kp K            &kp L        &lt 6 MINUS
-                &kp Z          &kp X          &kp C                &kp V    &kp B                                     &kp N         &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
-                &mt LCTRL ESC  &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE             &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
+                &kp Q           &kp W           &kp E                &kp R    &kp T                                     &kp Y         &kp U     &kp I            &kp O        &kp P
+                &kp A           &kp S           &kp D                &kp F    &kp G                                     &kp H         &kp J     &kp K            &kp L        &lt 6 MINUS
+                &kp Z           &kp X           &kp C                &kp V    &kp B                                     &kp N         &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
+                &mt LCTRL ESC   &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE               &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
             sensor-bindings = <&mouse_scrl>;
         };
@@ -137,9 +137,9 @@
         MOUSE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                    &trans  &msc SCRL_LEFT  &msc SCRL_RIGHT  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK       &mkp RCLK        &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK       &trans           &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                  &trans           &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp LCLK        &mkp RCLK         &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK        &trans            &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                    &trans            &trans  &trans
             >;
             sensor-bindings = <&mouse_scrl>;
         };
@@ -149,7 +149,7 @@
 &kp EXCLAMATION  &j_dq            &kp HASH  &kp DOLLAR  &kp PERCENT                    &j_amp  &j_sq          &j_under   &j_tilde      &j_yen
 &kp SLASH        &j_pipe          &j_lbrc   &j_lbkt     &j_lp                          &j_eq   &j_plus        &kp MINUS  &j_caret      &j_at
 &kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_ast  &kp SEMICOLON  &j_colon   &kp QUESTION  &kp SLASH
-&trans           &trans           &trans    &trans      &trans        &trans    &trans  &trans                 &kp SLASH  &trans        &trans
+&trans           &trans           &trans    &trans      &trans        &trans    &trans  &trans                   &kp SLASH  &trans        &trans
             >;
             sensor-bindings = <&re_kp>;
         };
@@ -179,7 +179,7 @@
 &trans          &kp LC(LG(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LC(LG(RIGHT_ARROW))  &trans                    &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8    &kp NUMBER_9    &kp KP_PLUS
 &trans          &kp LG(LEFT_ARROW)      &kp LG(DOWN)      &kp LG(RIGHT_ARROW)      &trans                    &kp KP_SLASH     &mkp LCLK     &mkp RCLK       &mkp RCLK       &kp KP_MINUS
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
-&trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
+&trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
             sensor-bindings = <&mouse_scrl>;
         };
@@ -193,4 +193,4 @@
             >;
         };
     };
-}; /* --- ルートノードの閉じカッコ (ここが重要) --- */
+};
