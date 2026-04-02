@@ -32,11 +32,11 @@
 
 / {
     /* --- 1. オートマウス定義 --- */
-    /* urob/zmk-auto-layer の正確な定義に修正 */
-    auto_mouse_layer: auto_mouse_layer {
+    /* urob/zmk-auto-layer の Binding 定義 (layer 単数形) に厳密に準拠 */
+    zip_auto_layer: zip_auto_layer {
         compatible = "zmk,input-processor-auto-layer";
         #input-processor-cells = <1>;
-        layer = <2>;             /* プロパティ名は 'layer' (単数形) */
+        layer = <2>;             /* 修正: 'layers' ではなく 'layer' */
         timeout-ms = <500>;
     };
 
@@ -46,7 +46,8 @@
         device = <&trackball>;
         status = "okay";
         
-        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&auto_mouse_layer 0>;
+        /* XY反転を適用し、次にオートマウスプロセッサへ */
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&zip_auto_layer 0>;
 
         scroller {
             layers = <6>;
