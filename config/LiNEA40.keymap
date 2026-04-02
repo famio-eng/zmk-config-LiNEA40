@@ -6,7 +6,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 30
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -42,18 +42,18 @@
 #define JP_HANZEN        GRAVE
 
 &mmv {
-    delay-ms = <20>;
-    trigger-period-ms = <5>;
-    time-to-max-speed-ms = <20>;
+    delay-ms = <0>;
+    trigger-period-ms = <16>;
+    time-to-max-speed-ms = <40>;
     acceleration-exponent = <1>;
 };
 
 &msc {
     delay-ms = <0>;
     /* 非クリック式エンコーダーの連射を抑えるため、周期を40msに拡大 */
-    trigger-period-ms = <20>;      
-    time-to-max-speed-ms = <0>;
-    acceleration-exponent = <0>;
+    trigger-period-ms = <16>;      
+    time-to-max-speed-ms = <40>;
+    acceleration-exponent = <1>;
 };
 
 /* dtsiにあるラベルを使用してリスナーを設定 */
@@ -157,7 +157,7 @@
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             /* 修正点：trigger-period-ms と同期させ、1クリックの処理遅延を最小化 */
-            tap-ms = <20>;
+            tap-ms = <30>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
