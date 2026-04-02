@@ -35,7 +35,7 @@
 / {
     /* --- 2. オートレイヤー定義 (urob/zmk-auto-layer) --- */
     zip_auto_layer: zip_auto_layer {
-        compatible = "urob,debug-input-processor-auto-layer";
+        compatible = "zmk,input-processor-auto-layer";
         #input-processor-cells = <1>;
         target-layer = <MOUSE>;
         timeout-ms = <500>;
