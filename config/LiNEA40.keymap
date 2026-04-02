@@ -33,31 +33,36 @@
 };
 
 / {
-    /* --- 2. オートレイヤー定義 --- */
+    /* --- 2. オートレイヤー定義 (urob/zmk-auto-layer) --- */
     zip_auto_layer: zip_auto_layer {
         compatible = "zmk,input-processor-auto-layer";
         #input-processor-cells = <1>;
-        layer = <MOUSE>;         /* 定数名を使用 */
+        target-layer = <MOUSE>;
         timeout-ms = <500>;
     };
 
-    /* --- 3. トラックボール・リスナー定義 --- */
+    /* --- 3. スクロール変換定義 --- */
+    /* ここでレイヤー条件を指定することで、レイヤー6以外では無効化されます */
+    zip_xy_to_scroll_mapper: zip_xy_to_scroll_mapper {
+        compatible = "zmk,input-processor-xy-to-scroll-mapper";
+        #input-processor-cells = <0>;
+        layer = <SCROLL>; 
+    };
+
+    /* --- 4. トラックボール・リスナー定義 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
 
+        /* プロセッサを順番に適用。スクロール変換はレイヤー条件により自動制御されます */
         input-processors = 
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            <&zip_auto_layer 0>;
-
-        scroller {
-            layer = <SCROLL>;    /* 定数名を使用 */
-            input-processors = <&zip_xy_to_scroll_mapper>;
-        };
+            <&zip_auto_layer 0>,
+            <&zip_xy_to_scroll_mapper>;
     };
 
-    /* --- 4. コンボ定義 --- */
+    /* --- 5. コンボ定義 --- */
     combos {
         compatible = "zmk,combos";
         DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
@@ -75,7 +80,7 @@
         katakana { bindings = <&kp LANG3>; key-positions = <23 24>; };
     };
 
-    /* --- 5. 振る舞い(Behaviors)定義 --- */
+    /* --- 6. 振る舞い(Behaviors)定義 --- */
     behaviors {
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
@@ -90,7 +95,7 @@
         };
     };
 
-    /* --- 6. マクロ定義 (日本語JIS対応) --- */
+    /* --- 7. マクロ定義 (日本語JIS対応) --- */
     macros {
         j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
         j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
@@ -114,7 +119,7 @@
         j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
     };
 
-    /* --- 7. キーマップ定義（全レイヤー統合） --- */
+    /* --- 8. キーマップ定義 --- */
     keymap {
         compatible = "zmk,keymap";
 
