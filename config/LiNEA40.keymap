@@ -60,23 +60,28 @@
    ここでは追加したい設定（status, input-processors 等）のみを記述します */
 / {
     /* 参照（&）ではなく、ここでノードを定義・ラベル付けする */
+    /* 1. リスナー定義 */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
 
-        /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
-        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
-    
-        /* オートマウス設定 */
-        msl-layers = <2>;      
-        msl-timeout-ms = <500>; 
-    
+        /* 変換プロセッサとオートマウスプロセッサを並べる */
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>, <&auto_mouse_layer 0>;
+
         /* 【重要】スクロール切り替えはここだけで定義する */
         scroller {
             layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
+    };
+
+    /* 2. オートマウスのロジック定義 */
+    auto_mouse_layer {
+        compatible = "zmk,input-processor-auto-mouse-layer";
+        #input-processor-cells = <1>;
+        layers = <2>;           /* MOUSEレイヤー(2)を指定 */
+        timeout-ms = <500>;     /* タイムアウト設定 */
     };
 };
 
