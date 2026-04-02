@@ -71,7 +71,7 @@
             #sensor-binding-cells = <0>;
             /* 延々スクロールを防ぐため、単純なKPではなく MSC を直接制御 */
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <30>;
+            tap-ms = <10>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
