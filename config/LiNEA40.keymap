@@ -49,9 +49,10 @@
         device = <&trackball>;
         status = "okay";
 
-        /* 上下逆転を修正（Y_INVERTを削除）し、オートレイヤーを有効化 */
+        /* 修正点：エラーの原因だった未定義マクロを削除し、引数を 0 に修正 */
+        /* これにより上下逆転が解消され、オートレイヤーが有効になります */
         input-processors = 
-            <&zip_xy_transform INPUT_TRANSFORM_NONE>,
+            <&zip_xy_transform 0>,
             <&zip_auto_layer 0>;
 
         /* スクロールレイヤー時の挙動 */
