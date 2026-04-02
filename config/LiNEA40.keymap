@@ -5,11 +5,10 @@
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-/* スクロール量を標準的な値(100)に調整。Macでの爆速を防ぎます */
+/* Macでの爆速スクロールを防ぐため標準値(100)に設定 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100 
 
-/* レイヤー定義 */
 #define MOUSE 2
 #define MARK 3
 #define CURSOR 4
@@ -17,7 +16,7 @@
 #define SCROLL 6
 #define WIRELESS 7
 
-// OS設定変換定義 (JIS環境用)
+/* JIS環境用マッピング */
 #define JP_DQUOTE        AT
 #define JP_AMPERSAND      CARET
 #define JP_QUOTE          AMPERSAND
@@ -51,8 +50,7 @@
 
 &msc {
     delay-ms = <0>;
-    /* エンコーダーの入力間隔を少し広げて安定させます */
-    trigger-period-ms = <10>;      
+    trigger-period-ms = <10>;
     time-to-max-speed-ms = <0>;
     acceleration-exponent = <0>;
 };
@@ -62,22 +60,16 @@
         compatible = "zmk,input-behavior-listener";
         device = <&trackball>;
         status = "okay";
-
-        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; 
-
-        /* オートマウス設定 */
+        input-processors = <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; 
         msl-layers = <2>;      
         msl-timeout-ms = <500>; 
-
         scroller {
             layers = <6>;      
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
     };
-};
 
-/ {
-    /* Studio対応用のプロセッサ */
+    /* Studioでエンコーダーを動的に変更するためのプロセッサ */
     left_encoder_proc: left_encoder_proc {
         compatible = "zmk,behavior-runtime-sensor-rotate";
         #sensor-binding-cells = <0>;
@@ -105,7 +97,6 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            /* tap-ms を30msまで伸ばし、暴走（チャタリング）を物理的に防ぎます */
             tap-ms = <30>;
         };
         re_kp: sensor_rotate_kp {
@@ -153,10 +144,10 @@
 
         default_layer_mac {
             bindings = <
-                &kp Q           &kp W           &kp E                   &kp R    &kp T                                     &kp Y          &kp U     &kp I            &kp O        &kp P
-                &kp A           &kp S           &kp D                   &kp F    &kp G                                     &kp H          &kp J     &kp K            &kp L        &lt 6 MINUS
-                &kp Z           &kp X           &kp C                   &kp V    &kp B                                     &kp N          &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
-                &mt LCTRL ESC   &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE               &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
+&kp Q           &kp W           &kp E                   &kp R    &kp T                                     &kp Y          &kp U     &kp I            &kp O        &kp P
+&kp A           &kp S           &kp D                   &kp F    &kp G                                     &kp H          &kp J     &kp K            &kp L        &lt 6 MINUS
+&kp Z           &kp X           &kp C                   &kp V    &kp B                                     &kp N          &kp M     &kp COMMA        &kp DOT      &mt RIGHT_SHIFT BACKSPACE
+&mt LCTRL ESC   &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS  &lt 6 ENTER  &lt 3 TAB  &lt 3 BACKSPACE  &lt 5 SPACE               &lt 7 SEMICOLON  &kp INT_YEN  &mt RIGHT_SHIFT SLASH
             >;
             sensor-bindings = <&mouse_scrl>;
         };
@@ -213,11 +204,11 @@
 
         WIRELESS {
             bindings = <
-                &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &trans &trans &trans &trans &bt BT_CLR_ALL
-                &trans        &trans        &trans        &trans        &trans                         &trans &trans &trans &trans &bt BT_CLR
-                &trans        &trans        &trans        &trans        &trans                         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  
-                &trans        &trans        &trans        &trans        &trans        &trans  &trans &studio_unlock        &trans &trans &trans
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &trans &trans &trans &trans &bt BT_CLR_ALL
+&trans        &trans        &trans        &trans        &trans                         &trans &trans &trans &trans &bt BT_CLR
+&trans        &trans        &trans        &trans        &trans                         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  
+&trans        &trans        &trans        &trans        &trans        &trans  &trans &studio_unlock        &trans &trans &trans
             >;
         };
     };
-};ｊ
+};
