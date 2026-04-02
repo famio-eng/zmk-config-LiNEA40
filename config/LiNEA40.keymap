@@ -65,25 +65,27 @@
         device = <&trackball>;
         status = "okay";
 
-    /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
-    input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
-
-    /* オートマウス設定 */
-    msl-layers = <2>;      
-    msl-timeout-ms = <500>; 
-
-    /* 【重要】スクロール切り替えはここだけで定義する */
-    scroller {
-        layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
-        input-processors = <&zip_xy_to_scroll_mapper>;
+        /* 【修正】メインのプロセッサには「通常移動」の処理だけを書く */
+        input-processors =  <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>; // Y軸反転
+    
+        /* オートマウス設定 */
+        msl-layers = <2>;      
+        msl-timeout-ms = <500>; 
+    
+        /* 【重要】スクロール切り替えはここだけで定義する */
+        scroller {
+            layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
+            input-processors = <&zip_xy_to_scroll_mapper>;
+        };
     };
 };
 
 / {
+    /*
     left_encoder_proc: left_encoder_proc {
         compatible = "zmk,behavior-runtime-sensor-rotate";
         #sensor-binding-cells = <0>;
-    };
+    };*/
 
     combos {
         compatible = "zmk,combos";
