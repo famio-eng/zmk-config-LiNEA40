@@ -45,6 +45,9 @@
         device = <&trackball>;
         status = "okay";
 
+        /* DYA Studioからの「反転(Invert)」命令を処理可能にする定義 */
+        input-processors = <&zip_xy_scaler 1 1>;
+
         scroller {
             layers = <SCROLL>;
             input-processors = <&zip_xy_to_scroll_mapper>;
@@ -76,7 +79,7 @@
             #sensor-binding-cells = <0>;
             /* 延々スクロールを防ぐため、単純なKPではなく MSC を直接制御 */
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <10>;
+            tap-ms = <20>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
