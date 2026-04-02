@@ -46,7 +46,7 @@
 
         /* レイヤー6(SCROLL)でのスクロール変換 */
         scroller {
-            layer = <SCROLL>;
+            layers = <SCROLL>;
             input-processors = <&zip_xy_to_scroll_mapper>;
         };
     };
