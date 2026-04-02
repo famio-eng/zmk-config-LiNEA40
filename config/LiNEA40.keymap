@@ -6,7 +6,7 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 600 
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
 
 /* レイヤー定義 */
 #define MOUSE 2
@@ -69,10 +69,10 @@
         msl-layers = <2>;      
         msl-timeout-ms = <500>; 
 
-        scroller {
+        /*scroller {
             layers = <6>;      /* レイヤー6にいる時だけスクロールになる */
             input-processors = <&zip_xy_to_scroll_mapper>;
-        };
+        };*/
     };
 };
 
