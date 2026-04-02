@@ -78,12 +78,4 @@
             , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
-
-    /* * トラックボールのラベルを事前に定義します。
-     * これにより、センサーを持たない左側のビルド時でも &trackball への参照エラーを防ぎます。
-     * 右側のビルド時は LiNEA40_right.overlay の定義が優先されます。
-     */
-    trackball: trackball {
-        status = "disabled";
-    };
 };
