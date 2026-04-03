@@ -32,9 +32,9 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <7>;
-    time-to-max-speed-ms = <0>;
-    acceleration-exponent = <0>;
+    trigger-period-ms = <16>;
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent = <1>;
 };
 
 /* ロータリーエンコーダーの解像度を上げるための定義 */
