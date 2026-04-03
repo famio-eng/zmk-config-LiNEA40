@@ -51,7 +51,7 @@
      * トラックボールを触ると MOUSE レイヤー(2)へ自動遷移     */
     
     /* 入力があったら指定レイヤーへ、止まって300msで戻る */
-    trackball_automouse {
+    trackball_automouse: trackball_automouse {
         compatible = "zmk,input-processor-automouse";
         #input-processor-cells = <0>;
         layer = <MOUSE>;
