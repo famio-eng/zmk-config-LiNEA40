@@ -33,7 +33,7 @@
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <16>;
-    time-to-max-speed-ms = <10>;
+    time-to-max-speed-ms = <300>;
     acceleration-exponent = <1>;
 };
 
@@ -47,13 +47,26 @@
     zmk_studio: zmk_studio {
         compatible = "zmk,studio";
     };
-
+    /* オートマウスレイヤーの設定 
+     * トラックボールを触ると MOUSE レイヤー(2)へ自動遷移     */
+    pinctrl: pinctrl {
+        /* 入力があったら指定レイヤーへ、止まって300msで戻る */
+        trackball_automouse {
+            compatible = "zmk,input-processor-automouse";
+            #input-processor-cells = <0>;
+            layer = <MOUSE>;
+            timeout-ms = <300>;
+        };
+    };
     /* --- トラックボール・リスナー設定 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = <&zip_xy_scaler 1 1>, <&zip_scroll_scaler 1 1>;
+        input-processors = 
+            <&zip_xy_scaler 1 1>, 
+            <&zip_scroll_scaler 1 1>,
+            <&trackball_automouse>; /* AMLを有効化 */
     };
 
     /* コンボ定義 (13個保持) */
@@ -81,7 +94,7 @@
             compatible = "zmk,pointing-behavior-msc";
             #pointing-cells = <1>;
             acceleration-exponent = <1>;
-            time-to-max-speed-ms = <10>;      /* 極小のバッファ */
+            time-to-max-speed-ms = <300>;      /* 極小のバッファ */
             delay-ms = <0>;
             trigger-period-ms = <10>;         /* 通信負荷を考慮した標準値 */
         };
@@ -90,7 +103,7 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <15>;
+            tap-ms = <20>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
