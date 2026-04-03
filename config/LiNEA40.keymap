@@ -32,8 +32,8 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <30>;
-    time-to-max-speed-ms = <1000>;
+    trigger-period-ms = <16>;
+    time-to-max-speed-ms = <50>;
     acceleration-exponent = <1>;
 };
 
@@ -56,7 +56,6 @@
         status = "okay";
 
         input-processors = 
-            <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
             <&zip_xy_scaler 1 1>,
             <&zip_scroll_scaler 1 1>;
     };
