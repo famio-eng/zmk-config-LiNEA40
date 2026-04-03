@@ -80,21 +80,21 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* 【改修】加速計算を「蓄積型」から「即時反映型」へ変更 */
+        /* 【改修】加速計算はシンプルに維持 */
         msc_el: msc_encoder_line {
             compatible = "zmk,pointing-behavior-msc";
             #pointing-cells = <1>;
             acceleration-exponent = <1>;
-            time-to-max-speed-ms = <0>;       /* 蓄積を排除。現在の速度を即出力 */
+            time-to-max-speed-ms = <10>;      /* 極小のバッファ */
             delay-ms = <0>;
-            trigger-period-ms = <5>;         /* 送信間隔を短縮し、滞留を防ぐ */
+            trigger-period-ms = <10>;         /* 通信負荷を考慮した標準値 */
         };
 
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <20>;
+            tap-ms = <40>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
