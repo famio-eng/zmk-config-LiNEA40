@@ -32,9 +32,14 @@
 
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <16>;
-    time-to-max-speed-ms = <300>;
-    acceleration-exponent = <1>;
+    trigger-period-ms = <7>;
+    time-to-max-speed-ms = <0>;
+    acceleration-exponent = <0>;
+};
+
+/* ロータリーエンコーダーの解像度を上げるための定義 */
+&left_encoder {
+    steps = <80>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
 };
 
 /* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
