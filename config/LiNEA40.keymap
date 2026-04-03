@@ -48,28 +48,10 @@
         compatible = "zmk,studio";
     };
 
-    /* オートマウスレイヤーの設定 
-     * トラックボールを触ると MOUSE レイヤー(2)へ自動遷移     */
-    
-    /* 入力があったら指定レイヤーへ、止まって300msで戻る */
-    trackball_automouse: trackball_automouse {
-        compatible = "zmk,input-processor-automouse";
-        #input-processor-cells = <1>;
-        delay-ms = <0>;
-        timeout-ms = <300>;
-    };
-    
-    /* --- トラックボール・リスナー設定 --- */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        status = "okay";
-        input-processors = 
-            <&zip_xy_scaler 1 1>, 
-            <&zip_scroll_scaler 1 1>,
-            /* ここで第1引数として MOUSE レイヤーを指定します */
-            <&trackball_automouse MOUSE>;
-    };
+    /*
+     * 注意: trackball_automouse と trackball_listener は
+     * 左右のビルドエラーを防ぐため LiNEA40_right.overlay に移動しました。
+     */
 
     /* コンボ定義 (13個保持) */
     combos {
