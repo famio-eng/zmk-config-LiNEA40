@@ -54,17 +54,16 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+
+        /* 【重要】urob/zmk-auto-layer モジュールを使用 */
+        /* トラックボールを動かした時に MOUSEレイヤー(2) に自動切り替え */
+        auto-layer = <2>;
     };
 };
 
 / {
-    /* オートマウスの設定（keymapから移動） */
-    trackball_automouse: trackball_automouse {
-        compatible = "zmk,input-processor-automouse";
-        #input-processor-cells = <1>;
-        delay-ms = <0>;
-        timeout-ms = <300>;
-    };
+    /* --- DYA Studio用プロセッサ (これらは zmk-module-runtime-input-processor があるため有効) --- */
+
 
     /* 1. 通常移動・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
@@ -95,7 +94,6 @@
          */
         input-processors = 
             <&trackball_runtime_proc>, 
-            <&trackball_scroll_proc>,
-            <&trackball_automouse 2>;
+            <&trackball_scroll_proc>,;
     };
 };
