@@ -53,9 +53,7 @@
     /* 入力があったら指定レイヤーへ、止まって300msで戻る */
     trackball_automouse: trackball_automouse {
         compatible = "zmk,input-processor-automouse";
-        #input-processor-cells = <0>;
-        layer = <MOUSE>;
-        timeout-ms = <300>;
+        #input-processor-cells = <1>;
     };
     
     /* --- トラックボール・リスナー設定 --- */
@@ -66,7 +64,8 @@
         input-processors = 
             <&zip_xy_scaler 1 1>, 
             <&zip_scroll_scaler 1 1>,
-            <&trackball_automouse>; /* AMLを有効化 */
+            /* ここで第1引数として MOUSE レイヤーを指定します */
+            <&trackball_automouse MOUSE>;
     };
 
     /* コンボ定義 (13個保持) */
