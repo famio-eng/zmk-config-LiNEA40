@@ -84,8 +84,8 @@
         msc_el: msc_encoder_line {
             compatible = "zmk,pointing-behavior-msc";
             #pointing-cells = <1>;
-            acceleration-exponent = <1>;
-            time-to-max-speed-ms = <50>;      /* 極小のバッファ */
+            acceleration-exponent = <0>;
+            time-to-max-speed-ms = <0>;      /* 極小のバッファ */
             delay-ms = <0>;
             trigger-period-ms = <10>;         /* 通信負荷を考慮した標準値 */
         };
@@ -94,7 +94,7 @@
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
-            tap-ms = <25>;
+            tap-ms = <15>;
         };
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
