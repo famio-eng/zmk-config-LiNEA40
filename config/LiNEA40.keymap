@@ -49,15 +49,15 @@
     };
     /* オートマウスレイヤーの設定 
      * トラックボールを触ると MOUSE レイヤー(2)へ自動遷移     */
-    pinctrl: pinctrl {
-        /* 入力があったら指定レイヤーへ、止まって300msで戻る */
-        trackball_automouse {
-            compatible = "zmk,input-processor-automouse";
-            #input-processor-cells = <0>;
-            layer = <MOUSE>;
-            timeout-ms = <300>;
-        };
+    
+    /* 入力があったら指定レイヤーへ、止まって300msで戻る */
+    trackball_automouse {
+        compatible = "zmk,input-processor-automouse";
+        #input-processor-cells = <0>;
+        layer = <MOUSE>;
+        timeout-ms = <300>;
     };
+    
     /* --- トラックボール・リスナー設定 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
