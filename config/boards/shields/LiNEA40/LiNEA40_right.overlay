@@ -58,6 +58,14 @@
 };
 
 / {
+    /* オートマウスの設定（keymapから移動） */
+    trackball_automouse: trackball_automouse {
+        compatible = "zmk,input-processor-automouse";
+        #input-processor-cells = <1>;
+        delay-ms = <0>;
+        timeout-ms = <300>;
+    };
+
     /* 1. 通常移動・オートマウス用 */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
@@ -76,10 +84,18 @@
         y-codes = <0x01>; // REL_Y
     };
 
-    v_trackball_listener: trackball_listener {
+    /* 右側専用のトラックボール・リスナー（統合版） */
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-        input-processors = <&trackball_runtime_proc>, <&trackball_scroll_proc>;
+        
+        /* * DYA用のプロセッサと、オートマウスを両方有効化。
+         * MOUSEレイヤー(2)を指定。
+         */
+        input-processors = 
+            <&trackball_runtime_proc>, 
+            <&trackball_scroll_proc>,
+            <&trackball_automouse 2>;
     };
 };
