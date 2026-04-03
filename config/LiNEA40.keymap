@@ -33,7 +33,7 @@
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <16>;
-    time-to-max-speed-ms = <300>;
+    time-to-max-speed-ms = <10>;
     acceleration-exponent = <1>;
 };
 
@@ -53,13 +53,10 @@
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
-
-        input-processors = 
-            <&zip_xy_scaler 1 1>,
-            <&zip_scroll_scaler 1 1>;
+        input-processors = <&zip_xy_scaler 1 1>, <&zip_scroll_scaler 1 1>;
     };
 
-    /* --- コンボ定義 --- */
+    /* コンボ定義 (13個保持) */
     combos {
         compatible = "zmk,combos";
         DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
