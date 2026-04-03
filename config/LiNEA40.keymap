@@ -18,11 +18,11 @@
 #define SCROLL   6
 #define WIRELESS 7
 
-/* 【復元】スクロール感度の定義 */
+/* スクロール感度の定義 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 
-/* --- マウス・スクロールの加速設定 (維持) --- */
+/* --- マウス・スクロールの加速設定 --- */
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -35,6 +35,13 @@
     trigger-period-ms = <30>;
     time-to-max-speed-ms = <1000>;
     acceleration-exponent = <1>;
+};
+
+/* 【修正箇所】上書き設定はルートノードの外側に配置します */
+/* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
+&zip_xy_to_scroll_mapper {
+    status = "okay";
+    runtime-input-processor; 
 };
 
 / {
@@ -54,13 +61,7 @@
             <&zip_scroll_scaler 1 1>;
     };
 
-    /* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
-    &zip_xy_to_scroll_mapper {
-        status = "okay";
-        runtime-input-processor; 
-    };
-
-    /* --- コンボ定義 (完全復元) --- */
+    /* --- コンボ定義 --- */
     combos {
         compatible = "zmk,combos";
         DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
@@ -93,7 +94,7 @@
         };
     };
 
-    /* --- 日本語JIS記号マクロ (完全復元) --- */
+    /* --- 日本語JIS記号マクロ --- */
     macros {
         j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
         j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
@@ -117,6 +118,7 @@
         j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
     };
 
+    /* --- キーマップ --- */
     keymap {
         compatible = "zmk,keymap";
 
