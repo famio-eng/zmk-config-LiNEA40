@@ -1,15 +1,14 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/pointing.h>
-/* エラーの原因となる行（input_processor.h）を削除しました */
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
-/* Studioからの動的変更を有効化するために必須の定義 */
+/* DYA/Studio用ランタイムプロセッサの定義をインクルード */
 #include <input/processors/runtime-input-processor.dtsi>
 
-/* --- STEP 1: レイヤー番号の定義 --- */
+/* レイヤー定義 */
 #define WIN      0
 #define MAC      1
 #define MOUSE    2
@@ -19,10 +18,11 @@
 #define SCROLL   6
 #define WIRELESS 7
 
+/* 【復元】スクロール感度の定義 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 600
 
-/* --- STEP 2: マウス・スクロールの挙動設定 --- */
+/* --- マウス・スクロールの加速設定 (維持) --- */
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -34,7 +34,6 @@
     delay-ms = <0>;
     trigger-period-ms = <30>;
     time-to-max-speed-ms = <1000>;
-    /* 加速を有効（1）に維持 */
     acceleration-exponent = <1>;
 };
 
@@ -43,22 +42,25 @@
         compatible = "zmk,studio";
     };
 
-    /* --- STEP 3: トラックボール・リスナーの正常化 --- */
+    /* --- トラックボール・リスナー設定 --- */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         status = "okay";
 
-        /* DYA StudioのUI（Invert, Sensitivity）と連動する構成。
-           SCROLLレイヤー時のみスクロールさせる変換処理も含め、ここに集約します。 */
         input-processors = 
             <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>,
-            <&zip_xy_scaler 1 1>,      // マウス移動の感度・反転
-            <&zip_scroll_scaler 1 1>,  // スクロールモード時の感度
-            <&zip_xy_to_scroll_mapper>; // スクロールへの変換実行
+            <&zip_xy_scaler 1 1>,
+            <&zip_scroll_scaler 1 1>;
     };
 
-    /* --- STEP 4: コンボ定義 --- */
+    /* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
+    &zip_xy_to_scroll_mapper {
+        status = "okay";
+        runtime-input-processor; 
+    };
+
+    /* --- コンボ定義 (完全復元) --- */
     combos {
         compatible = "zmk,combos";
         DeleteKey { bindings = <&kp DEL>; key-positions = <8 7>; };
@@ -76,7 +78,7 @@
         katakana { bindings = <&kp LANG3>; key-positions = <23 24>; };
     };
 
-    /* --- STEP 5: 振る舞い（Behaviors）の定義 --- */
+    /* --- 振る舞い (Behaviors) --- */
     behaviors {
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
@@ -91,7 +93,7 @@
         };
     };
 
-    /* --- STEP 6: 日本語JIS記号マクロの定義 --- */
+    /* --- 日本語JIS記号マクロ (完全復元) --- */
     macros {
         j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
         j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
@@ -115,7 +117,6 @@
         j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
     };
 
-    /* --- STEP 7: キーマップ本体 --- */
     keymap {
         compatible = "zmk,keymap";
 
