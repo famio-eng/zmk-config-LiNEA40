@@ -33,7 +33,7 @@
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <16>;
-    time-to-max-speed-ms = <50>;
+    time-to-max-speed-ms = <300>;
     acceleration-exponent = <1>;
 };
 
@@ -80,6 +80,16 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
+        /* 【加速あり・暴走防止】エンコーダー専用のスクロール挙動 */
+        msc_el: msc_encoder_line {
+            compatible = "zmk,pointing-behavior-msc";
+            #pointing-cells = <1>;
+            acceleration-exponent = <1>;      /* 加速を有効化 */
+            time-to-max-speed-ms = <20>;      /* 超高速で最大速に到達させ、バッファを溜め込まない */
+            delay-ms = <0>;
+            trigger-period-ms = <8>;          /* 応答性を極限まで高める */
+        };
+
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
