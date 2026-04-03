@@ -3,6 +3,7 @@
 #include <dt-bindings/zmk/pointing.h>
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
+#include <dt-bindings/zmk/input_processors.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 /* DYA/Studio用ランタイムプロセッサの定義をインクルード */
@@ -54,6 +55,8 @@
     trackball_automouse: trackball_automouse {
         compatible = "zmk,input-processor-automouse";
         #input-processor-cells = <1>;
+        delay-ms = <0>;
+        timeout-ms = <300>;
     };
     
     /* --- トラックボール・リスナー設定 --- */
