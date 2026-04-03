@@ -94,6 +94,6 @@
          */
         input-processors = 
             <&trackball_runtime_proc>, 
-            <&trackball_scroll_proc>,;
+            <&trackball_scroll_proc>;
     };
 };
