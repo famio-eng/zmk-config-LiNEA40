@@ -80,14 +80,14 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* 【加速あり・暴走防止】エンコーダー専用のスクロール挙動 */
+        /* 【改修】加速計算を「蓄積型」から「即時反映型」へ変更 */
         msc_el: msc_encoder_line {
             compatible = "zmk,pointing-behavior-msc";
             #pointing-cells = <1>;
-            acceleration-exponent = <1>;      /* 加速を有効化 */
-            time-to-max-speed-ms = <20>;      /* 超高速で最大速に到達させ、バッファを溜め込まない */
+            acceleration-exponent = <1>;
+            time-to-max-speed-ms = <0>;       /* 蓄積を排除。現在の速度を即出力 */
             delay-ms = <0>;
-            trigger-period-ms = <8>;          /* 応答性を極限まで高める */
+            trigger-period-ms = <5>;         /* 送信間隔を短縮し、滞留を防ぐ */
         };
 
         mouse_scrl: mouse_wheel_scrl {
