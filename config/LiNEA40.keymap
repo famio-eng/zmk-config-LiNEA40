@@ -48,12 +48,6 @@
     triggers-per-rotation = <40>;  /* 1回転で40トリガ=概ね1ノッチ1トリガ狙い */
 };
 
-
-/* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
-&zip_xy_to_scroll_mapper {
-    status = "okay";
-};
-
 / {
     zmk_studio: zmk_studio {
         compatible = "zmk,studio";
