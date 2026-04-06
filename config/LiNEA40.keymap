@@ -75,26 +75,28 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* エンコーダー専用スクロール倍率： 1ノッチ = 3回 &msc 発行 */
-        enc_scroll: enc_scroll {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
-            bindings =
-                <&msc SCRL_DOWN &msc SCRL_DOWN &msc SCRL_DOWN>,
-                <&msc SCRL_UP   &msc SCRL_UP   &msc SCRL_UP>;
+        /* --- エンコーダー専用：加速付きスクロール --- */
+        msc_enc: msc_enc {
+            compatible = "zmk,pointing-behavior-msc";
+            #pointing-cells = <1>;
+    
+            /* ここからが “遅いと細かい / 速いと大きい” の要 */
+            delay-ms = <0>;
+            trigger-period-ms = <16>;
+    
+            /* 連続入力してから加速しきるまでの時間（短いほどすぐ速くなる） */
+            time-to-max-speed-ms = <250>;
+    
+            /* 加速のカーブ：1=線形、2=加速が強め、3=さらに強め */
+            acceleration-exponent = <2>;
         };
+
 
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
             tap-ms = <20>;
-        };
-
-        mouse_scrl_fast: mouse_wheel_scrl_fast {
-            compatible = "zmk,behavior-sensor-rotate";
-            bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
-            tap-ms = <0>;
         };
 
         re_kp: sensor_rotate_kp {
@@ -199,7 +201,7 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            sensor-bindings = <&mouse_scrl_fast>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         WIRELESS {
