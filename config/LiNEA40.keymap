@@ -20,7 +20,7 @@
 
 /* スクロール感度の定義 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 120
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 40
 
 /* --- マウス・スクロールの加速設定 --- */
 &mmv {
@@ -33,16 +33,21 @@
 /* --- 共通スクロール生成器（※複製しない） --- */
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <16>;
-    time-to-max-speed-ms = <500>;
-    acceleration-exponent = <1>;
+    trigger-period-ms = <8>;          /* 細かい追従 */
+    time-to-max-speed-ms = <220>;     /* 速めに加速 */
+    acceleration-exponent = <2>;      /* 1→2でメリハリが出る */
+
 };
 
 
 /* ロータリーエンコーダーの解像度定義 */
 &left_encoder {
-    steps = <80>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
+    steps = <40>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
 };
+&sensors {
+    triggers-per-rotation = <40>;  /* 1回転で40トリガ=概ね1ノッチ1トリガ狙い */
+};
+
 
 /* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
 &zip_xy_to_scroll_mapper {
@@ -76,27 +81,41 @@
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
         /* --- エンコーダー専用：加速付きスクロール --- */
-        msc_enc: msc_enc {
+        msc_enc_win: msc_enc_win {
             compatible = "zmk,pointing-behavior-msc";
             #pointing-cells = <1>;
-    
             /* ここからが “遅いと細かい / 速いと大きい” の要 */
             delay-ms = <0>;
-            trigger-period-ms = <16>;
+            trigger-period-ms = <8>;
     
             /* 連続入力してから加速しきるまでの時間（短いほどすぐ速くなる） */
-            time-to-max-speed-ms = <250>;
+            time-to-max-speed-ms = <150>;
     
             /* 加速のカーブ：1=線形、2=加速が強め、3=さらに強め */
             acceleration-exponent = <2>;
         };
 
+        msc_enc_mac: msc_enc_mac {
+          compatible = "zmk,pointing-behavior-msc";
+          #pointing-cells = <1>;
+          delay-ms = <0>;
+          trigger-period-ms = <10>;
+          time-to-max-speed-ms = <220>;
+          acceleration-exponent = <1>; /* Macは弱め */
+        };
 
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
-            tap-ms = <20>;
+            tap-ms = <10>;
+        };
+   
+        mouse_scrl_mac: mouse_scrl_mac {
+          compatible = "zmk,behavior-sensor-rotate";
+          #sensor-binding-cells = <0>;
+          bindings = <&msc_enc_mac SCRL_DOWN>, <&msc_enc_mac SCRL_UP>;
+          tap-ms = <10>;
         };
 
         re_kp: sensor_rotate_kp {
@@ -141,7 +160,7 @@
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt NUMBER ENTER  &lt MARK SPACE          &lt CURSOR QUESTION       &kp ENTER                &lt WIRELESS TAB
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_win>;
         };
 
         MAC {
@@ -151,7 +170,7 @@
 &kp Z             &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &kp COMMA            &kp DOT                  &mt RIGHT_SHIFT BACKSPACE
 &mt LCTRL ESC     &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS &lt SCROLL ENTER &lt MARK TAB &lt MARK BACKSPACE &lt NUMBER SPACE          &lt WIRELESS SEMICOLON      &kp INT_YEN              &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_mac>;
         };
 
         MOUSE {
