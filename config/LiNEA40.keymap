@@ -20,7 +20,7 @@
 
 /* スクロール感度の定義 */
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 40
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
 
 /* --- マウス・スクロールの加速設定 --- */
 &mmv {
@@ -32,20 +32,40 @@
 
 /* --- 共通スクロール生成器（エンコーダー・トラックボールで共通に使う） --- */
 &msc {
-    delay-ms = <0>;
-    trigger-period-ms = <30>;          /* 細かい追従 */
-    time-to-max-speed-ms = <10>;     /* 速めに加速 */
+    delay-ms = <3>;
+    trigger-period-ms = <3>;          /* 細かい追従 */
+    time-to-max-speed-ms = <100>;     /* 速めに加速 */
     acceleration-exponent = <0>;      /* 1→2でメリハリが出る */
 
 };
 
+/ {
+  input_processors {
+    zip_wheel_scaler: zip_wheel_scaler {
+      compatible = "zmk,input-processor-scaler";
+      #input-processor-cells = <2>;
+      type = <INPUT_EV_REL>;
+      codes = <INPUT_REL_WHEEL>;
+      track-remainders;
+    };
+  };
+};
+
+&msc_input_listener {
+  enc_speedup {
+    layers = <WIN MAC>;                  /* ← ここをあなたのレイヤー番号に */
+    input-processors = <&zip_wheel_scaler 2 1>;  /* 2倍 */
+  };
+};
+
+
 
 /* ロータリーエンコーダーの解像度定義 */
 &left_encoder {
-    steps = <40>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
+    steps = <24>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
 };
 &sensors {
-    triggers-per-rotation = <40>;  /* 1回転で40トリガ=概ね1ノッチ1トリガ狙い */
+    triggers-per-rotation = <12>;  /* 1回転で40トリガ=概ね1ノッチ1トリガ狙い */
 };
 
 / {
@@ -73,18 +93,17 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* エンコーダー用：慣性なしスクロール */
-        enc_scrl: enc_scrl {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_DOWN &msc SCRL_UP>;
-            tap-ms = <5>;
+        mouse_scrl: mouse_wheel_scrl {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&msc &msc>;
+            tap-ms = <20>;
         };
     
         re_kp: sensor_rotate_kp {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&kp C_VOL_DN &kp C_VOL_UP>;
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings = <&kp &kp>;
         };
      };
 
@@ -123,7 +142,7 @@
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt NUMBER ENTER  &lt MARK SPACE          &lt CURSOR QUESTION       &kp ENTER                &lt WIRELESS TAB
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         MAC {
@@ -133,7 +152,7 @@
 &kp Z             &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &kp COMMA            &kp DOT                  &mt RIGHT_SHIFT BACKSPACE
 &mt LCTRL ESC     &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS &lt SCROLL ENTER &lt MARK TAB &lt MARK BACKSPACE &lt NUMBER SPACE          &lt WIRELESS SEMICOLON      &kp INT_YEN              &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         MOUSE {
@@ -143,7 +162,7 @@
 &trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK        &trans            &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                    &trans            &trans  &trans
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         MARK {
@@ -153,7 +172,7 @@
 &kp LEFT_SHIFT   &kp KP_NUMBER_1  &j_rbrc   &j_rbkt     &j_rp                          &j_ast  &kp SEMICOLON  &j_colon   &kp QUESTION  &kp SLASH
 &trans           &trans           &trans    &trans      &trans        &trans    &trans  &trans                   &kp SLASH  &trans        &trans
             >;
-            sensor-bindings = <&re_kp>;
+            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
         };
 
         CURSOR {
@@ -163,7 +182,7 @@
 &kp LEFT_SHIFT  &trans                  &trans            &trans                   &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         NUMBER {
@@ -173,7 +192,7 @@
 &kp F6        &kp F7        &kp F8        &trans        &trans                              &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans  &trans
 &trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                                               &trans  &trans
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         SCROLL {
@@ -183,7 +202,7 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            sensor-bindings = <&enc_scrl>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         WIRELESS {
