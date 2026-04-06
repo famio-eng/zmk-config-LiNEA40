@@ -30,7 +30,7 @@
     acceleration-exponent = <1>;
 };
 
-/* --- 共通スクロール生成器（※複製しない） --- */
+/* --- 共通スクロール生成器（エンコーダー・トラックボールで共通に使う） --- */
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <8>;          /* 細かい追従 */
@@ -80,51 +80,21 @@
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* --- エンコーダー専用：加速付きスクロール --- */
-        msc_enc_win: msc_enc_win {
-            compatible = "zmk,pointing-behavior-msc";
-            #binding-cells = <1>;
-            #pointing-cells = <1>;
-            /* ここからが “遅いと細かい / 速いと大きい” の要 */
-            delay-ms = <0>;
-            trigger-period-ms = <8>;
-    
-            /* 連続入力してから加速しきるまでの時間（短いほどすぐ速くなる） */
-            time-to-max-speed-ms = <150>;
-    
-            /* 加速のカーブ：1=線形、2=加速が強め、3=さらに強め */
-            acceleration-exponent = <2>;
-        };
-
-        msc_enc_mac: msc_enc_mac {
-            compatible = "zmk,pointing-behavior-msc";
-            #binding-cells = <1>;
-            #pointing-cells = <1>;
-            delay-ms = <0>;
-            trigger-period-ms = <10>;
-            time-to-max-speed-ms = <220>;
-            acceleration-exponent = <1>; /* Macは弱め */
-        };
-
-        mouse_scrl_win: mouse_scrl_win {
+        /* --- エンコーダー：スクロール（ZMKの正規ルート：sensor-rotate → &msc） --- */
+        mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc_enc_win SCRL_DOWN>, <&msc_enc_win SCRL_UP>;
+            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
             tap-ms = <10>;
         };
-   
-        mouse_scrl_mac: mouse_scrl_mac {
-          compatible = "zmk,behavior-sensor-rotate";
-          #sensor-binding-cells = <0>;
-          bindings = <&msc_enc_mac SCRL_DOWN>, <&msc_enc_mac SCRL_UP>;
-          tap-ms = <10>;
-        };
 
+        /* --- エンコーダー：音量 --- */
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
         };
+
     };
 
     /* --- 日本語JIS記号マクロ --- */
@@ -162,7 +132,7 @@
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt NUMBER ENTER  &lt MARK SPACE          &lt CURSOR QUESTION       &kp ENTER                &lt WIRELESS TAB
             >;
-            sensor-bindings = <&mouse_scrl_win>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         MAC {
@@ -172,7 +142,7 @@
 &kp Z             &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &kp COMMA            &kp DOT                  &mt RIGHT_SHIFT BACKSPACE
 &mt LCTRL ESC     &kp LEFT_COMMAND &mt LEFT_ALT GRAVE &kp INS &lt SCROLL ENTER &lt MARK TAB &lt MARK BACKSPACE &lt NUMBER SPACE          &lt WIRELESS SEMICOLON      &kp INT_YEN              &mt RIGHT_SHIFT SLASH
             >;
-            sensor-bindings = <&mouse_scrl_mac>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         MOUSE {
@@ -182,7 +152,7 @@
 &trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK        &trans            &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                    &trans            &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl_win>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         MARK {
@@ -202,7 +172,7 @@
 &kp LEFT_SHIFT  &trans                  &trans            &trans                   &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
             >;
-            sensor-bindings = <&mouse_scrl_win>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         NUMBER {
@@ -212,7 +182,7 @@
 &kp F6        &kp F7        &kp F8        &trans        &trans                              &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans  &trans
 &trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                                               &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl_win>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         SCROLL {
@@ -222,7 +192,7 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            sensor-bindings = <&mouse_scrl_win>;
+            sensor-bindings = <&mouse_scrl>;
         };
 
         WIRELESS {
