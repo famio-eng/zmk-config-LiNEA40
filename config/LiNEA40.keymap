@@ -30,6 +30,7 @@
     acceleration-exponent = <1>;
 };
 
+/* --- 共通スクロール生成器（※複製しない） --- */
 &msc {
     delay-ms = <0>;
     trigger-period-ms = <16>;
@@ -37,21 +38,8 @@
     acceleration-exponent = <1>;
 };
 
-/* --- エンコーダー専用スクロール（別倍率） --- */
-msc_enc: msc_encoder {
-    compatible = "zmk,pointing-behavior-msc";
-    #pointing-cells = <1>;
 
-    /* ★ ここが倍率の正体 */
-    time-to-max-speed-ms = <0>;      /* 加速なし */
-    acceleration-exponent = <0>;
-
-    /* 数値が大きいほど 1ノッチが強くなる */
-    trigger-period-ms = <8>;         /* ←強め（通常は16） */
-    delay-ms = <0>;
-};
-
-/* ロータリーエンコーダーの解像度を上げるための定義 */
+/* ロータリーエンコーダーの解像度定義 */
 &left_encoder {
     steps = <80>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
 };
@@ -66,11 +54,6 @@ msc_enc: msc_encoder {
     zmk_studio: zmk_studio {
         compatible = "zmk,studio";
     };
-
-    /*
-     * 注意: trackball_automouse と trackball_listener は
-     * 左右のビルドエラーを防ぐため LiNEA40_right.overlay に移動しました。
-     */
 
     /* コンボ定義 (13個保持) */
     combos {
@@ -92,14 +75,13 @@ msc_enc: msc_encoder {
 
     /* --- 振る舞い (Behaviors) --- */
     behaviors {
-        /* 【改修】加速計算はシンプルに維持 */
-        msc_el: msc_encoder_line {
-            compatible = "zmk,pointing-behavior-msc";
-            #pointing-cells = <1>;
-            acceleration-exponent = <1>;
-            time-to-max-speed-ms = <300>;      /* 極小のバッファ */
-            delay-ms = <0>;
-            trigger-period-ms = <10>;         /* 通信負荷を考慮した標準値 */
+        /* エンコーダー専用スクロール倍率： 1ノッチ = 3回 &msc 発行 */
+        enc_scroll: enc_scroll {
+            compatible = "zmk,behavior-sensor-rotate-var";
+            #sensor-binding-cells = <2>;
+            bindings =
+                <&msc SCRL_DOWN &msc SCRL_DOWN &msc SCRL_DOWN>,
+                <&msc SCRL_UP   &msc SCRL_UP   &msc SCRL_UP>;
         };
 
         mouse_scrl: mouse_wheel_scrl {
@@ -108,7 +90,6 @@ msc_enc: msc_encoder {
             bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
             tap-ms = <20>;
         };
-
 
         mouse_scrl_fast: mouse_wheel_scrl_fast {
             compatible = "zmk,behavior-sensor-rotate";
