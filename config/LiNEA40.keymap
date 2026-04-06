@@ -104,7 +104,7 @@
           acceleration-exponent = <1>; /* Macは弱め */
         };
 
-        mouse_scrl: mouse_wheel_scrl {
+        mouse_scrl_win: mouse_scrl_win {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
             bindings = <&msc_enc_win SCRL_DOWN>, <&msc_enc_win SCRL_UP>;
