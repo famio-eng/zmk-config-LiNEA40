@@ -77,14 +77,14 @@
         enc_scrl: enc_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&mkp MW_DOWN>, <&mkp MW_UP>;
+            bindings = <&mkp MW_DOWN &mkp MW_UP>;
             tap-ms = <5>;
         };
     
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp C_VOL_DN>, <&kp C_VOL_UP>;
+            bindings = <&kp C_VOL_DN &kp C_VOL_UP>;
         };
      };
 
