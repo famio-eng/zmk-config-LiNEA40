@@ -52,7 +52,6 @@
 /* DYA Studio でレイヤーごとに Scroll Mode を制御するための設定 */
 &zip_xy_to_scroll_mapper {
     status = "okay";
-    runtime-input-processor; 
 };
 
 / {
