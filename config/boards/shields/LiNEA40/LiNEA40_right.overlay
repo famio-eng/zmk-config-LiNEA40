@@ -102,8 +102,6 @@
         active-layers = <64>;
     };
 
-
-
     /* 右側専用のトラックボール・リスナー（統合版） */
     trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
@@ -112,7 +110,6 @@
         /* * DYA用のプロセッサと、オートマウスを両方有効化　*/
         input-processors =
             <&trackball_runtime_proc>,        /* DYA: Mouse */
-            <&trackball_scroll_proc>,         /* DYA: Scroll */
-
+            <&trackball_scroll_proc>         /* DYA: Scroll */
     };
 };
