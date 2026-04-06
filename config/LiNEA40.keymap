@@ -83,6 +83,7 @@
         /* --- エンコーダー専用：加速付きスクロール --- */
         msc_enc_win: msc_enc_win {
             compatible = "zmk,pointing-behavior-msc";
+            #binding-cells = <1>;
             #pointing-cells = <1>;
             /* ここからが “遅いと細かい / 速いと大きい” の要 */
             delay-ms = <0>;
@@ -96,12 +97,13 @@
         };
 
         msc_enc_mac: msc_enc_mac {
-          compatible = "zmk,pointing-behavior-msc";
-          #pointing-cells = <1>;
-          delay-ms = <0>;
-          trigger-period-ms = <10>;
-          time-to-max-speed-ms = <220>;
-          acceleration-exponent = <1>; /* Macは弱め */
+            compatible = "zmk,pointing-behavior-msc";
+            #binding-cells = <1>;
+            #pointing-cells = <1>;
+            delay-ms = <0>;
+            trigger-period-ms = <10>;
+            time-to-max-speed-ms = <220>;
+            acceleration-exponent = <1>; /* Macは弱め */
         };
 
         mouse_scrl_win: mouse_scrl_win {
