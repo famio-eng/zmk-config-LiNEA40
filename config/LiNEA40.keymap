@@ -37,6 +37,20 @@
     acceleration-exponent = <1>;
 };
 
+/* --- エンコーダー専用スクロール（別倍率） --- */
+msc_enc: msc_encoder {
+    compatible = "zmk,pointing-behavior-msc";
+    #pointing-cells = <1>;
+
+    /* ★ ここが倍率の正体 */
+    time-to-max-speed-ms = <0>;      /* 加速なし */
+    acceleration-exponent = <0>;
+
+    /* 数値が大きいほど 1ノッチが強くなる */
+    trigger-period-ms = <8>;         /* ←強め（通常は16） */
+    delay-ms = <0>;
+};
+
 /* ロータリーエンコーダーの解像度を上げるための定義 */
 &left_encoder {
     steps = <80>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
@@ -91,9 +105,17 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
             tap-ms = <20>;
         };
+
+
+        mouse_scrl_fast: mouse_wheel_scrl_fast {
+            compatible = "zmk,behavior-sensor-rotate";
+            bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
+            tap-ms = <0>;
+        };
+
         re_kp: sensor_rotate_kp {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
@@ -196,7 +218,7 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_fast>;
         };
 
         WIRELESS {
