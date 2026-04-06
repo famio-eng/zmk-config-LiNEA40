@@ -96,6 +96,30 @@
         };
     };
 
+    /* --- 日本語JIS記号マクロ --- */
+    macros {
+        j_dq: j_dq { label = "DQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N2)>; };
+        j_amp: j_amp { label = "AMP"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N6)>; };
+        j_sq: j_sq { label = "SQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(N7)>; };
+        j_eq: j_eq { label = "EQ"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(MINUS)>; };
+        j_caret: j_cr { label = "CARET"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp EQUAL>; };
+        j_yen: j_yen { label = "YEN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp INT1>; };
+        j_plus: j_plus { label = "PLUS"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp COLON>; };
+        j_tilde: j_tilde { label = "TILDE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp PLUS>; };
+        j_pipe: j_pipe { label = "PIPE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
+        j_at: j_at { label = "AT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LBKT>; };
+        j_colon: j_colon { label = "COLON"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp SQT>; };
+        j_ast: j_ast { label = "AST"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(SQT)>; };
+        j_bt: j_bt { label = "BT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(RBKT)>; };
+        j_under: j_under { label = "UNDER"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(INT1)>; };
+        j_lbkt: j_lbkt { label = "L_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RBKT>; };
+        j_rbkt: j_rbkt { label = "R_BKT"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp BACKSLASH>; };
+        j_lp: j_lp { label = "L_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp ASTRK>; };
+        j_rp: j_rp { label = "R_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LEFT_PARENTHESIS>; };
+        j_lbrc: j_lbrc { label = "L_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RIGHT_BRACE>; };
+        j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
