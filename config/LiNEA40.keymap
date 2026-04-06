@@ -77,7 +77,7 @@
         enc_scrl: enc_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&kp MW_DOWN>, <&kp MW_UP>;
+            bindings = <&mkp MW_DOWN>, <&mkp MW_UP>;
             tap-ms = <5>;
         };
     
