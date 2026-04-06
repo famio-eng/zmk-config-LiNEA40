@@ -180,7 +180,7 @@
 &trans  &trans  &trans  &trans  &trans                    &trans  &mkp MCLK        &trans            &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans                    &trans            &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_win>;
         };
 
         MARK {
@@ -200,7 +200,7 @@
 &kp LEFT_SHIFT  &trans                  &trans            &trans                   &trans                    &trans  &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &trans          &trans          &kp HOME        &kp END
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_win>;
         };
 
         NUMBER {
@@ -210,7 +210,7 @@
 &kp F6        &kp F7        &kp F8        &trans        &trans                              &kp LG(LEFT_ARROW)      &kp LG(DOWN_ARROW)  &kp LG(RIGHT_ARROW)      &trans  &trans
 &trans        &trans        &trans        &trans        &kp INT_MUHENKAN  &trans    &trans  &trans                                                               &trans  &trans
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_win>;
         };
 
         SCROLL {
@@ -220,7 +220,7 @@
 &kp LEFT_SHIFT  &kp PAGE_DOWN            &kp END           &kp PAGE_UP              &trans                    &kp UNDER        &mkp MCLK     &mkp MCLK       &kp UP_ARROW    &kp ENTER
 &trans          &trans                  &trans            &trans                   &trans  &trans    &trans  &kp NUMBER_0                    &kp LEFT_ARROW  &kp DOWN_ARROW  &trans
             >;
-            sensor-bindings = <&mouse_scrl>;
+            sensor-bindings = <&mouse_scrl_win>;
         };
 
         WIRELESS {
