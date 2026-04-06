@@ -58,14 +58,6 @@
 };
 
 / {
-    /* 1. レイヤー自動切り替え用のプロセッサ定義 */
-    trackball_auto_layer: trackball_auto_layer {
-        compatible = "zmk,input-processor-auto-layer";
-        #input-processor-cells = <0>;
-        auto-layer-index = <2>; // MOUSEレイヤー
-    };
-
-
     /* 2. DYA Studio用：マウス移動プロセッサ */
     trackball_runtime_proc: trackball_runtime_proc {
         compatible = "zmk,input-processor-runtime";
@@ -92,7 +84,6 @@
         
         /* * DYA用のプロセッサと、オートマウスを両方有効化　*/
         input-processors =
-            <&trackball_auto_layer>,          /* ← 使うならここ（今は定義だけで未使用なので） */
             <&trackball_runtime_proc>,        /* DYA: Mouse */
             <&trackball_scroll_proc>,         /* DYA: Scroll */
             <&zip_xy_to_scroll_mapper>,       /* REL_X/Y → WHEEL/HWHEEL */
