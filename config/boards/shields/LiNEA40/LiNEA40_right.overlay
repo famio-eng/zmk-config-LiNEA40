@@ -110,6 +110,6 @@
         /* * DYA用のプロセッサと、オートマウスを両方有効化　*/
         input-processors =
             <&trackball_runtime_proc>,        /* DYA: Mouse */
-            <&trackball_scroll_proc>         /* DYA: Scroll */
+            <&trackball_scroll_proc>;         /* DYA: Scroll */
     };
 };
