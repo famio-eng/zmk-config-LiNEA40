@@ -53,7 +53,7 @@
 
 &msc_input_listener {
   enc_speedup {
-    layers = <WIN MAC>;                  /* ← ここをあなたのレイヤー番号に */
+    layers = <SCROLL>;                  /* ← ここをあなたのレイヤー番号に */
     input-processors = <&zip_wheel_scaler 2 1>;  /* 2倍 */
   };
 };
@@ -62,7 +62,7 @@
 
 /* ロータリーエンコーダーの解像度定義 */
 &left_encoder {
-    steps = <24>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
+    //steps = <24>; // エンコーダーの分解能に合わせて調整（値を大きくすると1回転のスクロール量増）
 };
 &sensors {
     triggers-per-rotation = <12>;  /* 1回転で40トリガ=概ね1ノッチ1トリガ狙い */
