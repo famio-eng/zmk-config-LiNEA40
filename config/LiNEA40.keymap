@@ -107,7 +107,7 @@
         mouse_scrl: mouse_wheel_scrl {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc_enc SCRL_DOWN>, <&msc_enc SCRL_UP>;
+            bindings = <&msc_enc_win SCRL_DOWN>, <&msc_enc_win SCRL_UP>;
             tap-ms = <10>;
         };
    
