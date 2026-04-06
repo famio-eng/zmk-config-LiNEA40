@@ -33,9 +33,9 @@
 /* --- 共通スクロール生成器（エンコーダー・トラックボールで共通に使う） --- */
 &msc {
     delay-ms = <0>;
-    trigger-period-ms = <8>;          /* 細かい追従 */
-    time-to-max-speed-ms = <220>;     /* 速めに加速 */
-    acceleration-exponent = <2>;      /* 1→2でメリハリが出る */
+    trigger-period-ms = <20>;          /* 細かい追従 */
+    time-to-max-speed-ms = <20>;     /* 速めに加速 */
+    acceleration-exponent = <0>;      /* 1→2でメリハリが出る */
 
 };
 
