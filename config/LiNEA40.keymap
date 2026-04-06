@@ -142,7 +142,7 @@
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V  &kp B                                     &kp N         &kp M  &mt LESS_THAN COMMA  &mt GREATER_THAN PERIOD  &mt QUESTION SLASH
 &kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &none  &kp LEFT_SHIFT  &kp LCTRL    &lt NUMBER ENTER  &lt MARK SPACE          &lt CURSOR QUESTION       &kp ENTER                &lt WIRELESS TAB
             >;
-            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
+            sensor-bindings = <&re_kp C_VOL_DN C_VOL_UP>;
         };
 
         MAC {
