@@ -1,39 +1,43 @@
 #include "LiNEA40.dtsi"
-#include <dt-bindings/zmk/input_transform.h>
-#include <zephyr/dt-bindings/input/input-event-codes.h>
-
 &default_transform {
     col-offset = <6>;
 };
 
 &kscan0 {
     col-gpios
-        = <&xiao_d 10 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 9 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 8 GPIO_ACTIVE_HIGH>
-        , <&xiao_d 7 GPIO_ACTIVE_HIGH>
-        , <&gpio0 10 GPIO_ACTIVE_HIGH>
+        = <&xiao_d 10 GPIO_ACTIVE_HIGH> //col0-D10
+        , <&xiao_d 9 GPIO_ACTIVE_HIGH>  //col1-D9
+        , <&xiao_d 8 GPIO_ACTIVE_HIGH>  //col2-D8
+        , <&xiao_d 7 GPIO_ACTIVE_HIGH>  //col3-D7
+        , <&gpio0 10 GPIO_ACTIVE_HIGH>  //col4-NFC2
         ;
 };
 
-/* 右側ではエンコーダーを無効化してD6ピン競合を解く */
-&left_encoder {
-    status = "disabled";
+/ {
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+
+    };
 };
+
 
 &pinctrl {
     spi0_default: spi0_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
         };
     };
+
     spi0_sleep: spi0_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 4)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 4)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 5)>   // SCLK-D5
+                  , <NRF_PSEL(SPIM_MOSI, 0, 4)>  // SDIO-D4
+                  , <NRF_PSEL(SPIM_MISO, 0, 4)>  // SDIO-D4
+                  ;
             low-power-enable;
         };
     };
@@ -45,54 +49,22 @@
     pinctrl-0 = <&spi0_default>;
     pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
+    cs-gpios = <&gpio0 9 GPIO_ACTIVE_LOW>; //NCS-NFC1
 
-    /* 修正箇所: ラベル参照 &trackball ではなくノード名で記述 */
     trackball: trackball@0 {
         status = "okay";
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        irq-gpios = <&xiao_d 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //MOT-D6
+        automouse-layer = <1>;
+        snipe-layers = <2>;
+        scroll-layers = <5>;
+        //scroll-layers = <4 5 6>;
     };
 };
 
-/ {
-    /* 1. レイヤー自動切り替え用のプロセッサ定義 */
-    trackball_auto_layer: trackball_auto_layer {
-        compatible = "zmk,input-processor-auto-layer";
-        #input-processor-cells = <0>;
-        auto-layer-index = <2>; // MOUSEレイヤー
-    };
-
-
-    /* 2. DYA Studio用：マウス移動プロセッサ */
-    trackball_runtime_proc: trackball_runtime_proc {
-        compatible = "zmk,input-processor-runtime";
-        #input-processor-cells = <0>;
-        processor-label = "Mouse";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
-    };
-
-    /* 3. DYA Studio用：スクロールプロセッサ */
-    trackball_scroll_proc: trackball_scroll_proc {
-        compatible = "zmk,input-processor-runtime";
-        #input-processor-cells = <0>;
-        processor-label = "Scroll";
-        x-codes = <0x00>; // REL_X
-        y-codes = <0x01>; // REL_Y
-    };
-
-    /* 右側専用のトラックボール・リスナー（統合版） */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        status = "okay";
-        
-        /* * DYA用のプロセッサと、オートマウスを両方有効化　*/
-        input-processors = 
-            <&trackball_runtime_proc>, 
-            <&trackball_scroll_proc>;
-    };
+&trackball_listener {
+    status = "okay";
+    device = <&trackball>;
 };
