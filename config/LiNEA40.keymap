@@ -14,6 +14,7 @@
 #define NUMBER 4
 #define SCROLL 5
 #define WIRELESS 6
+#define MAC 7
 
 //mouse cursol
 
@@ -71,7 +72,8 @@
         PrevClick { bindings = <&mkp MB4>; key-positions = <16 17>; };
         ClickNext { bindings = <&mkp MB5>; key-positions = <17 18>; };
         back { bindings = <&kp BACKSPACE>; key-positions = <8 9>; };
-        screenshot { bindings = <&kp PRINTSCREEN>; key-positions = <4 3>; };
+        screenshot { bindings = <&kp PRINTSCREEN>; key-positions = <4 3>; layers = <0 MOUSE MARK CURSOR NUMBER SCROLL WIRELESS>; };
+        screenshot_mac { bindings = <&kp LG(LC(LS(N4)))>; key-positions = <4 3>; layers = <MAC>; };
         emoji { bindings = <&kp LG(PERIOD)>; key-positions = <3 1>; };
         escape { bindings = <&kp ESCAPE>; key-positions = <1 0>; };
         tab { bindings = <&kp TAB>; key-positions = <11 12>; };
@@ -118,6 +120,13 @@
         j_rp: j_rp { label = "R_PAREN"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LEFT_PARENTHESIS>; };
         j_lbrc: j_lbrc { label = "L_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp RIGHT_BRACE>; };
         j_rbrc: j_rbrc { label = "R_BRACE"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&kp LS(BSLH)>; };
+
+        /* BTプロファイル切替に連動してMacモード(MACレイヤー)をON/OFFする */
+        bt_p0: bt_p0 { label = "BT_P0"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&bt BT_SEL 0>, <&to 0>; };
+        bt_p1: bt_p1 { label = "BT_P1"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&bt BT_SEL 1>, <&to 0>; };
+        bt_p2: bt_p2 { label = "BT_P2"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&bt BT_SEL 2>, <&to 0>; };
+        bt_p3: bt_p3 { label = "BT_P3"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&bt BT_SEL 3>, <&to MAC>; };
+        bt_p4: bt_p4 { label = "BT_P4"; compatible = "zmk,behavior-macro"; #binding-cells = <0>; bindings = <&bt BT_SEL 4>, <&to 0>; };
     };
 
     keymap {
@@ -199,13 +208,24 @@
 
         WIRELESS {
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                   &trans &trans &trans &trans &bt BT_CLR_ALL
+&bt_p0        &bt_p1        &bt_p2        &bt_p3        &bt_p4                         &trans &trans &trans &trans &bt BT_CLR_ALL
 &trans        &trans        &trans        &trans        &trans                         &trans &trans &trans &trans &bt BT_CLR
-&trans        &trans        &trans        &trans        &trans                         &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+&trans        &trans        &trans        &trans        &trans                         &bt_p0        &bt_p1        &bt_p2        &bt_p3        &bt_p4
 &trans        &trans        &trans        &trans        &trans        &trans  &trans &studio_unlock        &trans &trans &trans
             >;
 
             sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
+        };
+
+        //7
+
+        MAC {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &trans  &trans  &trans
+            >;
         };
     };
 };
