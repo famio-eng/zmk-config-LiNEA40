@@ -243,8 +243,8 @@
 
         MAC_MARK {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &kp LA(Y)
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &kp LS(MINUS)  &trans  &kp LA(Y)
+&trans  &kp LS(BACKSLASH)  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &trans  &trans  &trans
             >;
