@@ -71,16 +71,6 @@
             //スクロール方向を逆転
             <&zip_xy_to_scroll_mapper>;
     };
-
-    scroller_mac {
-        layers = <MAC_SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転
-            <&zip_xy_scaler 1 2>,
-            //Mac接続時はスクロール移動量を半分に減速(実機で要調整)
-            <&zip_xy_to_scroll_mapper>;
-    };
 };
 
 / {
