@@ -46,13 +46,6 @@
             track-remainders;
         };
 
-        zip_xy_scaler_mac: zip_xy_scaler_mac {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_X INPUT_REL_Y>;
-            track-remainders;
-        };
     };
 };
 
@@ -65,20 +58,10 @@
 
 &trackball_listener {
     scroller {
-        layers = <SCROLL>;
+        layers = <SCROLL MAC_SCROLL>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             //スクロール方向を逆転
-            <&zip_xy_to_scroll_mapper>;
-    };
-
-    scroller_mac {
-        layers = <MAC_SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転
-            <&zip_xy_scaler_mac 1 2>,
-            //Mac接続時はスクロール移動量を半分に減速(実機で要調整)
             <&zip_xy_to_scroll_mapper>;
     };
 };
@@ -89,10 +72,6 @@
         mac_mark_layer {
             if-layers = <MAC MARK>;
             then-layer = <MAC_MARK>;
-        };
-        mac_scroll_layer {
-            if-layers = <MAC SCROLL>;
-            then-layer = <MAC_SCROLL>;
         };
     };
 };
@@ -256,7 +235,7 @@
         MAC {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &lt MAC_SCROLL BACKSPACE
 &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans          &trans  &trans  &trans
             >;
