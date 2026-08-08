@@ -46,11 +46,17 @@
             track-remainders;
         };
 
-        zip_xy_scaler_mac: zip_xy_scaler_mac {
-            compatible = "zmk,input-processor-scaler";
-            #input-processor-cells = <2>;
-            type = <INPUT_EV_REL>;
-            codes = <INPUT_REL_X INPUT_REL_Y>;
+        pointer_accel_mac: pointer_accel_mac {
+            compatible = "zmk,input-processor-acceleration";
+            #input-processor-cells = <0>;
+            input-type = <INPUT_EV_REL>;
+            min-factor = <3000>;
+            //小さくゆっくり動かした時は3倍にブースト(CPI200での減衰を打ち消し、元の感度に近づける)
+            max-factor = <1000>;
+            //大きく速く動かした時は等倍のまま(CPI200による減速をそのまま活かす)
+            speed-threshold = <300>;
+            speed-max = <2000>;
+            acceleration-exponent = <1>;
             track-remainders;
         };
     };
@@ -69,9 +75,9 @@
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
             //スクロール方向を逆転
-            <&zip_xy_scaler_mac 1 4>,
+            <&pointer_accel_mac>,
             //MAC_SCROLL(9)の生のXY移動のみ対象(SCROLLはドライバ側で既にWHEEL化済みのため無関係)。
-            //4分の1に間引きつつ、track-remaindersで細かい動きをまとめてから送ることで速度と滑らかさを両方改善
+            //小さい動きはブーストして追従性を出しつつ、大きい動きはCPI200の減速をそのまま活かす
             <&zip_xy_to_scroll_mapper>;
     };
 };
