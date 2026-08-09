@@ -54,8 +54,8 @@
             //小さくゆっくり動かした時は3倍にブースト(CPI200での減衰を打ち消し、元の感度に近づける)
             max-factor = <1000>;
             //大きく速く動かした時は等倍のまま(CPI200による減速をそのまま活かす)
-            speed-threshold = <300>;
-            speed-max = <2000>;
+            speed-threshold = <80>;
+            speed-max = <400>;
             acceleration-exponent = <1>;
             track-remainders;
         };
