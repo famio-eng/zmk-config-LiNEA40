@@ -26,6 +26,9 @@ manifest:
     - name: zmk-pointing-acceleration
       remote: famio-eng
       revision: main
-      #デバッグログ追加のため一時的にfamio-eng/zmk-pointing-acceleration(oleksandrmaslov/zmk-pointing-accelerationのフォーク)を参照
+      #famio-eng/zmk-pointing-acceleration(oleksandrmaslov/zmk-pointing-accelerationのフォーク)を参照。
+      #減速カーブ(min-factor>max-factor)を設定可能にするクランプ修正のため。
+      #フォーク内にデバッグ用LOG_INFも残っているが、CONFIG_INPUT_LOG_LEVEL_INFとzmk-usb-loggingを
+      #外したことでコンパイル時に無効化される(2026-08-14、フリーズ調査で判明・対処)
   self:
     path: config
